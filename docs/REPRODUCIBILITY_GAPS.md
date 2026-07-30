@@ -29,27 +29,34 @@ That is enough to reproduce the result in `esda` and compare. The same document 
 notes that matching this specification is required to replicate the Python results, so the
 choice was deliberate.
 
-**culinary-corridors — still nothing.** The partial Mantel test (r = +0.181, p = 0.022)
-and Local Moran's I have no implementation in any language anywhere on this machine. The
-EIP archives are compute-atlas material only and add nothing here.
+**culinary-corridors — fully recovered.** Superseded again by
+`Downloads/Fisher All Past Resources/`. The complete analysis pipeline was in
+`bridges_final_package.zip` and now sits at `projects/culinary-corridors/analysis/`:
+`step1_verify_baseline`, `step1b_filter_sweep`, `step1c_validate_residuals`,
+`step2_mantel`, `step3_lisa`, `step3b_lisa_robustness`, `step4d_final_figure`,
+`build_case_studies`, plus five extension scripts (colonial Mantel and its sensitivity
+panel, top-3 permutation, Russian anchor sensitivity, bridge bootstrap).
 
-Recovery: port Finding 3 to `esda` using the documented k = 8 row-standardised weights —
-now a small, well-defined job. The culinary side still needs the pairwise distance and
-dissimilarity matrices rebuilt from `cuisine_ingredient_matrix.csv` from scratch.
+It imports `esda.moran` and `libpysal.weights`, runs 9,999 permutations at `seed = 42`,
+and ships its working matrices (`distance_matrix.npy`, `similarity_matrix.npy`,
+`residual_matrix.npy`) alongside the result JSONs. Every published statistic reproduces —
+see `../projects/culinary-corridors/fisher-award/README.md` for the claim-by-claim table.
 
-## 2. `culinary-corridors/code/figdata.py` is transcribed, not computed
+Recovery: port compute-atlas Finding 3 to `esda` using the documented k = 8
+row-standardised weights. That is now the only spatial-statistics gap left in either
+project.
 
-The module docstring says so directly: values are "reproduced from what is already
-published in the project's figures." It hardcodes cuisine anchor coordinates read off
-earlier PNGs. Two entries are labelled `Anchor_A` and `Anchor_B` with comments saying
-their "identity uncertain" and cuisine names "inferred from context."
+## 2. `figdata.py` is transcribed — but it is no longer the only path
 
-So the culinary figure builders re-render prior outputs rather than deriving anything
-from `cuisine_ingredient_matrix.csv`. There is no code path from the ingredient matrix
-to any published figure.
+Still true of the file itself: `versions/fisher-submission/code/figdata.py` hardcodes
+cuisine anchor coordinates read off earlier PNGs, with two entries commented as "identity
+uncertain."
 
-Recovery: write the analysis that was presumably done in run4/run5 (those output
-directories are not on this machine either), starting from the ingredient matrix.
+But it is now a dead end rather than a blocker. The Fisher archives supplied a real
+pipeline that computes from `cuisine_ingredient_matrix.csv` through to the figures
+(`analysis/step4d_final_figure.py`, `tools/build_fig07_lisa_and_mantel.py`,
+`tools/build_fig08_case_studies.py`). Prefer those; treat `figdata.py` as a superseded
+early build helper.
 
 ## 3. `requirements.txt` is missing from the original package
 

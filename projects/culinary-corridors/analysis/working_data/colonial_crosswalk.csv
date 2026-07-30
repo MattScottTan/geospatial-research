@@ -1,0 +1,213 @@
+# Colonial-administration crosswalk for the Bridges Across Cuisines residual analysis.
+#
+# Three-tier ordinal coding scheme:
+#   0 = no shared colonial administration during the modern era (~1500–present).
+#   1 = brief or peripheral colonial connection: less than 50 years of direct
+#       administrative rule, OR economic/cultural-sphere connection without
+#       direct administration, OR concurrent membership in a broad imperial
+#       sphere where the two cuisines were not directly co-administered.
+#   2 = sustained, core colonial administration: more than 50 years of direct
+#       administrative rule by one over the other, OR the two cuisines were
+#       co-administered as part of the same colonial unit for >50 years.
+#
+# Codings reflect the modern cuisine-identity-formation period (roughly
+# 1500–1950). Pre-modern empires (Roman, pre-1500 Chinese suzerainty over
+# Vietnam, etc.) are not counted since the cuisine corpus reflects modern
+# recipe traditions documented in the Yummly / anadat-r data.
+#
+# All 190 unordered pairs of the 20 cuisines are covered. Each row has a
+# rationale that a reviewer can evaluate independently. Where the call is
+# borderline (~50 years, peripheral territory, sphere-without-administration),
+# the conservative lower code is used.
+#
+cuisine_a,cuisine_b,code,rationale
+brazilian,british,0,No British administration of Brazil; no Portuguese administration of Britain.
+brazilian,cajun_creole,0,No shared colonial administration; different Iberian/French/Spanish trajectories.
+brazilian,chinese,0,No shared colonial administration.
+brazilian,filipino,1,Both in the Iberian colonial sphere; same crown 1580-1640 (Iberian Union); not directly co-administered.
+brazilian,french,0,Brief French footholds (France Antarctique 1555-1567, France Equinoxiale 1612-1615) too short and peripheral.
+brazilian,greek,0,No shared colonial administration.
+brazilian,indian,0,No shared colonial administration.
+brazilian,irish,0,No shared colonial administration.
+brazilian,italian,0,No shared colonial administration.
+brazilian,jamaican,0,No shared colonial administration during cuisine-identity formation.
+brazilian,japanese,0,No shared colonial administration.
+brazilian,korean,0,No shared colonial administration.
+brazilian,mexican,1,Both Iberian sphere; concurrent under same crown 1580-1640 but administered by different viceroyalties.
+brazilian,moroccan,0,No shared colonial administration.
+brazilian,russian,0,No shared colonial administration.
+brazilian,southern_us,0,No shared colonial administration.
+brazilian,spanish,1,Iberian sphere connection; concurrent under same crown 1580-1640 but Brazil was administered by Portugal.
+brazilian,thai,0,No shared colonial administration.
+brazilian,vietnamese,0,No shared colonial administration.
+british,cajun_creole,0,No British administration of Louisiana (French then Spanish then American).
+british,chinese,1,Hong Kong 1841-1997 was British (156 years) but a peripheral territory relative to mainland Chinese cuisine identity.
+british,filipino,0,No British administration of the Philippines (brief 1762-1764 occupation of Manila excluded as too short).
+british,french,0,Both European colonial powers; no administration of one by the other.
+british,greek,1,Britain administered the Ionian Islands 1815-1864 (49 years); not mainland Greece.
+british,indian,2,British Raj 1858-1947 (89 years) plus prior East India Company rule (a century). Sustained core administration.
+british,irish,2,Ireland under English/British administration from the 1170s through 1922 (over 700 years); core sustained rule.
+british,italian,0,No British administration of Italy.
+british,jamaican,2,British rule of Jamaica 1655-1962 (307 years). Sustained core administration.
+british,japanese,0,No British administration of Japan.
+british,korean,0,No British administration of Korea.
+british,mexican,0,No British administration of Mexico.
+british,moroccan,0,No British administration of Morocco.
+british,russian,0,No British administration of Russia.
+british,southern_us,2,The 13 colonies were British 1607-1776 (~170 years for the core southern colonies). Sustained.
+british,spanish,0,No British administration of Spain.
+british,thai,0,Thailand never colonized.
+british,vietnamese,0,No British administration of Vietnam.
+cajun_creole,chinese,0,No shared colonial administration.
+cajun_creole,filipino,1,Both had Spanish administrative periods (Louisiana 1762-1803; Philippines 1565-1898); not concurrent co-administration.
+cajun_creole,french,2,Louisiana under French administration 1682-1762 (80 years); Cajun cuisine is named for the French Acadian diaspora settled there. Sustained core.
+cajun_creole,greek,0,No shared colonial administration.
+cajun_creole,indian,0,No shared colonial administration.
+cajun_creole,irish,0,No shared colonial administration.
+cajun_creole,italian,0,No shared colonial administration.
+cajun_creole,jamaican,0,No shared colonial administration; different colonial powers.
+cajun_creole,japanese,0,No shared colonial administration.
+cajun_creole,korean,0,No shared colonial administration.
+cajun_creole,mexican,1,Concurrent Spanish-administered 1762-1803 (Louisiana) and 1521-1821 (Mexico); brief overlap.
+cajun_creole,moroccan,0,No shared colonial administration.
+cajun_creole,russian,0,No shared colonial administration.
+cajun_creole,southern_us,1,Both within the post-1803 United States; different colonial roots (French/Spanish vs British) for cuisine identity.
+cajun_creole,spanish,1,Spain administered Louisiana 1762-1803 (~40 years); just under the sustained threshold.
+cajun_creole,thai,0,No shared colonial administration.
+cajun_creole,vietnamese,0,No shared colonial administration.
+chinese,filipino,0,No direct shared administration during cuisine-identity formation.
+chinese,french,0,No French administration of mainland China (concession-era treaty ports peripheral).
+chinese,greek,0,No shared colonial administration.
+chinese,indian,0,No shared colonial administration.
+chinese,irish,0,No shared colonial administration.
+chinese,italian,0,No shared colonial administration.
+chinese,jamaican,0,No shared colonial administration.
+chinese,japanese,0,Japanese occupation of Manchuria/parts of China was wartime not sustained colonial administration of cuisine heartland.
+chinese,korean,0,Imperial-era Chinese suzerainty over Korea was tributary not administrative; ended 1895.
+chinese,mexican,0,No shared colonial administration.
+chinese,moroccan,0,No shared colonial administration.
+chinese,russian,0,No shared colonial administration of cuisine heartlands.
+chinese,southern_us,0,No shared colonial administration.
+chinese,spanish,0,No Spanish administration of China (Spanish presence at Macau peripheral; Macau was Portuguese).
+chinese,thai,0,No shared colonial administration.
+chinese,vietnamese,0,Pre-940 CE Chinese rule too historically distant from modern cuisine identity formation.
+filipino,french,0,No French administration of the Philippines.
+filipino,greek,0,No shared colonial administration.
+filipino,indian,0,No shared colonial administration.
+filipino,irish,0,No shared colonial administration.
+filipino,italian,0,No shared colonial administration.
+filipino,jamaican,1,Both had Spanish administrative periods (Philippines 1565-1898; Jamaica 1494-1655); not concurrent.
+filipino,japanese,0,Japanese occupation 1942-1945 was brief (3 years) and wartime.
+filipino,korean,0,No shared colonial administration.
+filipino,mexican,2,Philippines was administered FROM Mexico City as part of the Viceroyalty of New Spain 1565-1821 (256 years). Same administrative unit; the Manila Galleon connected them directly.
+filipino,moroccan,0,No shared colonial administration.
+filipino,russian,0,No shared colonial administration.
+filipino,southern_us,1,Philippines became American 1898-1946 (~48 years); not the same as British-colonial Southern US identity but US-era connection.
+filipino,spanish,2,Spanish rule of the Philippines 1565-1898 (333 years). Sustained core.
+filipino,thai,0,Thailand never colonized; no shared administration.
+filipino,vietnamese,0,Different colonial powers (Spanish/American vs French).
+french,greek,0,No French administration of Greece.
+french,indian,1,French Pondichery and other comptoirs administered until 1954 but very small territory relative to Indian cuisine identity.
+french,irish,0,No French administration of Ireland.
+french,italian,0,Napoleonic-era control of parts of Italy was brief.
+french,jamaican,0,No French administration of Jamaica.
+french,japanese,0,No French administration of Japan.
+french,korean,0,No French administration of Korea.
+french,mexican,0,Brief French intervention 1862-1867 too short.
+french,moroccan,1,French protectorate over Morocco 1912-1956 (44 years); just under sustained threshold; protectorate not full annexation.
+french,russian,0,No French administration of Russia.
+french,southern_us,0,No French administration of the British/American South (Louisiana excluded as Cajun-Creole-specific).
+french,spanish,0,No French administration of Spain (Napoleonic occupation brief).
+french,thai,0,Thailand never colonized.
+french,vietnamese,2,French Indochina 1858-1954 with full colonial administration from 1887. Sustained core.
+greek,indian,0,No shared colonial administration.
+greek,irish,0,No shared colonial administration.
+greek,italian,0,Italian occupation of Greece 1941-1944 too brief and wartime.
+greek,jamaican,0,No shared colonial administration.
+greek,japanese,0,No shared colonial administration.
+greek,korean,0,No shared colonial administration.
+greek,mexican,0,No shared colonial administration.
+greek,moroccan,0,No shared colonial administration.
+greek,russian,0,No shared colonial administration.
+greek,southern_us,0,No shared colonial administration.
+greek,spanish,0,No shared colonial administration.
+greek,thai,0,No shared colonial administration.
+greek,vietnamese,0,No shared colonial administration.
+indian,irish,2,Both under British administration concurrently 1858-1922 (64 years for the British Raj period; longer if Irish rule and East India Company periods are added).
+indian,italian,0,No shared colonial administration.
+indian,jamaican,2,Both under British administration concurrently 1858-1947 (89 years for the British Raj era; Jamaica was British throughout).
+indian,japanese,0,No shared colonial administration.
+indian,korean,0,No shared colonial administration.
+indian,mexican,0,No shared colonial administration.
+indian,moroccan,0,No shared colonial administration.
+indian,russian,0,No shared colonial administration.
+indian,southern_us,0,Not concurrent; Southern US ceased to be British in 1776 before British Raj began 1858.
+indian,spanish,0,No shared colonial administration.
+indian,thai,0,No shared colonial administration.
+indian,vietnamese,0,Different colonial powers (British vs French).
+irish,italian,0,No shared colonial administration.
+irish,jamaican,2,Both under British administration concurrently 1655-1922 (267 years).
+irish,japanese,0,No shared colonial administration.
+irish,korean,0,No shared colonial administration.
+irish,mexican,0,No shared colonial administration.
+irish,moroccan,0,No shared colonial administration.
+irish,russian,0,No shared colonial administration.
+irish,southern_us,1,Concurrent British administration 1607-1776 (~170 years) but indirect (both ruled by Britain not by each other).
+irish,spanish,0,No shared colonial administration.
+irish,thai,0,No shared colonial administration.
+irish,vietnamese,0,No shared colonial administration.
+italian,jamaican,0,No shared colonial administration.
+italian,japanese,0,No shared colonial administration.
+italian,korean,0,No shared colonial administration.
+italian,mexican,0,No shared colonial administration.
+italian,moroccan,0,No shared colonial administration.
+italian,russian,0,No shared colonial administration.
+italian,southern_us,0,No shared colonial administration.
+italian,spanish,0,No shared colonial administration; both European powers.
+italian,thai,0,No shared colonial administration.
+italian,vietnamese,0,No shared colonial administration.
+jamaican,japanese,0,No shared colonial administration.
+jamaican,korean,0,No shared colonial administration.
+jamaican,mexican,1,Both under Spanish administration concurrently 1521-1655 (~134 years) but only in the early Spanish period; cuisine identities formed later under different regimes (British and Mexican-independence).
+jamaican,moroccan,0,No shared colonial administration.
+jamaican,russian,0,No shared colonial administration.
+jamaican,southern_us,2,Both under British administration concurrently 1655-1776 (121 years).
+jamaican,spanish,1,Spanish-administered 1494-1655 but cuisine identity formed primarily under subsequent British rule.
+jamaican,thai,0,No shared colonial administration.
+jamaican,vietnamese,0,No shared colonial administration.
+japanese,korean,1,Japanese colonial rule of Korea 1910-1945 (35 years); under the 50-year sustained threshold.
+japanese,mexican,0,No shared colonial administration.
+japanese,moroccan,0,No shared colonial administration.
+japanese,russian,0,No shared colonial administration.
+japanese,southern_us,0,No shared colonial administration.
+japanese,spanish,0,No shared colonial administration.
+japanese,thai,0,No shared colonial administration.
+japanese,vietnamese,0,No shared colonial administration.
+korean,mexican,0,No shared colonial administration.
+korean,moroccan,0,No shared colonial administration.
+korean,russian,0,No shared colonial administration.
+korean,southern_us,0,No shared colonial administration.
+korean,spanish,0,No shared colonial administration.
+korean,thai,0,No shared colonial administration.
+korean,vietnamese,0,No shared colonial administration.
+mexican,moroccan,0,No shared colonial administration.
+mexican,russian,0,No shared colonial administration.
+mexican,southern_us,1,Concurrent membership of southwestern US states in Spanish/Mexican territory pre-1848 then US after; different colonial trajectories for the cuisine labels.
+mexican,spanish,2,Spanish rule 1521-1821 (300 years). Sustained core.
+mexican,thai,0,No shared colonial administration.
+mexican,vietnamese,0,No shared colonial administration.
+moroccan,russian,0,No shared colonial administration.
+moroccan,southern_us,0,No shared colonial administration.
+moroccan,spanish,1,Spanish protectorate over northern Morocco 1912-1956 (44 years); just under the sustained threshold.
+moroccan,thai,0,No shared colonial administration.
+moroccan,vietnamese,0,No shared colonial administration.
+russian,southern_us,0,No shared colonial administration.
+russian,spanish,0,No shared colonial administration.
+russian,thai,0,No shared colonial administration.
+russian,vietnamese,0,No shared colonial administration.
+southern_us,spanish,1,Spanish administration of Florida 1565-1763 and 1783-1821; peripheral relative to British-colonial Southern US cuisine identity.
+southern_us,thai,0,No shared colonial administration.
+southern_us,vietnamese,0,No shared colonial administration.
+spanish,thai,0,No shared colonial administration.
+spanish,vietnamese,0,No shared colonial administration.
+thai,vietnamese,0,Thailand never colonized; never co-administered with Vietnam.

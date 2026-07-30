@@ -82,6 +82,24 @@ Notes:
   rather than an independent version. Unconfirmed.
 - `code/figdata.py` is not a data loader — see `REPRODUCIBILITY_GAPS.md`.
 
+### Fisher award archives
+
+`Downloads/Fisher All Past Resources/` held seven zips (424 files, 186 unique documents,
+43 unique scripts). Documentation is consolidated into
+`projects/culinary-corridors/fisher-award/` — see that directory's README for the
+per-archive breakdown.
+
+Beyond documentation, these archives supplied the entire missing statistical layer:
+
+- `projects/culinary-corridors/analysis/` — 13 scripts (Mantel, LISA, robustness,
+  case studies, five extensions) from `bridges_final_package.zip`
+- `projects/culinary-corridors/analysis/working_data/` — distance, similarity and
+  residual matrices plus all result JSONs
+- `projects/culinary-corridors/tools/` — 10 figure builders
+
+`culinary_corridors_MASTER.zip` is a full project archive rather than a submission
+package; its tree is preserved verbatim under `fisher-award/project-archive/`.
+
 ## archive/ (untracked)
 
 Superseded copies retained locally for provenance, excluded from git:

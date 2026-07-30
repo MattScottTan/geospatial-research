@@ -1,0 +1,216 @@
+{
+  "description": "Bootstrap 95% CIs on bridge index, 2000 resamples of 190 cuisine pairs (with replacement).",
+  "method": "Per bootstrap iteration: resample n_pairs=190 pair-indices with replacement; build a multiplicity-weighted residual matrix; recompute the 5-component bridge index. Top-3 frequency is the fraction of bootstraps in which the cuisine appeared in the top-3.",
+  "n_bootstrap": 2000,
+  "seed": 42,
+  "bridge_components": {
+    "A": "positive residual degree (count of pairs with residual > 0)",
+    "B": "top-20-link participation (count of corpus top-20 positive residuals involving the cuisine)",
+    "C": "mean of positive residuals",
+    "D": "long-distance positive-residual score (sum weighted by log-distance fraction)",
+    "E": "sum of all residuals"
+  },
+  "note_on_published_values": "This index reproduces the qualitative ranking (Filipino top, Russian second; Atlantic-rim cluster following) but does not exactly match the published 0.87 / 0.84 values, which used a slightly different normalization. The bootstrap is on rank stability under resampling, which is the substantively important question.",
+  "per_cuisine": [
+    {
+      "cuisine": "filipino",
+      "observed_score": 0.7916088427732315,
+      "bootstrap_mean": 0.6565681697561947,
+      "ci_95_low": 0.29839911423830123,
+      "ci_95_high": 0.914714323523346,
+      "rank_observed": 1,
+      "rank_mean": 4.9535,
+      "top3_frequency": 0.467
+    },
+    {
+      "cuisine": "southern_us",
+      "observed_score": 0.7590997618029757,
+      "bootstrap_mean": 0.6048977294851399,
+      "ci_95_low": 0.21142105026710833,
+      "ci_95_high": 0.9049325864636942,
+      "rank_observed": 2,
+      "rank_mean": 6.1425,
+      "top3_frequency": 0.3515
+    },
+    {
+      "cuisine": "french",
+      "observed_score": 0.7421104641952375,
+      "bootstrap_mean": 0.6069270148382614,
+      "ci_95_low": 0.23240840931825096,
+      "ci_95_high": 0.9068874261679376,
+      "rank_observed": 3,
+      "rank_mean": 6.0285,
+      "top3_frequency": 0.339
+    },
+    {
+      "cuisine": "cajun_creole",
+      "observed_score": 0.7289083783475874,
+      "bootstrap_mean": 0.593541455248406,
+      "ci_95_low": 0.2590513234463529,
+      "ci_95_high": 0.8907226916910019,
+      "rank_observed": 4,
+      "rank_mean": 6.321,
+      "top3_frequency": 0.3
+    },
+    {
+      "cuisine": "brazilian",
+      "observed_score": 0.660448148687234,
+      "bootstrap_mean": 0.6122490508872623,
+      "ci_95_low": 0.3142132083796639,
+      "ci_95_high": 0.8653073105064694,
+      "rank_observed": 5,
+      "rank_mean": 5.75,
+      "top3_frequency": 0.345
+    },
+    {
+      "cuisine": "thai",
+      "observed_score": 0.6506628345523331,
+      "bootstrap_mean": 0.5190601030044112,
+      "ci_95_low": 0.14097821152824813,
+      "ci_95_high": 0.8497128316468141,
+      "rank_observed": 6,
+      "rank_mean": 8.2955,
+      "top3_frequency": 0.1895
+    },
+    {
+      "cuisine": "british",
+      "observed_score": 0.6436508886365572,
+      "bootstrap_mean": 0.5605965769104728,
+      "ci_95_low": 0.19815643977458122,
+      "ci_95_high": 0.8750406313604575,
+      "rank_observed": 7,
+      "rank_mean": 7.195,
+      "top3_frequency": 0.2435
+    },
+    {
+      "cuisine": "jamaican",
+      "observed_score": 0.6030970705568556,
+      "bootstrap_mean": 0.5951646940064245,
+      "ci_95_low": 0.25941433772777234,
+      "ci_95_high": 0.8910657595638752,
+      "rank_observed": 8,
+      "rank_mean": 6.3615,
+      "top3_frequency": 0.303
+    },
+    {
+      "cuisine": "irish",
+      "observed_score": 0.5360862822456333,
+      "bootstrap_mean": 0.5148035446570628,
+      "ci_95_low": 0.14549547203272908,
+      "ci_95_high": 0.8500379552032001,
+      "rank_observed": 9,
+      "rank_mean": 8.377,
+      "top3_frequency": 0.1775
+    },
+    {
+      "cuisine": "vietnamese",
+      "observed_score": 0.45970855038672465,
+      "bootstrap_mean": 0.43012036843570695,
+      "ci_95_low": 0.09179476777167064,
+      "ci_95_high": 0.7714731097933906,
+      "rank_observed": 10,
+      "rank_mean": 10.626,
+      "top3_frequency": 0.0745
+    },
+    {
+      "cuisine": "chinese",
+      "observed_score": 0.4442914714646299,
+      "bootstrap_mean": 0.3851768502198386,
+      "ci_95_low": 0.04126584299102603,
+      "ci_95_high": 0.701370428738159,
+      "rank_observed": 11,
+      "rank_mean": 11.611,
+      "top3_frequency": 0.0465
+    },
+    {
+      "cuisine": "mexican",
+      "observed_score": 0.41708845900353175,
+      "bootstrap_mean": 0.494090004439571,
+      "ci_95_low": 0.23114187735584607,
+      "ci_95_high": 0.7798849323132776,
+      "rank_observed": 12,
+      "rank_mean": 8.733,
+      "top3_frequency": 0.102
+    },
+    {
+      "cuisine": "russian",
+      "observed_score": 0.383711124869868,
+      "bootstrap_mean": 0.41665032764644233,
+      "ci_95_low": 0.11398476699020148,
+      "ci_95_high": 0.7438332729482523,
+      "rank_observed": 13,
+      "rank_mean": 11.0795,
+      "top3_frequency": 0.0405
+    },
+    {
+      "cuisine": "korean",
+      "observed_score": 0.27819037167459093,
+      "bootstrap_mean": 0.29114539484293495,
+      "ci_95_low": 0.007555677271685506,
+      "ci_95_high": 0.598313031707275,
+      "rank_observed": 14,
+      "rank_mean": 14.2515,
+      "top3_frequency": 0.011
+    },
+    {
+      "cuisine": "spanish",
+      "observed_score": 0.27486121376000305,
+      "bootstrap_mean": 0.3612446397926015,
+      "ci_95_low": 0.13275382537701996,
+      "ci_95_high": 0.6147931475139509,
+      "rank_observed": 15,
+      "rank_mean": 12.6475,
+      "top3_frequency": 0.006
+    },
+    {
+      "cuisine": "indian",
+      "observed_score": 0.1830388464160798,
+      "bootstrap_mean": 0.24732503062740352,
+      "ci_95_low": 0.024170959375911356,
+      "ci_95_high": 0.5310243784158515,
+      "rank_observed": 16,
+      "rank_mean": 15.312,
+      "top3_frequency": 0.0025
+    },
+    {
+      "cuisine": "italian",
+      "observed_score": 0.1804619878806034,
+      "bootstrap_mean": 0.28184602347792,
+      "ci_95_low": 0.06023900392404882,
+      "ci_95_high": 0.5322555051641982,
+      "rank_observed": 17,
+      "rank_mean": 14.7895,
+      "top3_frequency": 0.001
+    },
+    {
+      "cuisine": "moroccan",
+      "observed_score": 0.09395001682107289,
+      "bootstrap_mean": 0.16338487559589052,
+      "ci_95_low": 0.0,
+      "ci_95_high": 0.42866828134986407,
+      "rank_observed": 18,
+      "rank_mean": 17.4075,
+      "top3_frequency": 0.0
+    },
+    {
+      "cuisine": "japanese",
+      "observed_score": 0.08559561586728766,
+      "bootstrap_mean": 0.18767387948800665,
+      "ci_95_low": 0.0,
+      "ci_95_high": 0.44090378922009926,
+      "rank_observed": 19,
+      "rank_mean": 17.063,
+      "top3_frequency": 0.0
+    },
+    {
+      "cuisine": "greek",
+      "observed_score": 0.07684103968345189,
+      "bootstrap_mean": 0.18581073193794057,
+      "ci_95_low": 0.0,
+      "ci_95_high": 0.44405227658387536,
+      "rank_observed": 20,
+      "rank_mean": 17.055,
+      "top3_frequency": 0.0
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "description": "Sensitivity panel for partial Mantel residual ~ colonial-administration | log-distance + same-subregion. 9999 permutations, seed=42.",
+  "controls": [
+    "log-distance",
+    "same-subregion"
+  ],
+  "n_pairs_total": 190,
+  "codings": {
+    "primary_ordinal_0_1_2": {
+      "r_partial": 0.18097081985181887,
+      "p_two_sided": 0.0216,
+      "p_one_sided_positive": 0.0151,
+      "n_nonzero_pairs": 33
+    },
+    "strict_binary_any_colonial": {
+      "r_partial": 0.1617062956789699,
+      "p_two_sided": 0.0395,
+      "p_one_sided_positive": 0.0252,
+      "n_nonzero_pairs": 33
+    },
+    "sustained_only_binary": {
+      "r_partial": 0.16345168168564497,
+      "p_two_sided": 0.0322,
+      "p_one_sided_positive": 0.025,
+      "n_nonzero_pairs": 13
+    },
+    "spanish_sphere_only": {
+      "r_partial": 0.13759382552031035,
+      "p_two_sided": 0.0872,
+      "p_one_sided_positive": 0.0561,
+      "n_nonzero_pairs": 12
+    }
+  },
+  "interpretation": "A consistent positive r across codings supports the colonial-administration hypothesis robustly. Effect-size differences across codings indicate which aspect of the colonial signal is loading the partial correlation."
+}

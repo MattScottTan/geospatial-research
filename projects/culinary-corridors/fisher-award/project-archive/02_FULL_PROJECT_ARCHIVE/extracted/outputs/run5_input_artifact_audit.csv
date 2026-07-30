@@ -1,0 +1,10 @@
+path,exists,role,reuse_revise_exclude_decision,blocker_note
+data/processed/run2v2_focus_case_results.csv,True,Focused East/Southeast Asia residual and similarity pairs,reuse,
+data/processed/run4v2_east_se_asia_accessibility_metrics.csv,True,Run 4 v2 accessibility/residual alignment metrics,reuse,
+data/crosswalks/cuisine_geo_crosswalk.csv,True,Cuisine coordinates and mapping caveats,reuse,
+figures/final_revised/run4v2_topographic_corridor_map.png,True,Existing corridor-accessibility figure to improve/supplement,revise/supplement,
+submission/revised/storymap_script.md,True,Current StoryMap-ready script for insert placement,reuse,
+submission/final_committee/final_committee_report.md,True,Committee report for insert placement,reuse,
+outputs/run4v2_topographic_corridor_summary.md,True,Prior corridor-accessibility interpretation,reuse,
+figures/final_revised/run4_primary_case_figure.png,True,Primary case figure for sequence comparison,reuse,
+figures/final_revised/run4_geospatial_insight_figure.png,True,Residual bridge-index figure; should not be duplicated,reuse,

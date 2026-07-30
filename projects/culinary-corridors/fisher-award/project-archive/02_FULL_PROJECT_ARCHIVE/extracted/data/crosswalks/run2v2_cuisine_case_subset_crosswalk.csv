@@ -1,0 +1,21 @@
+cuisine,include_global_screen,primary_east_southeast_asia,secondary_iberian_atlantic,bias_diagnostic,excluded_unused,final_interpretation_role,mapped_place,iso3,latitude,longitude,un_region_name,un_subregion_name,mapping_confidence,notes
+brazilian,True,False,True,False,False,secondary_iberian_atlantic,Brazil,BRA,-14.235,-51.9253,Americas,South America,high,Cuisine label mapped to Brazil; platform recipes may represent Brazilian cuisine from an American recipe-site perspective.
+british,True,False,False,True,False,bias_diagnostic,United Kingdom,GBR,55.3781,-3.436,Europe,Northern Europe,medium,British cuisine is mapped to UK country centroid; label may include English/Scottish/Welsh/Northern Irish ambiguity.
+cajun_creole,True,False,True,False,False,secondary_iberian_atlantic,"Louisiana, United States",USA,30.9843,-91.9623,Americas,Northern America,medium-low,Regional/diasporic label; mapped to Louisiana centroid as proxy rather than a nation-state.
+chinese,True,True,False,False,False,primary_east_southeast_asia,China,CHN,35.8617,104.1954,Asia,Eastern Asia,medium,Large country/civilizational cuisine; centroid masks regional diversity.
+filipino,True,True,True,False,False,primary_east_southeast_asia+secondary_iberian_atlantic,Philippines,PHL,12.8797,121.774,Asia,South-eastern Asia,high,Cuisine label mapped to Philippines country centroid.
+french,True,False,False,False,False,global_screen_only,France,FRA,46.2276,2.2137,Europe,Western Europe,high,Cuisine label mapped to France country centroid.
+greek,True,False,False,False,False,global_screen_only,Greece,GRC,39.0742,21.8243,Europe,Southern Europe,high,Cuisine label mapped to Greece country centroid.
+indian,True,False,False,False,False,global_screen_only,India,IND,20.5937,78.9629,Asia,Southern Asia,medium,Large country/civilizational cuisine; centroid masks regional diversity.
+irish,True,False,False,True,False,bias_diagnostic,Ireland,IRL,53.1424,-7.6921,Europe,Northern Europe,high,Cuisine label mapped to Ireland country centroid.
+italian,True,False,False,False,False,global_screen_only,Italy,ITA,41.8719,12.5674,Europe,Southern Europe,high,Cuisine label mapped to Italy country centroid.
+jamaican,True,False,True,False,False,secondary_iberian_atlantic,Jamaica,JAM,18.1096,-77.2975,Americas,Caribbean,high,Cuisine label mapped to Jamaica country centroid.
+japanese,True,True,False,False,False,primary_east_southeast_asia,Japan,JPN,36.2048,138.2529,Asia,Eastern Asia,high,Cuisine label mapped to Japan country centroid.
+korean,True,True,False,False,False,primary_east_southeast_asia,Republic of Korea,KOR,35.9078,127.7669,Asia,Eastern Asia,high,Cuisine label mapped to South Korea/Republic of Korea centroid due recipe label convention.
+mexican,True,False,True,False,False,secondary_iberian_atlantic,Mexico,MEX,23.6345,-102.5528,Americas,Central America,high,Cuisine label mapped to Mexico country centroid.
+moroccan,True,False,False,False,False,global_screen_only,Morocco,MAR,31.7917,-7.0926,Africa,Northern Africa,high,Cuisine label mapped to Morocco country centroid.
+russian,True,False,False,True,False,bias_diagnostic,Russian Federation,RUS,61.524,105.3188,Europe,Eastern Europe,medium-low,Very large country; centroid likely poor for cuisine because recipes may emphasize western Russia/European foodways.
+southern_us,True,False,True,True,False,secondary_iberian_atlantic+bias_diagnostic,Southern United States,USA,33.0,-86.0,Americas,Northern America,medium-low,"Regional/diasporic label; mapped to approximate U.S. South centroid, not a nation-state."
+spanish,True,False,True,False,False,secondary_iberian_atlantic,Spain,ESP,40.4637,-3.7492,Europe,Southern Europe,high,Cuisine label mapped to Spain country centroid.
+thai,True,True,False,False,False,primary_east_southeast_asia,Thailand,THA,15.87,100.9925,Asia,South-eastern Asia,high,Cuisine label mapped to Thailand country centroid.
+vietnamese,True,True,False,False,False,primary_east_southeast_asia,Viet Nam,VNM,14.0583,108.2772,Asia,South-eastern Asia,high,Cuisine label mapped to Vietnam country centroid.

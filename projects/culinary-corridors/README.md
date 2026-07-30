@@ -29,13 +29,16 @@ also with no version markers and no stated precedence.
 loose in `Downloads` with no README, citation, or licence. Its provenance is unresolved;
 see [`../../docs/DATA_PROVENANCE.md`](../../docs/DATA_PROVENANCE.md).
 
-## Before you trust the numbers
+## The analysis
 
-The StoryMap's headline statistics — partial Mantel r = +0.181, p = 0.022, and Local
-Moran's I — have **no code anywhere on this machine**. And `code/figdata.py` does not
-read the ingredient matrix; it hardcodes coordinates transcribed off earlier PNGs, two of
-which its own comments flag as uncertain in identity.
+`analysis/` holds the full statistical pipeline, recovered from the Fisher archives:
+baseline verification, filter sweep, residual validation, Mantel and partial Mantel,
+LISA and its robustness panel, case studies, and five extension analyses. `tools/` holds
+the figure builders. Working matrices and result JSONs are in `analysis/working_data/`.
 
-So nothing in the published analysis is currently regenerable from this directory. See
-[`../../docs/REPRODUCIBILITY_GAPS.md`](../../docs/REPRODUCIBILITY_GAPS.md) for what would
-need to be written.
+It uses `esda` and `libpysal` with `seed = 42` and 9,999 permutations, and every statistic
+published in the StoryMap reproduces from the shipped results — see the claim-by-claim
+table in [`fisher-award/README.md`](fisher-award/README.md).
+
+`versions/fisher-submission/code/figdata.py` is a superseded early build helper that
+hardcodes coordinates transcribed off earlier figures; use `analysis/` instead.

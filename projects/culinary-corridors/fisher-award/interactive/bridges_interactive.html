@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Bridges Across Cuisines — Interactive LISA Map</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background: #f7f7f4; color: #222; }
+  #wrap { max-width: 1200px; margin: 0 auto; padding: 14px; }
+  h1 { font-size: 18px; margin: 0 0 4px 0; color: #0d2f4d; font-weight: bold; }
+  .subtitle { font-size: 13px; color: #666; font-style: italic; margin-bottom: 12px; }
+  .panel { background: white; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); padding: 12px 14px; margin-bottom: 10px; }
+  #map { height: 580px; border-radius: 6px; }
+  .controls { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 12px; }
+  .controls label { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+  button { padding: 4px 10px; font-size: 12px; background: #1f5fa3; color: white; border: none; border-radius: 4px; cursor: pointer; }
+  button:hover { background: #0d2f4d; }
+  .legend-row { display: flex; gap: 16px; font-size: 11.5px; flex-wrap: wrap; align-items: center; }
+  .legend-dot { display: inline-block; width: 12px; height: 12px; border-radius: 50%; vertical-align: middle; margin-right: 4px; border: 1px solid #444; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; font-size: 12px; }
+  .stats .stat-block { background: #f7f7f4; padding: 8px 10px; border-radius: 4px; border-left: 3px solid #1f5fa3; }
+  .stat-block .label { font-size: 10.5px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-block .value { font-size: 14px; font-weight: bold; color: #111; font-family: ui-monospace, 'SF Mono', 'Menlo', monospace; }
+  .leaflet-popup-content { font-size: 12px; line-height: 1.5; }
+  .leaflet-popup-content table { border-collapse: collapse; margin-top: 6px; }
+  .leaflet-popup-content td { padding: 2px 6px 2px 0; }
+  .leaflet-popup-content td.val { font-family: ui-monospace, 'SF Mono', monospace; text-align: right; }
+  .leaflet-popup-content .header { font-weight: bold; color: #0d2f4d; font-size: 13px; margin-bottom: 4px; }
+  .leaflet-popup-content .meta { font-size: 11px; color: #666; margin-bottom: 6px; }
+  .leaflet-popup-content .partners-table { font-size: 11.5px; }
+  .leaflet-popup-content .partners-table th { text-align: left; font-size: 10px; color: #666; text-transform: uppercase; padding: 4px 6px 2px 0; }
+  .leaflet-popup-content .partners-table td { padding: 1px 6px 1px 0; }
+  .leaflet-popup-content .partners-table .res-pos { color: #c45a2e; font-weight: bold; font-family: ui-monospace, monospace; }
+  .leaflet-popup-content .partners-table .res-neg { color: #7a8aa0; font-family: ui-monospace, monospace; }
+  .footer-note { font-size: 11px; color: #888; margin-top: 8px; font-style: italic; }
+</style>
+</head>
+<body>
+<div id="wrap">
+
+<div class="panel">
+  <h1>Bridges Across Cuisines — Interactive LISA Map</h1>
+  <div class="subtitle">Click any cuisine to highlight its top 5 residual partners. Toggle the LISA classification overlay below.</div>
+  <div class="controls">
+    <label><input type="checkbox" id="toggle-lisa" checked> Color anchors by LISA classification</label>
+    <label><input type="checkbox" id="toggle-size" checked> Marker size proportional to mean residual</label>
+    <button id="reset-view">Reset selection</button>
+    <span style="color:#666; font-size:11.5px; margin-left:auto;">20 cuisines · 190 pairs · 9999-permutation tests</span>
+  </div>
+</div>
+
+<div class="panel">
+  <div id="map"></div>
+</div>
+
+<div class="panel">
+  <div class="legend-row">
+    <strong style="font-size:12px;">Legend:</strong>
+    <span><span class="legend-dot" style="background:#c45a2e;"></span>HH (significant)</span>
+    <span><span class="legend-dot" style="background:#a23a8a;"></span>HL (isolated bridge)</span>
+    <span><span class="legend-dot" style="background:#2c5d8b;"></span>LL (significant)</span>
+    <span><span class="legend-dot" style="background:#1f8a8a;"></span>LH</span>
+    <span><span class="legend-dot" style="background:#f1c1a3; border-color:#999;"></span>Same quadrant, p ≥ 0.10</span>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="stats">
+    <div class="stat-block">
+      <div class="label">Mantel (dissim ↔ log-distance)</div>
+      <div class="value">r = +0.630, p &lt; 0.001</div>
+    </div>
+    <div class="stat-block">
+      <div class="label">Partial Mantel (controlling for subregion)</div>
+      <div class="value">r = +0.512, p &lt; 0.001</div>
+    </div>
+    <div class="stat-block">
+      <div class="label">Global Moran's I (per-cuisine residual)</div>
+      <div class="value">I = +0.091, p = 0.05</div>
+    </div>
+  </div>
+  <div class="footer-note">All tests run on 9999 random permutations · LISA classifications use inverse-distance spatial weights, robustness checked across KNN-4, KNN-6, and Gaussian-kernel weights.</div>
+</div>
+
+</div>
+
+<script>
+const cuisineData = [
+  {
+    "id": "brazilian",
+    "name": "Brazilian",
+    "lat": -14.24,
+    "lon": -51.93,
+    "mean_resid": 0.05145895005390763,
+    "local_I": 0.09758024622082469,
+    "p_sim": 0.061,
+    "quadrant": "HH",
+    "classification": "NS",
+    "bridge_score": 0.31,
+    "bridge_rank": 10,
+    "partners": [
+      {
+        "id": "filipino",
+        "name": "Filipino",
+        "lat": 12.88,
+        "lon": 121.77,
+        "residual": 0.32461498994872723,
+        "distance_km": 19317.561379123305
+      },
+      {
+        "id": "thai",
+        "name": "Thai",
+        "lat": 15.87,
+        "lon": 100.99,
+        "residual": 0.22078006545673345,
+        "distance_km": 17103.641935727217
+      },
+      {
+        "id": "mexican",
+        "name": "Mexican",
+        "lat": 23.63,
+        "lon": -102.55,
+        "residual": 0.09631802248202942,
+        "distance_km": 6927.715915768873
+      },
+      {
+        "id": "indian",
+        "name": "Indian",
+        "lat": 20.59,
+        "lon": 78.96,
+        "residual": 0.08161919658279404,
+        "distance_km": 14775.658872428367
+      },
+      {
+        "id": "spanish",
+        "name": "Spanish",
+        "lat": 40.46,
+        "lon": -3.75,
+        "residual": 0.0695887158240189,
+        "distance_km": 7850.626663364998
+      }
+    ]
+  },
+  {
+    "id": "british",
+    "name": "British",
+    "lat": 55.38,
+    "lon": -3.44,
+    "mean_resid": 0.01654057151810132,
+    "local_I": -0.008061259923686849,
+    "p_sim": 0.4949,
+    "quadrant": "HL",
+    "classification": "NS",
+    "bridge_score": 0.51,
+    "bridge_rank": 7,
+    "partners": [
+      {
+        "id": "southern_us",
+        "name": "Southern US",
+        "lat": 33.0,
+        "lon": -86.0,
+        "residual": 0.32637797931351864,
+        "distance_km": 6598.616802506739
+      },
+      {
+        "id": "french",
+        "name": "French",
+        "lat": 46.23,
+        "lon": 2.21,
+        "residual": 0.21366119998116184,
+        "distance_km": 1091.2752468748579
+      },
+      {
+        "id": "jamaican",
+        "name": "Jamaican",
+        "lat": 18.11,
+        "lon": -77.3,
+        "residual": 0.17605133210503887,
+        "distance_km": 7344.622815554786
+      },
+      {
+        "id": "russian",
+        "name": "Russian",
+        "lat": 61.52,
+        "lon": 105.32,
+        "residual": 0.1536435832840985,
+        "distance_km": 5614.1664952854
+      },
+      {
+        "id": "cajun_creole",
+        "name": "Cajun-Creole",
+        "lat": 30.5,
+        "lon": -91.2,
+        "residual": 0.09724567802706552,
+        "distance_km": 7127.577279817547
+      }
+    ]
+  },
+  {
+    "id": "cajun_creole",
+    "name": "Cajun-Creole",
+    "lat": 30.5,
+    "lon": -91.2,
+    "mean_resid": 0.022022998774332524,
+    "local_I": 0.3514164350551847,
+    "p_sim": 0.062,
+    "quadrant": "HH",
+    "classification": "NS",
+    "bridge_score": null,
+    "bridge_rank": null,
+    "partners": [
+      {
+        "id": "french",
+        "name": "French",
+        "lat": 46.23,
+        "lon": 2.21,
+        "residual": 0.22820791159866505,
+        "distance_km": 7857.864537078491
+      },
+      {
+        "id": "italian",
+        "name": "Italian",
+        "lat": 41.87,
+        "lon": 12.57,
+        "residual": 0.18753440727418746,
+        "distance_km": 8815.408634615796
+      },
+      {
+        "id": "spanish",
+        "name": "Spanish",
+        "lat": 40.46,
+        "lon": -3.75,
+        "residual": 0.16844635802431457,
+        "distance_km": 7671.438393097179
+      },
+      {
+        "id": "greek",
+        "name": "Greek",
+        "lat": 39.07,
+        "lon": 21.82,
+        "residual": 0.16244683887651534,
+        "distance_km": 9635.968661881463
+      },
+      {
+        "id": "jamaican",
+        "name": "Jamaican",
+        "lat": 18.11,
+        "lon": -77.3,
+        "residual": 0.13839556549584026,
+        "distance_km": 1966.7556492361305
+      }
+    ]
+  },
+  {
+    "id": "chinese",
+    "name": "Chinese",
+    "lat": 35.86,
+    "lon": 104.2,
+    "mean_resid": -0.02257999988235457,
+    "local_I": 0.12692314331043766,
+    "p_sim": 0.0806,
+    "quadrant": "LL",
+    "classification": "NS",
+    "bridge_score": null,
+    "bridge_rank": null,
+    "partners": [
+      {
+        "id": "korean",
+        "name": "Korean",
+        "lat": 35.91,
+        "lon": 127.77,
+        "residual": 0.43511873313552163,
+        "distance_km": 2118.2235174259454
+      },
+      {
+        "id": "japanese",
+        "name": "Japanese",
+        "lat": 36.2,
+        "lon": 138.25,
+        "residual": 0.20695537710081535,
+        "distance_km": 3046.2198815947963
+      },
+      {
+        "id": "vietnamese",
+        "name": "Vietnamese",
+        "lat": 14.06,
+        "lon": 108.28,
+        "residual": 0.12492139073404274,
+        "distance_km": 2458.007594778232
+      },
+      {
+        "id": "filipino",
+        "name": "Filipino",
+        "lat": 12.88,
+        "lon": 121.77,
+        "residual": 0.05181263059529306,
+        "distance_km": 3102.0923282103604
+      },
+      {
+        "id": "thai",
+        "name": "Thai",
+        "lat": 15.87,
+        "lon": 100.99,
+        "residual": 0.03848185674888088,
+        "distance_km": 2245.473556053821
+      }
+    ]
+  },
+  {
+    "id": "filipino",
+    "name": "Filipino",
+    "lat": 12.88,
+    "lon": 121.77,
+    "mean_resid": 0.054819733860221466,
+    "local_I": -0.494076127762459,
+    "p_sim": 0.1493,
+    "quadrant": "HL",
+    "classification": "NS",
+    "bridge_score": 0.87,
+    "bridge_rank": 1,
+    "partners": [
+      {
+        "id": "thai",
+        "name": "Thai",
+        "lat": 15.87,
+        "lon": 100.99,
+        "residual": 0.3569522903740858,
+        "distance_km": 2261.7905505739254
+      },
+      {
+        "id": "brazilian",
+        "name": "Brazilian",
+        "lat": -14.24,
+        "lon": -51.93,
+        "residual": 0.32461498994872723,
+        "distance_km": 19317.561379123305
+      },
+      {
+        "id": "vietnamese",
+        "name": "Vietnamese",
+        "lat": 14.06,
+        "lon": 108.28,
+        "residual": 0.2545658321137999,
+        "distance_km": 1464.4349967827434
+      },
+      {
+        "id": "jamaican",
+        "name": "Jamaican",
+        "lat": 18.11,
+        "lon": -77.3,
+        "residual": 0.1287931478568808,
+        "distance_km": 15983.903060105338
+      },
+      {
+        "id": "southern_us",
+        "name": "Southern US",
+        "lat": 33.0,
+        "lon": -86.0,
+        "residual": 0.06480854384396623,
+        "distance_km": 14123.251239196476
+      }
+    ]
+  },
+  {
+    "id": "french",
+    "name": "French",
+    "lat": 46.23,
+    "lon": 2.21,
+    "mean_resid": 0.025173950770907144,
+    "local_I": -0.15167121470714384,
+    "p_sim": 0.2679,
+    "quadrant": "HL",
+    "classification": "NS",
+    "bridge_score": 0.65,
+    "bridge_rank": 5,
+    "partners": [
+      {
+        "id": "jamaican",
+        "name": "Jamaican",
+        "lat": 18.11,
+        "lon": -77.3,
+        "residual": 0.25486343618267804,
+        "distance_km": 7769.056573336186
+      },
+      {
+        "id": "cajun_creole",
+        "name": "Cajun-Creole",
+        "lat": 30.5,
+        "lon": -91.2,
+        "residual": 0.22820791159866505,
+        "distance_km": 7857.864537078491
+      },
+      {
+        "id": "british",
+        "name": "British",
+        "lat": 55.38,
+        "lon": -3.44,
+        "residual": 0.21366119998116184,
+        "distance_km": 1091.2752468748579
+      },
+      {
+        "id": "southern_us",
+        "name": "Southern US",
+        "lat": 33.0,
+        "lon": -86.0,
+        "residual": 0.20430966836462205,
+        "distance_km": 7306.1886383282945
+      },
+      {
+        "id": "russian",
+        "name": "Russian",
+        "lat": 61.52,
+        "lon": 105.32,
+        "residual": 0.11362655556389428,
+        "distance_km": 6221.393605928581
+      }
+    ]
+  },
+  {
+    "id": "greek",
+    "name": "Greek",
+    "lat": 39.07,
+    "lon": 21.82,
+    "mean_resid": -0.05083071658674744,
+    "local_I": 0.16573160783036728,
+    "p_sim": 0.227,
+    "quadrant": "LL",
+    "classification": "NS",
+    "bridge_score": null,
+    "bridge_rank": null,
+    "partners": [
+      {
+        "id": "cajun_creole",
+        "name": "Cajun-Creole",
+        "lat": 30.5,
+        "lon": -91.2,
+        "residual": 0.16244683887651534,
+        "distance_km": 9635.968661881463
+      },
+      {
+        "id": "mexican",
+        "name": "Mexican",
+        "lat": 23.63,
+        "lon": -102.55,
+        "residual": 0.12567126130619566,
+        "distance_km": 10959.819489316114
+      },
+      {
+        "id": "italian",
+        "name": "Italian",
+        "lat": 41.87,
+        "lon": 12.57,
+        "residual": 0.04143218829165218,
+        "distance_km": 841.5728234954296
+      },
+      {
+        "id": "russian",
+        "name": "Russian",
+        "lat": 61.52,
+        "lon": 105.32,
+        "residual": 0.024115478663098322,
+        "distance_km": 5940.346193525387
+      },
+      {
+        "id": "spanish",
+        "name": "Spanish",
+        "lat": 40.46,
+        "lon": -3.75,
+        "residual": -0.0003752740074997041,
+        "distance_km": 2183.351032577313
+      }
+    ]
+  },
+  {
+    "id": "indian",
+    "name": "Indian",
+    "lat": 20.59,
+    "lon": 78.96,
+    "mean_resid": -0.04178152492687168,
+    "local_I": 0.07843840010697864,
+    "p_sim": 0.1712,
+    "quadrant": "LL",
+    "classification": "NS",
+    "bridge_score": null,
+    "bridge_rank": null,
+    "partners": [
+      {
+        "id": "moroccan",
+        "name": "Moroccan",
+        "lat": 31.79,
+        "lon": -7.09,
+        "residual": 0.26330563927405054,
+        "distance_km": 8462.927635856247
+      },
+      {
+        "id": "jamaican",
+        "name": "Jamaican",
+        "lat": 18.11,
+        "lon": -77.3,
+        "residual": 0.084874148058589,
+        "distance_km": 14993.654497930766
+      },
+      {
+        "id": "brazilian",
+        "name": "Brazilian",
+        "lat": -14.24,
+        "lon": -51.93,
+        "residual": 0.08161919658279404,
+        "distance_km": 14775.658872428367
+      },
+      {
+        "id": "mexican",
+        "name": "Mexican",
+        "lat": 23.63,
+        "lon": -102.55,
+        "residual": 0.05397864366855486,
+        "distance_km": 15095.348430209398
+      },
+      {
+        "id": "southern_us",
+        "name": "Southern US",
+        "lat": 33.0,
+        "lon": -86.0,
+        "residual": -0.008331447937762984,
+        "distance_km": 13845.794572351893
+      }
+    ]
+  },
+  {
+    "id": "irish",
+    "name": "Irish",
+    "lat": 53.41,
+    "lon": -8.24,
+    "mean_resid": 0.004337401466669473,
+    "local_I": 0.017233832955033137,
+    "p_sim": 0.3929,
+    "quadrant": "HH",
+    "classification": "NS",
+    "bridge_score": 0.44,
+    "bridge_rank": 8,
+    "partners": [
+      {
+        "id": "southern_us",
+        "name": "Southern US",
+        "lat": 33.0,
+        "lon": -86.0,
+        "residual": 0.39518727145636356,
+        "distance_km": 6348.372089658357
+      },
+      {
+        "id": "russian",
+        "name": "Russian",
+        "lat": 61.52,
+        "lon": 105.32,
+        "residual": 0.19293457550675197,
+        "distance_km": 5970.174553262619
+      },
+      {
+        "id": "jamaican",
+        "name": "Jamaican",
+        "lat": 18.11,
+        "lon": -77.3,
+        "residual": 0.15239160898543647,
+        "distance_km": 7019.0624368217805
+      },
+      {
+        "id": "cajun_creole",
+        "name": "Cajun-Creole",
+        "lat": 30.5,
+        "lon": -91.2,
+        "residual": 0.10591860549883714,
+        "distance_km": 6886.946924975195
+      },
+      {
+        "id": "french",
+        "name": "French",
+        "lat": 46.23,
+        "lon": 2.21,
+        "residual": 0.08049146935347984,
+        "distance_km": 1093.0357149091442
+      }
+    ]
+  },
+  {
+    "id": "italian",
+    "name": "Italian",
+    "lat": 41.87,
+    "lon": 12.57,
+    "mean_resid": -0.023089327866429546,
+    "local_I": 0.1282205774521821,
+    "p_sim": 0.1916,
+    "quadrant": "LL",
+    "classification": "NS",
+    "bridge_score": 0.32,
+    "bridge_rank": 9,
+    "partners": [
+      {
+        "id": "cajun_creole",
+        "name": "Cajun-Creole",
+        "lat": 30.5,
+        "lon": -91.2,
+        "residual": 0.18753440727418746,
+        "distance_km": 8815.408634615796
+      },
+      {
+        "id": "mexican",
+        "name": "Mexican",
+        "lat": 23.63,
+        "lon": -102.55,
+        "residual": 0.11394149782695293,
+        "distance_km": 10148.267544495857
+      },
+      {
+        "id": "southern_us",
+        "name": "Southern US",
+        "lat": 33.0,
+        "lon": -86.0,
+        "residual": 0.07302206801450081,
+        "distance_km": 8262.789717862159
+      },
+      {
+        "id": "greek",
+        "name": "Greek",
+        "lat": 39.07,
+        "lon": 21.82,
+        "residual": 0.04143218829165218,
+        "distance_km": 841.5728234954296
+      },
+      {
+        "id": "spanish",
+        "name": "Spanish",
+        "lat": 40.46,
+        "lon": -3.75,
+        "residual": 0.036965317054515945,
+        "distance_km": 1372.9982617555906
+      }
+    ]
+  },
+  {
+    "id": "jamaican",
+    "name": "Jamaican",
+    "lat": 18.11,
+    "lon": -77.3,
+    "mean_resid": 0.03484253068487,
+    "local_I": 0.31851446227127034,
+    "p_sim": 0.0396,
+    "quadrant": "HH",
+    "classification": "HH",
+    "bridge_score": 0.68,
+    "bridge_rank": 4,
+    "partners": [
+      {
+        "id": "french",
+        "name": "French",
+        "lat": 46.23,
+        "lon": 2.21,
+        "residual": 0.25486343618267804,
+        "distance_km": 7769.056573336186
+      },
+      {
+        "id": "british",
+        "name": "British",
+        "lat": 55.38,
+        "lon": -3.44,
+        "residual": 0.17605133210503887,
+        "distance_km": 7344.622815554786
+      },
+      {
+        "id": "irish",
+        "name": "Irish",
+        "lat": 53.41,
+        "lon": -8.24,
+        "residual": 0.15239160898543647,
+        "distance_km": 7019.0624368217805
+      },
+      {
+        "id": "cajun_creole",
+        "name": "Cajun-Creole",
+        "lat": 30.5,
+        "lon": -91.2,
+        "residual": 0.13839556549584026,
+        "distance_km": 1966.7556492361305
+      },
+      {
+        "id": "filipino",
+        "name": "Filipino",
+        "lat": 12.88,
+        "lon": 121.77,
+        "residual": 0.1287931478568808,
+        "distance_km": 15983.903060105338
+      }
+    ]
+  },
+  {
+    "id": "japanese",
+    "name": "Japanese",
+    "lat": 36.2,
+    "lon": 138.25,
+    "mean_resid": -0.03730154632182794,
+    "local_I": 0.3052104424631208,
+    "p_sim": 0.119,
+    "quadrant": "LL",
+    "classification": "NS",
+    "bridge_score": null,
+    "bridge_rank": null,
+    "partners": [
+      {
+        "id": "chinese",
+        "name": "Chinese",
+        "lat": 35.86,
+        "lon": 104.2,
+        "residual": 0.20695537710081535,
+        "distance_km": 3046.2198815947963
+      },
+      {
+        "id": "korean",
+        "name": "Korean",
+        "lat": 35.91,
+        "lon": 127.77,
+        "residual": 0.1159310058882036,
+        "distance_km": 942.202858846384
+      },
+      {
+        "id": "vietnamese",
+        "name": "Vietnamese",
+        "lat": 14.06,
+        "lon": 108.28,
+        "residual": 0.015829880681536568,
+        "distance_km": 3864.5845078986727
+      },
+      {
+        "id": "brazilian",
+        "name": "Brazilian",
+        "lat": -14.24,
+        "lon": -51.93,
+        "residual": 0.0032479190610050362,
+        "distance_km": 17371.39101928346
+      },
+      {
+        "id": "indian",
+        "name": "Indian",
+        "lat": 20.59,
+        "lon": 78.96,
+        "residual": -0.011659823093505578,
+        "distance_km": 5959.517249643382
+      }
+    ]
+  },
+  {
+    "id": "korean",
+    "name": "Korean",
+    "lat": 35.91,
+    "lon": 127.77,
+    "mean_resid": -0.038042877252967254,
+    "local_I": 0.29318356173004106,
+    "p_sim": 0.1102,
+    "quadrant": "LL",
+    "classification": "NS",
+    "bridge_score": null,
+    "bridge_rank": null,
+    "partners": [
+      {
+        "id": "chinese",
+        "name": "Chinese",
+        "lat": 35.86,
+        "lon": 104.2,
+        "residual": 0.43511873313552163,
+        "distance_km": 2118.2235174259454
+      },
+      {
+        "id": "japanese",
+        "name": "Japanese",
+        "lat": 36.2,
+        "lon": 138.25,
+        "residual": 0.1159310058882036,
+        "distance_km": 942.202858846384
+      },
+      {
+        "id": "vietnamese",
+        "name": "Vietnamese",
+        "lat": 14.06,
+        "lon": 108.28,
+        "residual": 0.07827870048394053,
+        "distance_km": 3110.822969580511
+      },
+      {
+        "id": "thai",
+        "name": "Thai",
+        "lat": 15.87,
+        "lon": 100.99,
+        "residual": 0.024518990900243343,
+        "distance_km": 3462.7756309907277
+      },
+      {
+        "id": "brazilian",
+        "name": "Brazilian",
+        "lat": -14.24,
+        "lon": -51.93,
+        "residual": -0.015857485805041364,
+        "distance_km": 17605.33194320789
+      }
+    ]
+  },
+  {
+    "id": "mexican",
+    "name": "Mexican",
+    "lat": 23.63,
+    "lon": -102.55,
+    "mean_resid": 0.011045326167737702,
+    "local_I": 0.13186395577467444,
+    "p_sim": 0.0472,
+    "quadrant": "HH",
+    "classification": "HH",
+    "bridge_score": null,
+    "bridge_rank": null,
+    "partners": [
+      {
+        "id": "russian",
+        "name": "Russian",
+        "lat": 61.52,
+        "lon": 105.32,
+        "residual": 0.18315861294443547,
+        "distance_km": 10223.417814285476
+      },
+      {
+        "id": "greek",
+        "name": "Greek",
+        "lat": 39.07,
+        "lon": 21.82,
+        "residual": 0.12567126130619566,
+        "distance_km": 10959.819489316114
+      },
+      {
+        "id": "spanish",
+        "name": "Spanish",
+        "lat": 40.46,
+        "lon": -3.75,
+        "residual": 0.12067203566068785,
+        "distance_km": 9025.959334494573
+      },
+      {
+        "id": "italian",
+        "name": "Italian",
+        "lat": 41.87,
+        "lon": 12.57,
+        "residual": 0.11394149782695293,
+        "distance_km": 10148.267544495857
+      },
+      {
+        "id": "brazilian",
+        "name": "Brazilian",
+        "lat": -14.24,
+        "lon": -51.93,
+        "residual": 0.09631802248202942,
+        "distance_km": 6927.715915768873
+      }
+    ]
+  },
+  {
+    "id": "moroccan",
+    "name": "Moroccan",
+    "lat": 31.79,
+    "lon": -7.09,
+    "mean_resid": -0.04223709880266968,
+    "local_I": -0.06738199871237695,
+    "p_sim": 0.4754,
+    "quadrant": "LH",
+    "classification": "NS",
+    "bridge_score": null,
+    "bridge_rank": null,
+    "partners": [
+      {
+        "id": "indian",
+        "name": "Indian",
+        "lat": 20.59,
+        "lon": 78.96,
+        "residual": 0.26330563927405054,
+        "distance_km": 8462.927635856247
+      },
+      {
+        "id": "mexican",
+        "name": "Mexican",
+        "lat": 23.63,
+        "lon": -102.55,
+        "residual": 0.02903473159073175,
+        "distance_km": 9131.563138059535
+      },
+      {
+        "id": "thai",
+        "name": "Thai",
+        "lat": 15.87,
+        "lon": 100.99,
+        "residual": 0.016271853916884238,
+        "distance_km": 10707.708452135485
+      },
+      {
+        "id": "spanish",
+        "name": "Spanish",
+        "lat": 40.46,
+        "lon": -3.75,
+        "residual": -0.002452791799981091,
+        "distance_km": 1009.4304353437187
+      },
+      {
+        "id": "jamaican",
+        "name": "Jamaican",
+        "lat": 18.11,
+        "lon": -77.3,
+        "residual": -0.004387265952953134,
+        "distance_km": 7124.21622415228
+      }
+    ]
+  },
+  {
+    "id": "russian",
+    "name": "Russian",
+    "lat": 61.52,
+    "lon": 105.32,
+    "mean_resid": -0.02497110360262705,
+    "local_I": 0.13994635072848677,
+    "p_sim": 0.0088,
+    "quadrant": "LL",
+    "classification": "LL",
+    "bridge_score": 0.84,
+    "bridge_rank": 2,
+    "partners": [
+      {
+        "id": "irish",
+        "name": "Irish",
+        "lat": 53.41,
+        "lon": -8.24,
+        "residual": 0.19293457550675197,
+        "distance_km": 5970.174553262619
+      },
+      {
+        "id": "mexican",
+        "name": "Mexican",
+        "lat": 23.63,
+        "lon": -102.55,
+        "residual": 0.18315861294443547,
+        "distance_km": 10223.417814285476
+      },
+      {
+        "id": "british",
+        "name": "British",
+        "lat": 55.38,
+        "lon": -3.44,
+        "residual": 0.1536435832840985,
+        "distance_km": 5614.1664952854
+      },
+      {
+        "id": "southern_us",
+        "name": "Southern US",
+        "lat": 33.0,
+        "lon": -86.0,
+        "residual": 0.12167613126269555,
+        "distance_km": 9455.21883711508
+      },
+      {
+        "id": "french",
+        "name": "French",
+        "lat": 46.23,
+        "lon": 2.21,
+        "residual": 0.11362655556389428,
+        "distance_km": 6221.393605928581
+      }
+    ]
+  },
+  {
+    "id": "southern_us",
+    "name": "Southern US",
+    "lat": 33.0,
+    "lon": -86.0,
+    "mean_resid": 0.035423063990491006,
+    "local_I": 0.39699074897676195,
+    "p_sim": 0.1436,
+    "quadrant": "HH",
+    "classification": "NS",
+    "bridge_score": 0.69,
+    "bridge_rank": 3,
+    "partners": [
+      {
+        "id": "irish",
+        "name": "Irish",
+        "lat": 53.41,
+        "lon": -8.24,
+        "residual": 0.39518727145636356,
+        "distance_km": 6348.372089658357
+      },
+      {
+        "id": "british",
+        "name": "British",
+        "lat": 55.38,
+        "lon": -3.44,
+        "residual": 0.32637797931351864,
+        "distance_km": 6598.616802506739
+      },
+      {
+        "id": "french",
+        "name": "French",
+        "lat": 46.23,
+        "lon": 2.21,
+        "residual": 0.20430966836462205,
+        "distance_km": 7306.1886383282945
+      },
+      {
+        "id": "russian",
+        "name": "Russian",
+        "lat": 61.52,
+        "lon": 105.32,
+        "residual": 0.12167613126269555,
+        "distance_km": 9455.21883711508
+      },
+      {
+        "id": "italian",
+        "name": "Italian",
+        "lat": 41.87,
+        "lon": 12.57,
+        "residual": 0.07302206801450081,
+        "distance_km": 8262.789717862159
+      }
+    ]
+  },
+  {
+    "id": "spanish",
+    "name": "Spanish",
+    "lat": 40.46,
+    "lon": -3.75,
+    "mean_resid": 0.005401290117492933,
+    "local_I": -0.02356621793665418,
+    "p_sim": 0.2951,
+    "quadrant": "HL",
+    "classification": "NS",
+    "bridge_score": 0.53,
+    "bridge_rank": 6,
+    "partners": [
+      {
+        "id": "cajun_creole",
+        "name": "Cajun-Creole",
+        "lat": 30.5,
+        "lon": -91.2,
+        "residual": 0.16844635802431457,
+        "distance_km": 7671.438393097179
+      },
+      {
+        "id": "mexican",
+        "name": "Mexican",
+        "lat": 23.63,
+        "lon": -102.55,
+        "residual": 0.12067203566068785,
+        "distance_km": 9025.959334494573
+      },
+      {
+        "id": "brazilian",
+        "name": "Brazilian",
+        "lat": -14.24,
+        "lon": -51.93,
+        "residual": 0.0695887158240189,
+        "distance_km": 7850.626663364998
+      },
+      {
+        "id": "southern_us",
+        "name": "Southern US",
+        "lat": 33.0,
+        "lon": -86.0,
+        "residual": 0.05728749612920783,
+        "distance_km": 7108.656352367546
+      },
+      {
+        "id": "french",
+        "name": "French",
+        "lat": 46.23,
+        "lon": 2.21,
+        "residual": 0.05113927122174522,
+        "distance_km": 801.9382245170829
+      }
+    ]
+  },
+  {
+    "id": "thai",
+    "name": "Thai",
+    "lat": 15.87,
+    "lon": 100.99,
+    "mean_resid": 0.016987942300633857,
+    "local_I": -0.08020577287864793,
+    "p_sim": 0.3619,
+    "quadrant": "HL",
+    "classification": "NS",
+    "bridge_score": null,
+    "bridge_rank": null,
+    "partners": [
+      {
+        "id": "vietnamese",
+        "name": "Vietnamese",
+        "lat": 14.06,
+        "lon": 108.28,
+        "residual": 0.39513848105411775,
+        "distance_km": 808.4957427441229
+      },
+      {
+        "id": "filipino",
+        "name": "Filipino",
+        "lat": 12.88,
+        "lon": 121.77,
+        "residual": 0.3569522903740858,
+        "distance_km": 2261.7905505739254
+      },
+      {
+        "id": "brazilian",
+        "name": "Brazilian",
+        "lat": -14.24,
+        "lon": -51.93,
+        "residual": 0.22078006545673345,
+        "distance_km": 17103.641935727217
+      },
+      {
+        "id": "jamaican",
+        "name": "Jamaican",
+        "lat": 18.11,
+        "lon": -77.3,
+        "residual": 0.09099964793998555,
+        "distance_km": 16232.067608197374
+      },
+      {
+        "id": "chinese",
+        "name": "Chinese",
+        "lat": 35.86,
+        "lon": 104.2,
+        "residual": 0.03848185674888088,
+        "distance_km": 2245.473556053821
+      }
+    ]
+  },
+  {
+    "id": "vietnamese",
+    "name": "Vietnamese",
+    "lat": 14.06,
+    "lon": 108.28,
+    "mean_resid": 0.002780435537131651,
+    "local_I": 0.00715783008110834,
+    "p_sim": 0.3921,
+    "quadrant": "HH",
+    "classification": "NS",
+    "bridge_score": null,
+    "bridge_rank": null,
+    "partners": [
+      {
+        "id": "thai",
+        "name": "Thai",
+        "lat": 15.87,
+        "lon": 100.99,
+        "residual": 0.39513848105411775,
+        "distance_km": 808.4957427441229
+      },
+      {
+        "id": "filipino",
+        "name": "Filipino",
+        "lat": 12.88,
+        "lon": 121.77,
+        "residual": 0.2545658321137999,
+        "distance_km": 1464.4349967827434
+      },
+      {
+        "id": "chinese",
+        "name": "Chinese",
+        "lat": 35.86,
+        "lon": 104.2,
+        "residual": 0.12492139073404274,
+        "distance_km": 2458.007594778232
+      },
+      {
+        "id": "korean",
+        "name": "Korean",
+        "lat": 35.91,
+        "lon": 127.77,
+        "residual": 0.07827870048394053,
+        "distance_km": 3110.822969580511
+      },
+      {
+        "id": "brazilian",
+        "name": "Brazilian",
+        "lat": -14.24,
+        "lon": -51.93,
+        "residual": 0.057445086830883715,
+        "distance_km": 17881.879318171596
+      }
+    ]
+  }
+];
+
+const COLORS = {
+  HH_sig:   '#c45a2e', HH_marg: '#e89466', HH_ns:  '#f1c1a3', HH:     '#f1c1a3',
+  LL_sig:   '#2c5d8b', LL_marg: '#7aa2c4', LL_ns:  '#bcd1e3', LL:     '#bcd1e3',
+  HL_sig:   '#a23a8a', HL_marg: '#c47ab2', HL_ns:  '#dfb1d3', HL:     '#dfb1d3',
+  LH_sig:   '#1f8a8a', LH_marg: '#6cb6b6', LH_ns:  '#b1d6d6', LH:     '#b1d6d6',
+};
+
+function classifyCuisine(c) {
+  const sig = c.p_sim < 0.05 ? '_sig' : c.p_sim < 0.10 ? '_marg' : '_ns';
+  return c.quadrant + sig;
+}
+
+function colorForCuisine(c) {
+  return COLORS[classifyCuisine(c)] || '#888';
+}
+
+function edgeForCuisine(c) {
+  if (c.p_sim < 0.05) return { color: 'black', weight: 2.0 };
+  if (c.p_sim < 0.10) return { color: '#222', weight: 1.2 };
+  return { color: '#888', weight: 0.8 };
+}
+
+const maxAbsResid = Math.max(...cuisineData.map(c => Math.abs(c.mean_resid)));
+
+function radiusForCuisine(c, sizeOn) {
+  if (!sizeOn) return 8;
+  return 6 + 14 * (Math.abs(c.mean_resid) / maxAbsResid);
+}
+
+// Initialize map
+const map = L.map('map', {
+  center: [25, 20],
+  zoom: 2,
+  worldCopyJump: true,
+  scrollWheelZoom: true,
+  minZoom: 2,
+  maxZoom: 6,
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  subdomains: 'abcd',
+  maxZoom: 19,
+}).addTo(map);
+
+let cuisineMarkers = {};
+let activeArcs = [];
+let activePartnerHighlights = [];
+
+function partnersHTML(cuisine) {
+  let rows = cuisine.partners.map(p => {
+    const cls = p.residual > 0 ? 'res-pos' : 'res-neg';
+    const sign = p.residual > 0 ? '+' : '';
+    return `<tr><td>${p.name}</td><td class="${cls}">${sign}${p.residual.toFixed(3)}</td><td style="color:#888; font-size:10.5px;">${Math.round(p.distance_km).toLocaleString()} km</td></tr>`;
+  }).join('');
+  return `<table class="partners-table"><tr><th>Partner</th><th style="text-align:right;">Residual</th><th>Distance</th></tr>${rows}</table>`;
+}
+
+function popupHTML(cuisine) {
+  const sigStars = cuisine.p_sim < 0.05 ? ' <span style="color:#c45a2e;">★★★</span>' : cuisine.p_sim < 0.10 ? ' <span style="color:#888;">★</span>' : '';
+  const bridgeStr = cuisine.bridge_score ? `${cuisine.bridge_score.toFixed(2)} (rank ${cuisine.bridge_rank})` : '<span style="color:#888;">not in top 10</span>';
+  return `
+    <div class="header">${cuisine.name}</div>
+    <div class="meta">Click cuisine to highlight residual links →</div>
+    <div style="font-size:11.5px;">
+      <div><strong>Mean residual:</strong> ${cuisine.mean_resid > 0 ? '+' : ''}${cuisine.mean_resid.toFixed(4)}</div>
+      <div><strong>Bridge score:</strong> ${bridgeStr}</div>
+      <div><strong>LISA:</strong> ${cuisine.quadrant} (Local I = ${cuisine.local_I > 0 ? '+' : ''}${cuisine.local_I.toFixed(3)}, p = ${cuisine.p_sim.toFixed(3)})${sigStars}</div>
+    </div>
+    <div style="margin-top:8px; font-size:11px; color:#666; text-transform:uppercase; letter-spacing:0.5px;">Top 5 residual partners</div>
+    ${partnersHTML(cuisine)}
+  `;
+}
+
+function clearArcs() {
+  activeArcs.forEach(a => map.removeLayer(a));
+  activeArcs = [];
+  activePartnerHighlights.forEach(p => map.removeLayer(p));
+  activePartnerHighlights = [];
+}
+
+// Great-circle path (interpolated as a polyline for Leaflet)
+function greatCirclePath(lat1, lon1, lat2, lon2, n=80) {
+  const toRad = d => d * Math.PI / 180, toDeg = r => r * 180 / Math.PI;
+  const phi1 = toRad(lat1), phi2 = toRad(lat2), lam1 = toRad(lon1), lam2 = toRad(lon2);
+  let dlon = lam2 - lam1;
+  // Pick the shorter great-circle direction (handle antimeridian)
+  if (dlon > Math.PI) dlon -= 2*Math.PI;
+  if (dlon < -Math.PI) dlon += 2*Math.PI;
+  const lam2_adj = lam1 + dlon;
+  const d = Math.acos(Math.max(-1, Math.min(1, Math.sin(phi1)*Math.sin(phi2) + Math.cos(phi1)*Math.cos(phi2)*Math.cos(dlon))));
+  if (d === 0) return [[lat1, lon1], [lat2, lon2]];
+  const points = [];
+  for (let i = 0; i <= n; i++) {
+    const f = i / n;
+    const A = Math.sin((1-f)*d) / Math.sin(d);
+    const B = Math.sin(f*d) / Math.sin(d);
+    const x = A*Math.cos(phi1)*Math.cos(lam1) + B*Math.cos(phi2)*Math.cos(lam2_adj);
+    const y = A*Math.cos(phi1)*Math.sin(lam1) + B*Math.cos(phi2)*Math.sin(lam2_adj);
+    const z = A*Math.sin(phi1) + B*Math.sin(phi2);
+    points.push([toDeg(Math.atan2(z, Math.sqrt(x*x + y*y))), toDeg(Math.atan2(y, x))]);
+  }
+  return points;
+}
+
+function drawArcs(cuisine) {
+  clearArcs();
+  const maxRes = Math.max(...cuisine.partners.map(p => Math.abs(p.residual)));
+  cuisine.partners.forEach(p => {
+    const path = greatCirclePath(cuisine.lat, cuisine.lon, p.lat, p.lon);
+    const lw = 2 + 5 * (p.residual / maxRes);
+    const color = p.residual > 0 ? '#c45a2e' : '#7a8aa0';
+    const arc = L.polyline(path, {
+      color: color, weight: Math.max(1.5, lw), opacity: 0.85,
+      lineCap: 'round',
+    }).addTo(map);
+    activeArcs.push(arc);
+    // Highlight partner anchor
+    const partnerHi = L.circleMarker([p.lat, p.lon], {
+      radius: 12, color: '#c45a2e', weight: 2.5, fillColor: '#c45a2e',
+      fillOpacity: 0.45, pane: 'overlayPane',
+    }).addTo(map);
+    activePartnerHighlights.push(partnerHi);
+  });
+}
+
+function refreshMarkers() {
+  const lisaOn = document.getElementById('toggle-lisa').checked;
+  const sizeOn = document.getElementById('toggle-size').checked;
+  Object.values(cuisineMarkers).forEach(m => map.removeLayer(m));
+  cuisineMarkers = {};
+  cuisineData.forEach(c => {
+    const fill = lisaOn ? colorForCuisine(c) : '#1f5fa3';
+    const edge = edgeForCuisine(c);
+    const m = L.circleMarker([c.lat, c.lon], {
+      radius: radiusForCuisine(c, sizeOn),
+      color: edge.color,
+      weight: edge.weight,
+      fillColor: fill,
+      fillOpacity: 0.92,
+      className: 'cuisine-marker',
+    }).addTo(map);
+    m.bindPopup(popupHTML(c), { maxWidth: 320, minWidth: 260, autoPan: true });
+    m.on('click', () => { drawArcs(c); m.openPopup(); });
+    cuisineMarkers[c.id] = m;
+  });
+}
+
+document.getElementById('toggle-lisa').addEventListener('change', refreshMarkers);
+document.getElementById('toggle-size').addEventListener('change', refreshMarkers);
+document.getElementById('reset-view').addEventListener('click', () => {
+  clearArcs();
+  map.closePopup();
+  map.setView([25, 20], 2);
+});
+
+refreshMarkers();
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "distance_vs_dissim": {
+    "r": 0.6300775896161108,
+    "r_similarity_distance": -0.6300775896161108,
+    "p_one_sided": 0.0001,
+    "p_two_sided": 0.0001,
+    "n_pairs": 190,
+    "n_perm": 9999
+  },
+  "partial_distance_controlling_subregion": {
+    "r_partial": 0.5116466704447045,
+    "p_one_sided": 0.0001,
+    "p_two_sided": 0.0001
+  },
+  "subregion_vs_dissim": {
+    "r": 0.49692294456017494,
+    "p_one_sided": 0.0001,
+    "p_two_sided": 0.0001
+  }
+}

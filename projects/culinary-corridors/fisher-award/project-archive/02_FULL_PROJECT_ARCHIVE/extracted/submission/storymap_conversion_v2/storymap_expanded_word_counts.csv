@@ -1,0 +1,20 @@
+section_number,section_title,paste_text_word_count
+01,1. Cover / title / subtitle / author note,135
+02,2. Opening contrast and introduction,384
+03,3. Research question and subquestions,197
+04,4. Why food can be treated as spatial data,366
+05,5. How the culinary atlas works,415
+06,6. Global discovery screen,268
+07,"7. Finding 1: distance matters, but incompletely",291
+08,8. Finding 2: residuals reveal candidate culinary corridors,359
+09,9. Finding 3: East/Southeast Asia is the strongest focused case,317
+10,"10. Finding 4: terrain, coastlines, islands, and maritime space make the corridor legible",287
+11,11. Finding 5: residual bridge scores identify spatial bridge roles,281
+12,12. Cuisine-pair vignettes,608
+13,13. Secondary / diagnostic case and sensitivity,254
+14,"14. What this proves, and what it does not prove",270
+15,"15. Sources, methods, and reproducibility",341
+16,16. Conclusion and final contribution,223
+17,17. PDF backup / technical report note,170
+TOTAL,All paste text sections,5166
+NOTE,"Target is approximately 5,000-7,500 words",appropriate

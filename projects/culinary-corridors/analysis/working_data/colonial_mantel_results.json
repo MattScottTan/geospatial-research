@@ -1,0 +1,54 @@
+{
+  "description": "Partial Mantel test of residual cuisine similarity ~ colonial-administration code",
+  "inputs": {
+    "residual_matrix": "residual_matrix.npy",
+    "distance_matrix": "distance_matrix.npy",
+    "cuisines": "cuisines.txt",
+    "colonial_crosswalk": "colonial_crosswalk.csv"
+  },
+  "coding_scheme": {
+    "0": "no shared colonial administration",
+    "1": "brief/peripheral colonial connection (<50 yr or sphere-only)",
+    "2": "sustained core colonial administration (>50 yr direct rule or co-administration)"
+  },
+  "n_cuisines": 20,
+  "n_pairs": 190,
+  "n_permutations": 9999,
+  "seed": 42,
+  "code_distribution": {
+    "0": 157,
+    "1": 20,
+    "2": 13
+  },
+  "bivariate_mantel": {
+    "description": "Mantel correlation of residual ~ colonial (no controls)",
+    "r": 0.18557447704070396
+  },
+  "partial_mantel_H1": {
+    "description": "Partial Mantel residual ~ colonial | log-distance",
+    "r_partial": 0.18621363911905467,
+    "p_two_sided": 0.0131,
+    "p_one_sided_positive": 0.0101,
+    "controls": [
+      "log-distance"
+    ]
+  },
+  "partial_mantel_H2_main": {
+    "description": "Partial Mantel residual ~ colonial | log-distance, same-subregion (HEADLINE RESULT)",
+    "r_partial": 0.18097081985181887,
+    "p_two_sided": 0.0216,
+    "p_one_sided_positive": 0.0151,
+    "controls": [
+      "log-distance",
+      "same-subregion"
+    ]
+  },
+  "correlation_panel": {
+    "r_residual_colonial": 0.18557447704070396,
+    "r_residual_logD": 5.9818446806481326e-18,
+    "r_residual_subregion": 0.24385555311752555,
+    "r_colonial_logD": -0.08278311507391904,
+    "r_colonial_subregion": 0.0797189399563469,
+    "r_logD_subregion": -0.4881323580726282
+  }
+}

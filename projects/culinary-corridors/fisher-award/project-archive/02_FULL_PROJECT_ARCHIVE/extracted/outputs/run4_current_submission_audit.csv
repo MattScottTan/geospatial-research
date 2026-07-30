@@ -1,0 +1,22 @@
+artifact,path,exists_status,role,run4_decision,notes
+strategy packet zip,fisher_award_strategy_packet.zip,found,playbook source,reuse,available for Run 4
+run3 storymap script,submission/storymap_script.md,found,base narrative,revise,available for Run 4
+run3 static report,submission/fisher_submission_report.md,found,base report,revise,available for Run 4
+run3 abstract and pitch,submission/abstract_and_pitch.md,found,base abstract,revise,available for Run 4
+run3 technical appendix,submission/technical_appendix.md,found,methods source,reuse/revise,available for Run 4
+run3 data sources and limitations,submission/data_sources_and_limitations.md,found,data caveat source,revise,available for Run 4
+run3 references,submission/references.md,found,source list,reuse/revise,available for Run 4
+run3 final global figure,figures/final/final_global_discovery_figure.png,found,figure source,supersede,available for Run 4
+run3 distance/residual figure,figures/final/final_distance_or_residual_model_figure.png,found,figure source,supersede,available for Run 4
+run3 East/SE Asia figure,figures/final/final_east_southeast_asia_case_figure.png,found,figure source,supersede,available for Run 4
+run3 bridge/boundary figure,figures/final/final_geospatial_bridge_or_boundary_figure.png,found,figure source,supersede,available for Run 4
+run3 secondary figure,figures/final/final_secondary_or_sensitivity_figure.png,found,figure source,supersede,available for Run 4
+run3 scope and claims,docs/run3_final_scope_and_claims.md,found,claim hierarchy,reuse/revise,available for Run 4
+run3 Fisher positioning,docs/run3_fisher_positioning_memo.md,found,positioning source,reuse/revise,available for Run 4
+run3 claim audit,outputs/run3_claim_audit_checklist.md,found,claim check,reuse/revise,available for Run 4
+Run 2 v2 filtered residuals,data/processed/run2v2_residual_culinary_corridors_filtered.csv,found,analysis input,reuse,available for Run 4
+Run 2 v2 focus case results,data/processed/run2v2_focus_case_results.csv,found,analysis input,reuse,available for Run 4
+Run 2 v2 bridge scores,data/processed/run2v2_cuisine_residual_bridge_scores.csv,found,analysis input,reuse,available for Run 4
+Run 2 v2 boundary/permeability,data/processed/run2v2_boundary_permeability_results.csv,found,analysis input,reuse,available for Run 4
+full LaTeX report,report/culinary_corridors_full_report.tex,found,report source,revise,available for Run 4
+full PDF report,report/culinary_corridors_full_report.pdf,found,report source,supersede,available for Run 4

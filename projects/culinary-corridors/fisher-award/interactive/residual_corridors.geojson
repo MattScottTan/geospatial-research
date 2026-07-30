@@ -1,0 +1,1349 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            104.2,
+            35.86
+          ],
+          [
+            127.77,
+            35.91
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Chinese\u2013Korean",
+        "cuisine_a": "Chinese",
+        "cuisine_b": "Korean",
+        "residual": 0.4351,
+        "distance_km": 2118.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -8.24,
+            53.41
+          ],
+          [
+            -86.0,
+            33.0
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Irish\u2013Southern US",
+        "cuisine_a": "Irish",
+        "cuisine_b": "Southern US",
+        "residual": 0.3952,
+        "distance_km": 6348.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            100.99,
+            15.87
+          ],
+          [
+            108.28,
+            14.06
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Thai\u2013Vietnamese",
+        "cuisine_a": "Thai",
+        "cuisine_b": "Vietnamese",
+        "residual": 0.3951,
+        "distance_km": 808.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.77,
+            12.88
+          ],
+          [
+            100.99,
+            15.87
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Filipino\u2013Thai",
+        "cuisine_a": "Filipino",
+        "cuisine_b": "Thai",
+        "residual": 0.357,
+        "distance_km": 2262.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -3.44,
+            55.38
+          ],
+          [
+            -86.0,
+            33.0
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "British\u2013Southern US",
+        "cuisine_a": "British",
+        "cuisine_b": "Southern US",
+        "residual": 0.3264,
+        "distance_km": 6599.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -51.93,
+            -14.24
+          ],
+          [
+            121.77,
+            12.88
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Brazilian\u2013Filipino",
+        "cuisine_a": "Brazilian",
+        "cuisine_b": "Filipino",
+        "residual": 0.3246,
+        "distance_km": 19318.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.96,
+            20.59
+          ],
+          [
+            -7.09,
+            31.79
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Indian\u2013Moroccan",
+        "cuisine_a": "Indian",
+        "cuisine_b": "Moroccan",
+        "residual": 0.2633,
+        "distance_km": 8463.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.21,
+            46.23
+          ],
+          [
+            -77.3,
+            18.11
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "French\u2013Jamaican",
+        "cuisine_a": "French",
+        "cuisine_b": "Jamaican",
+        "residual": 0.2549,
+        "distance_km": 7769.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.77,
+            12.88
+          ],
+          [
+            108.28,
+            14.06
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Filipino\u2013Vietnamese",
+        "cuisine_a": "Filipino",
+        "cuisine_b": "Vietnamese",
+        "residual": 0.2546,
+        "distance_km": 1464.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -91.2,
+            30.5
+          ],
+          [
+            2.21,
+            46.23
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Cajun-Creole\u2013French",
+        "cuisine_a": "Cajun-Creole",
+        "cuisine_b": "French",
+        "residual": 0.2282,
+        "distance_km": 7858.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -51.93,
+            -14.24
+          ],
+          [
+            100.99,
+            15.87
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Brazilian\u2013Thai",
+        "cuisine_a": "Brazilian",
+        "cuisine_b": "Thai",
+        "residual": 0.2208,
+        "distance_km": 17104.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -3.44,
+            55.38
+          ],
+          [
+            2.21,
+            46.23
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "British\u2013French",
+        "cuisine_a": "British",
+        "cuisine_b": "French",
+        "residual": 0.2137,
+        "distance_km": 1091.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            104.2,
+            35.86
+          ],
+          [
+            138.25,
+            36.2
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Chinese\u2013Japanese",
+        "cuisine_a": "Chinese",
+        "cuisine_b": "Japanese",
+        "residual": 0.207,
+        "distance_km": 3046.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.21,
+            46.23
+          ],
+          [
+            -86.0,
+            33.0
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "French\u2013Southern US",
+        "cuisine_a": "French",
+        "cuisine_b": "Southern US",
+        "residual": 0.2043,
+        "distance_km": 7306.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -8.24,
+            53.41
+          ],
+          [
+            105.32,
+            61.52
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Irish\u2013Russian",
+        "cuisine_a": "Irish",
+        "cuisine_b": "Russian",
+        "residual": 0.1929,
+        "distance_km": 5970.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -91.2,
+            30.5
+          ],
+          [
+            12.57,
+            41.87
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Cajun-Creole\u2013Italian",
+        "cuisine_a": "Cajun-Creole",
+        "cuisine_b": "Italian",
+        "residual": 0.1875,
+        "distance_km": 8815.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -102.55,
+            23.63
+          ],
+          [
+            105.32,
+            61.52
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Mexican\u2013Russian",
+        "cuisine_a": "Mexican",
+        "cuisine_b": "Russian",
+        "residual": 0.1832,
+        "distance_km": 10223.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -3.44,
+            55.38
+          ],
+          [
+            -77.3,
+            18.11
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "British\u2013Jamaican",
+        "cuisine_a": "British",
+        "cuisine_b": "Jamaican",
+        "residual": 0.1761,
+        "distance_km": 7345.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -91.2,
+            30.5
+          ],
+          [
+            -3.75,
+            40.46
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Cajun-Creole\u2013Spanish",
+        "cuisine_a": "Cajun-Creole",
+        "cuisine_b": "Spanish",
+        "residual": 0.1684,
+        "distance_km": 7671.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -91.2,
+            30.5
+          ],
+          [
+            21.82,
+            39.07
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Cajun-Creole\u2013Greek",
+        "cuisine_a": "Cajun-Creole",
+        "cuisine_b": "Greek",
+        "residual": 0.1624,
+        "distance_km": 9636.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -3.44,
+            55.38
+          ],
+          [
+            105.32,
+            61.52
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "British\u2013Russian",
+        "cuisine_a": "British",
+        "cuisine_b": "Russian",
+        "residual": 0.1536,
+        "distance_km": 5614.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -8.24,
+            53.41
+          ],
+          [
+            -77.3,
+            18.11
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Irish\u2013Jamaican",
+        "cuisine_a": "Irish",
+        "cuisine_b": "Jamaican",
+        "residual": 0.1524,
+        "distance_km": 7019.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -91.2,
+            30.5
+          ],
+          [
+            -77.3,
+            18.11
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Cajun-Creole\u2013Jamaican",
+        "cuisine_a": "Cajun-Creole",
+        "cuisine_b": "Jamaican",
+        "residual": 0.1384,
+        "distance_km": 1967.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.77,
+            12.88
+          ],
+          [
+            -77.3,
+            18.11
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Filipino\u2013Jamaican",
+        "cuisine_a": "Filipino",
+        "cuisine_b": "Jamaican",
+        "residual": 0.1288,
+        "distance_km": 15984.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            21.82,
+            39.07
+          ],
+          [
+            -102.55,
+            23.63
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Greek\u2013Mexican",
+        "cuisine_a": "Greek",
+        "cuisine_b": "Mexican",
+        "residual": 0.1257,
+        "distance_km": 10960.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            104.2,
+            35.86
+          ],
+          [
+            108.28,
+            14.06
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Chinese\u2013Vietnamese",
+        "cuisine_a": "Chinese",
+        "cuisine_b": "Vietnamese",
+        "residual": 0.1249,
+        "distance_km": 2458.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            105.32,
+            61.52
+          ],
+          [
+            -86.0,
+            33.0
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Russian\u2013Southern US",
+        "cuisine_a": "Russian",
+        "cuisine_b": "Southern US",
+        "residual": 0.1217,
+        "distance_km": 9455.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -102.55,
+            23.63
+          ],
+          [
+            -3.75,
+            40.46
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Mexican\u2013Spanish",
+        "cuisine_a": "Mexican",
+        "cuisine_b": "Spanish",
+        "residual": 0.1207,
+        "distance_km": 9026.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            138.25,
+            36.2
+          ],
+          [
+            127.77,
+            35.91
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Japanese\u2013Korean",
+        "cuisine_a": "Japanese",
+        "cuisine_b": "Korean",
+        "residual": 0.1159,
+        "distance_km": 942.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            12.57,
+            41.87
+          ],
+          [
+            -102.55,
+            23.63
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Italian\u2013Mexican",
+        "cuisine_a": "Italian",
+        "cuisine_b": "Mexican",
+        "residual": 0.1139,
+        "distance_km": 10148.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.21,
+            46.23
+          ],
+          [
+            105.32,
+            61.52
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "French\u2013Russian",
+        "cuisine_a": "French",
+        "cuisine_b": "Russian",
+        "residual": 0.1136,
+        "distance_km": 6221.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -91.2,
+            30.5
+          ],
+          [
+            -8.24,
+            53.41
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Cajun-Creole\u2013Irish",
+        "cuisine_a": "Cajun-Creole",
+        "cuisine_b": "Irish",
+        "residual": 0.1059,
+        "distance_km": 6887.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -3.44,
+            55.38
+          ],
+          [
+            -91.2,
+            30.5
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "British\u2013Cajun-Creole",
+        "cuisine_a": "British",
+        "cuisine_b": "Cajun-Creole",
+        "residual": 0.0972,
+        "distance_km": 7128.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -51.93,
+            -14.24
+          ],
+          [
+            -102.55,
+            23.63
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Brazilian\u2013Mexican",
+        "cuisine_a": "Brazilian",
+        "cuisine_b": "Mexican",
+        "residual": 0.0963,
+        "distance_km": 6928.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -77.3,
+            18.11
+          ],
+          [
+            100.99,
+            15.87
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Jamaican\u2013Thai",
+        "cuisine_a": "Jamaican",
+        "cuisine_b": "Thai",
+        "residual": 0.091,
+        "distance_km": 16232.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.96,
+            20.59
+          ],
+          [
+            -77.3,
+            18.11
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Indian\u2013Jamaican",
+        "cuisine_a": "Indian",
+        "cuisine_b": "Jamaican",
+        "residual": 0.0849,
+        "distance_km": 14994.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -51.93,
+            -14.24
+          ],
+          [
+            78.96,
+            20.59
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Brazilian\u2013Indian",
+        "cuisine_a": "Brazilian",
+        "cuisine_b": "Indian",
+        "residual": 0.0816,
+        "distance_km": 14776.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.21,
+            46.23
+          ],
+          [
+            -8.24,
+            53.41
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "French\u2013Irish",
+        "cuisine_a": "French",
+        "cuisine_b": "Irish",
+        "residual": 0.0805,
+        "distance_km": 1093.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            127.77,
+            35.91
+          ],
+          [
+            108.28,
+            14.06
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Korean\u2013Vietnamese",
+        "cuisine_a": "Korean",
+        "cuisine_b": "Vietnamese",
+        "residual": 0.0783,
+        "distance_km": 3111.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            12.57,
+            41.87
+          ],
+          [
+            -86.0,
+            33.0
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Italian\u2013Southern US",
+        "cuisine_a": "Italian",
+        "cuisine_b": "Southern US",
+        "residual": 0.073,
+        "distance_km": 8263.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -51.93,
+            -14.24
+          ],
+          [
+            -3.75,
+            40.46
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Brazilian\u2013Spanish",
+        "cuisine_a": "Brazilian",
+        "cuisine_b": "Spanish",
+        "residual": 0.0696,
+        "distance_km": 7851.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            121.77,
+            12.88
+          ],
+          [
+            -86.0,
+            33.0
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Filipino\u2013Southern US",
+        "cuisine_a": "Filipino",
+        "cuisine_b": "Southern US",
+        "residual": 0.0648,
+        "distance_km": 14123.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -51.93,
+            -14.24
+          ],
+          [
+            108.28,
+            14.06
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Brazilian\u2013Vietnamese",
+        "cuisine_a": "Brazilian",
+        "cuisine_b": "Vietnamese",
+        "residual": 0.0574,
+        "distance_km": 17882.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -86.0,
+            33.0
+          ],
+          [
+            -3.75,
+            40.46
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Southern US\u2013Spanish",
+        "cuisine_a": "Southern US",
+        "cuisine_b": "Spanish",
+        "residual": 0.0573,
+        "distance_km": 7109.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.96,
+            20.59
+          ],
+          [
+            -102.55,
+            23.63
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Indian\u2013Mexican",
+        "cuisine_a": "Indian",
+        "cuisine_b": "Mexican",
+        "residual": 0.054,
+        "distance_km": 15095.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            104.2,
+            35.86
+          ],
+          [
+            121.77,
+            12.88
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Chinese\u2013Filipino",
+        "cuisine_a": "Chinese",
+        "cuisine_b": "Filipino",
+        "residual": 0.0518,
+        "distance_km": 3102.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            2.21,
+            46.23
+          ],
+          [
+            -3.75,
+            40.46
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "French\u2013Spanish",
+        "cuisine_a": "French",
+        "cuisine_b": "Spanish",
+        "residual": 0.0511,
+        "distance_km": 802.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            21.82,
+            39.07
+          ],
+          [
+            12.57,
+            41.87
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Greek\u2013Italian",
+        "cuisine_a": "Greek",
+        "cuisine_b": "Italian",
+        "residual": 0.0414,
+        "distance_km": 842.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            104.2,
+            35.86
+          ],
+          [
+            100.99,
+            15.87
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Chinese\u2013Thai",
+        "cuisine_a": "Chinese",
+        "cuisine_b": "Thai",
+        "residual": 0.0385,
+        "distance_km": 2245.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            12.57,
+            41.87
+          ],
+          [
+            -3.75,
+            40.46
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Italian\u2013Spanish",
+        "cuisine_a": "Italian",
+        "cuisine_b": "Spanish",
+        "residual": 0.037,
+        "distance_km": 1373.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -102.55,
+            23.63
+          ],
+          [
+            -7.09,
+            31.79
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Mexican\u2013Moroccan",
+        "cuisine_a": "Mexican",
+        "cuisine_b": "Moroccan",
+        "residual": 0.029,
+        "distance_km": 9132.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            127.77,
+            35.91
+          ],
+          [
+            100.99,
+            15.87
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Korean\u2013Thai",
+        "cuisine_a": "Korean",
+        "cuisine_b": "Thai",
+        "residual": 0.0245,
+        "distance_km": 3463.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            21.82,
+            39.07
+          ],
+          [
+            105.32,
+            61.52
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Greek\u2013Russian",
+        "cuisine_a": "Greek",
+        "cuisine_b": "Russian",
+        "residual": 0.0241,
+        "distance_km": 5940.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -7.09,
+            31.79
+          ],
+          [
+            100.99,
+            15.87
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Moroccan\u2013Thai",
+        "cuisine_a": "Moroccan",
+        "cuisine_b": "Thai",
+        "residual": 0.0163,
+        "distance_km": 10708.0,
+        "is_long_distance": "long-distance"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            138.25,
+            36.2
+          ],
+          [
+            108.28,
+            14.06
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Japanese\u2013Vietnamese",
+        "cuisine_a": "Japanese",
+        "cuisine_b": "Vietnamese",
+        "residual": 0.0158,
+        "distance_km": 3865.0,
+        "is_long_distance": "regional"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -51.93,
+            -14.24
+          ],
+          [
+            138.25,
+            36.2
+          ]
+        ]
+      },
+      "properties": {
+        "pair": "Brazilian\u2013Japanese",
+        "cuisine_a": "Brazilian",
+        "cuisine_b": "Japanese",
+        "residual": 0.0032,
+        "distance_km": 17371.0,
+        "is_long_distance": "long-distance"
+      }
+    }
+  ]
+}

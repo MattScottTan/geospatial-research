@@ -1,0 +1,167 @@
+{
+  "global_moran_I": 0.09123415805450014,
+  "global_moran_p": 0.052,
+  "global_moran_z": 1.777496308954871,
+  "per_cuisine": [
+    {
+      "cuisine": "brazilian",
+      "mean_resid": 0.05145895005390763,
+      "local_I": 0.09758024622082469,
+      "p_sim": 0.061,
+      "quadrant_raw": "HH",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "british",
+      "mean_resid": 0.01654057151810132,
+      "local_I": -0.008061259923686849,
+      "p_sim": 0.4949,
+      "quadrant_raw": "HL",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "cajun_creole",
+      "mean_resid": 0.022022998774332524,
+      "local_I": 0.3514164350551847,
+      "p_sim": 0.062,
+      "quadrant_raw": "HH",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "chinese",
+      "mean_resid": -0.02257999988235457,
+      "local_I": 0.12692314331043766,
+      "p_sim": 0.0806,
+      "quadrant_raw": "LL",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "filipino",
+      "mean_resid": 0.054819733860221466,
+      "local_I": -0.494076127762459,
+      "p_sim": 0.1493,
+      "quadrant_raw": "HL",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "french",
+      "mean_resid": 0.025173950770907144,
+      "local_I": -0.15167121470714384,
+      "p_sim": 0.2679,
+      "quadrant_raw": "HL",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "greek",
+      "mean_resid": -0.05083071658674744,
+      "local_I": 0.16573160783036728,
+      "p_sim": 0.227,
+      "quadrant_raw": "LL",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "indian",
+      "mean_resid": -0.04178152492687168,
+      "local_I": 0.07843840010697864,
+      "p_sim": 0.1712,
+      "quadrant_raw": "LL",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "irish",
+      "mean_resid": 0.004337401466669473,
+      "local_I": 0.017233832955033137,
+      "p_sim": 0.3929,
+      "quadrant_raw": "HH",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "italian",
+      "mean_resid": -0.023089327866429546,
+      "local_I": 0.1282205774521821,
+      "p_sim": 0.1916,
+      "quadrant_raw": "LL",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "jamaican",
+      "mean_resid": 0.03484253068487,
+      "local_I": 0.31851446227127034,
+      "p_sim": 0.0396,
+      "quadrant_raw": "HH",
+      "classification": "HH"
+    },
+    {
+      "cuisine": "japanese",
+      "mean_resid": -0.03730154632182794,
+      "local_I": 0.3052104424631208,
+      "p_sim": 0.119,
+      "quadrant_raw": "LL",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "korean",
+      "mean_resid": -0.038042877252967254,
+      "local_I": 0.29318356173004106,
+      "p_sim": 0.1102,
+      "quadrant_raw": "LL",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "mexican",
+      "mean_resid": 0.011045326167737702,
+      "local_I": 0.13186395577467444,
+      "p_sim": 0.0472,
+      "quadrant_raw": "HH",
+      "classification": "HH"
+    },
+    {
+      "cuisine": "moroccan",
+      "mean_resid": -0.04223709880266968,
+      "local_I": -0.06738199871237695,
+      "p_sim": 0.4754,
+      "quadrant_raw": "LH",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "russian",
+      "mean_resid": -0.02497110360262705,
+      "local_I": 0.13994635072848677,
+      "p_sim": 0.0088,
+      "quadrant_raw": "LL",
+      "classification": "LL"
+    },
+    {
+      "cuisine": "southern_us",
+      "mean_resid": 0.035423063990491006,
+      "local_I": 0.39699074897676195,
+      "p_sim": 0.1436,
+      "quadrant_raw": "HH",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "spanish",
+      "mean_resid": 0.005401290117492933,
+      "local_I": -0.02356621793665418,
+      "p_sim": 0.2951,
+      "quadrant_raw": "HL",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "thai",
+      "mean_resid": 0.016987942300633857,
+      "local_I": -0.08020577287864793,
+      "p_sim": 0.3619,
+      "quadrant_raw": "HL",
+      "classification": "NS"
+    },
+    {
+      "cuisine": "vietnamese",
+      "mean_resid": 0.002780435537131651,
+      "local_I": 0.00715783008110834,
+      "p_sim": 0.3921,
+      "quadrant_raw": "HH",
+      "classification": "NS"
+    }
+  ]
+}

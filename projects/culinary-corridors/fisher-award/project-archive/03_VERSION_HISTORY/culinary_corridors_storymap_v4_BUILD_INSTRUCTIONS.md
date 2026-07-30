@@ -1,0 +1,827 @@
+# Culinary Corridors — StoryMap v4 Build Instructions
+**Single-file build guide. Open this file, work top to bottom, paste as you go.**
+
+Matthew Tan — Fisher Prize submission
+Version: v4 (regional-balance refinement of v3)
+
+---
+
+## What changed from v3
+
+This is the v3 script with five edits applied:
+
+1. **Hero figure moved off the cover.** The Section 1 cover is now text-only ("Minimal" cover type in ArcGIS). The hero figure now lives in Section 6 (Global discovery) where it belongs analytically.
+2. **Hero figure caption rewritten honestly.** It now names the corpus sparseness as a property of the recipe corpus rather than a finding about world food geography.
+3. **Section 11 (bridge scores) significantly strengthened.** It now explicitly states that 9 of the top 10 bridge cuisines are non-Asian (Filipino, Russian, Southern U.S., Jamaican, French, Spanish, British, Irish, Italian, Brazilian). This is the project's strongest regional-balance finding and was previously buried.
+4. **Section 12 vignettes rebalanced.** Asia vignettes trimmed; Iberian/Atlantic-Pacific vignette extended with the actual figure data (mean residual ≈ 0.14, n=11).
+5. **Caveats consolidated.** Repetitive "not causal proof / not historical routes / not migration" language reduced across sections 4, 5, 7, 8, 15. The caveats now live primarily in Section 15 ("What this proves and what it does not prove") so the rest of the script reads less defensively.
+
+Total length: ~3,935 words (down from 4,814 — about 18%).
+
+---
+
+## Pre-flight: get these ready before you start
+
+### Figures (have all six on your desktop, named exactly)
+
+| # | Filename | Goes in |
+|---|---|---|
+| 1 | `run4_hero_spatial_argument_figure.png` | Section 6 |
+| 2 | `run4_method_or_model_figure.png` | Section 7 |
+| 3 | `run4_primary_case_figure.png` | Section 9 |
+| 4 | `run5_east_se_asia_topographic_corridor_map.png` | Section 10 |
+| 5 | `run4_geospatial_insight_figure.png` | Section 11 |
+| 6 | `run4_secondary_or_limitations_figure.png` | Section 13 |
+
+### Account
+Sign in to **storymaps.arcgis.com** with your Harvard ArcGIS Online account. Click **+ New story → Start from scratch**.
+
+---
+
+## How to read this file
+
+For each section below you'll see:
+
+> **➤ ArcGIS action:** what to click in the editor
+> **➤ Block type:** which block to add from the `+` menu
+> **➤ PASTE:** the exact text to copy in
+> **➤ CALLOUT (Quote block):** the highlighted callout to add after the text
+> **➤ FIGURE:** image upload, caption, and alt text (only on sections that have one)
+
+ArcGIS StoryMaps adds blocks using the floating **`+`** button that appears between paragraphs when you hover. The block menu offers: Text, Heading, Button, Image, Video, Map, Embed, Code, Quote, Separator, Sidecar, Slideshow, Swipe, Timeline, Table.
+
+You will only need: **Heading, Text, Image, Quote, Separator**.
+
+---
+
+# COVER (Section 1)
+
+> **➤ ArcGIS action:** This is the top of the story. ArcGIS auto-creates the cover when you start a new story.
+> **➤ Cover type:** Click the cover area, then in the right-hand panel choose **"Minimal"** as the cover design (no media). If "Minimal" isn't visible, choose the layout option without a background image.
+> **➤ Title field — paste:**
+
+```
+Culinary Corridors
+```
+
+> **➤ Subtitle field — paste:**
+
+```
+Mapping food similarity, spatial residuals, and regional exchange
+```
+
+> **➤ Byline field — paste:**
+
+```
+Matthew Tan — Fisher Prize submission
+```
+
+> **➤ After the cover, click `+` and add a Text block. PASTE:**
+
+```
+Food is usually described through culture, memory, and taste. This project asks what changes when food is treated as spatial evidence.
+
+Culinary Corridors uses GIS to compare cuisine similarity against geographic distance. The question is not which cuisines share ingredients — it is where that similarity is geographically expected, where it exceeds distance-based expectation, and which cuisines become bridge nodes in a residual geography of food resemblance.
+
+The maps are not decorative. They are the analytical product.
+```
+
+> **➤ Click `+` → add a Quote block. PASTE:**
+
+```
+Core thesis: cuisine similarity is spatially structured, but not reducible to distance.
+```
+
+> **➤ Click `+` → add a Separator block** (this gives a clean visual break before Section 2).
+
+---
+
+# SECTION 2 — Opening: similar food, different geographies
+
+> **➤ Click `+` → Heading block (H2). PASTE:**
+
+```
+Opening: similar food, different geographies
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+A cuisine-similarity model can tell us that Thai and Vietnamese cuisines share strong ingredient relationships, that Chinese and Korean cuisines remain similar after a distance adjustment, and that Filipino cuisine participates in links crossing island and maritime space. These statements are incomplete until they are mapped.
+
+Thai–Vietnamese reads as a compact mainland Southeast Asian relationship. Chinese–Korean sits inside an East Asian regional setting. Filipino-related links extend through island and maritime geography where straight-line distance alone is a weak description of spatial connection. The meaning of cuisine similarity changes when we ask where it happens.
+
+Most discussions of food similarity begin with culture, history, taste, or technique. Those are essential, but they do not answer a spatial question: if two cuisines are similar, is the similarity expected because they are near each other, or surprising because it remains strong after distance is modeled?
+
+This atlas treats cuisines as ingredient profiles, models similarity against distance, and studies the residuals — pairs more similar than distance alone predicts. Mapped, those residuals become candidate culinary corridors.
+
+The opening examples come from East/Southeast Asia because that region becomes the strongest focused case later. But the project does not start there. It starts with a global prototype and narrows to where spatial evidence is most interpretable. This is a global GIS method with a selected focused case, not an Asia-only cuisine study.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+The question is not "which cuisines are similar?" It is "where is cuisine similarity spatially expected, and where is it surprising?"
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 3 — Research question
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Research question
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+When does cuisine similarity follow geographic distance, and when does it follow corridors, bridges, regions, or boundaries instead?
+
+Five subquestions structure the project.
+
+First, can cuisines be represented as ingredient profiles systematic enough for comparison? The project answers this by turning cuisine-labeled recipes into cuisine-by-ingredient vectors.
+
+Second, which cuisines are similar in ingredient space? This is the non-spatial baseline.
+
+Third, does cuisine similarity decline with geographic distance? If so, raw similarity is not enough — we need to know how much is already explained by proximity.
+
+Fourth, which cuisine pairs are more similar than distance predicts? These positive residuals become candidate culinary corridors.
+
+Fifth, which focused regional cases, secondary diagnostic comparisons, and place-level bridge roles become most interpretable once residuals are mapped?
+
+Together, these questions turn food similarity into a GIS problem. The unit of analysis is not the ingredient list — it is the relationship between ingredient similarity, geographic expectation, mapped residuals, and regional context.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+GIS changes the unit of insight from "similar cuisines" to "spatially unexpected culinary relationships."
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 4 — Why food can be treated as spatial data
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Why food can be treated as spatial data
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+Food is local, mobile, ecological, social, and historical. Ingredients are grown in environments, moved through markets, adapted through technique, and written into recipes. That makes food a rich but complicated spatial signal.
+
+The project does not claim a recipe corpus captures everything about a cuisine. A cuisine is not a country, and a cuisine label is not a precise polygon. "Chinese," "Mexican," "Brazilian," and "Southern U.S." are broad culinary labels, not exact spatial units. Cuisine labels are treated as approximate cultural-geographic anchors.
+
+The spatial question emerges because similarity is uneven. Some similarities are unsurprising — neighboring cuisines often share crops, markets, climate zones, and regional histories. Others are less expected, especially when two cuisines are distant or separated by water or terrain. The goal is not to explain every similarity historically. It is to build a spatial screen that shows where similarity is expected and where it becomes interesting.
+
+The project becomes a GIS project, not just a food-data project, when ingredient profiles are connected to geography: anchors, distances, residuals, focused cases, and bridge roles.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+Scope note: cuisine labels are approximate cultural-geographic anchors, not exact countries.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 5 — How the culinary atlas works
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+How the culinary atlas works
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+The atlas is built in four stages.
+
+Stage 1: Build cuisine profiles. Cuisine-labeled recipes are normalized so closely related ingredient names can be compared, then grouped into a cuisine-by-ingredient matrix.
+
+Stage 2: Measure culinary similarity. Each cuisine becomes an ingredient-frequency vector. Pairwise similarity is computed using cosine similarity, with robustness checks. This produces a matrix of cuisine resemblance — but cannot yet say whether resemblance is geographically expected.
+
+Stage 3: Add geography. Each cuisine label is assigned an approximate geographic anchor. Pairwise geographic distance is calculated. Distance becomes a baseline expectation.
+
+Stage 4: Calculate residual culinary corridors. Cuisine similarity is modeled against geographic distance. The residual is the difference between observed and predicted similarity:
+
+Residual = observed cuisine similarity − predicted similarity from geographic distance.
+
+A positive residual means a pair is more similar than distance alone predicts. Those positive residuals become candidate culinary corridors.
+
+The atlas uses these residuals three ways. The global discovery screen identifies candidate corridors across the prototype. Focused cases examine where residuals are most interpretable. Residual bridge scores aggregate pairwise residuals into mapped place-level roles.
+
+The maps are not decorative. The GIS workflow produces the central object of interpretation: spatial residuals.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+Residuals are the hinge of the project: they turn ingredient resemblance into a spatial question.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 6 — Global discovery: from corpus to candidate corridors
+**This section now hosts the hero figure.**
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Global discovery: from corpus to candidate corridors
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+The first map is a global discovery screen showing candidate residual culinary corridors — cuisine pairs whose ingredient similarity exceeds the distance-only model. This is the project's broadest analytical layer: the place where the atlas asks, across all retained cuisine labels, where food resemblance appears spatially unexpected.
+
+The global view matters because it prevents the project from becoming a preselected regional story. East/Southeast Asia is not chosen first and justified afterward. It emerges as the strongest focused case after the global screen reveals which residual patterns are most spatially coherent.
+
+Reading the figure honestly. The map is shaped by what the corpus contains. The retained cuisine anchors cluster in East and Southeast Asia, parts of Europe, North America, and a handful of Latin American and Caribbean labels. Large regions — most of Africa, most of South Asia, the Middle East, Oceania — are absent or thin. This is not a finding about world food geography. It is a property of the cuisine-labeled recipe corpus, and a reason the project narrows from a global screen to focused interpretation rather than claiming global coverage.
+
+Within that constraint, two patterns emerge: compact regional residuals where distance alone underexplains similarity, and longer-distance residuals — including Atlantic- and Pacific-linked links — that are visually intriguing but harder to interpret.
+
+The global screen identifies candidates. The sections that follow evaluate which candidates support stronger claims.
+```
+
+> **➤ Click `+` → Image block. Upload `run4_hero_spatial_argument_figure.png`.**
+> **➤ Image caption — paste in the caption field below the image:**
+
+```
+Candidate residual culinary corridors across the prototype corpus. Blue lines mark the East/Southeast Asia focused case; orange lines mark global discovery links. The map's geographic coverage reflects the labeled-recipe corpus, not world food geography — large regions appear absent because the corpus does not contain enough labeled cuisines there. The map is a screening layer that motivates focused interpretation, not a complete global model.
+```
+
+> **➤ Image alt text — open the image's "Alt text" field (gear/edit icon on the image block):**
+
+```
+Map-style figure showing candidate global residual culinary corridor links between cuisine anchors. East/Southeast Asia anchors are highlighted in blue; global discovery links in orange. Coverage is concentrated in regions where the recipe corpus contains labeled cuisines.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+Global discovery does not prove a mechanism. It identifies where spatially unexpected resemblance, within the corpus's actual coverage, deserves closer analysis.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 7 — Finding 1: distance matters, but incompletely
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Finding 1: distance matters, but incompletely
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+A raw cuisine-similarity matrix cannot tell us whether shared ingredients are surprising. For that, the project needs a geographic baseline.
+
+The distance model asks whether cuisine similarity changes as geographic distance increases. If nearby cuisines are often more similar, distance explains part of the pattern. If some distant pairs remain highly similar, or some nearby pairs fall short of expectation, those gaps become analytically important.
+
+The model is intentionally simple: cuisine similarity as a function of log geographic distance. This is not a final causal model of cuisine formation. It is a transparent baseline so the project can ask which similarities exceed spatial expectation.
+
+For each pair, the model produces a predicted similarity. The observed similarity is compared to that prediction. Positive residuals identify pairs more similar than distance predicts; negative residuals, the opposite. The figure makes this gap visible.
+
+The finding is modest but central: geography matters, but geography does not explain everything. The distance baseline produces an R² of about 0.36, leaving substantial structured variation — and that variation is where the project's analytical interest lives.
+```
+
+> **➤ Click `+` → Image block. Upload `run4_method_or_model_figure.png`.**
+> **➤ Caption:**
+
+```
+The residual method compares observed ingredient similarity with similarity predicted from geographic distance. Points above the line are pairs more similar than the distance baseline predicts; the gap is the residual the project maps as a candidate culinary corridor.
+```
+
+> **➤ Alt text:**
+
+```
+Scatter plot of cosine similarity of filtered ingredient profiles versus log geographic distance between cuisine anchors. A regression line of similarity = 1.273 − 0.116 × log(distance) is shown with R² = 0.355. Pairs above the line, including Thai–Vietnamese, are highlighted as positive residuals.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+The model does not explain cuisine history. It creates a spatial expectation against which cuisine similarity can be compared.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 8 — Finding 2: residuals reveal candidate culinary corridors
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Finding 2: residuals reveal candidate culinary corridors
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+The central result is not that some cuisines are similar. It is that some cuisines are more similar than a distance baseline predicts, and that those residuals create the project's candidate culinary corridors.
+
+A corridor in this atlas is not a route drawn from historical evidence. It is a mapped residual relationship. The term is used because the relationships are spatial and interpretable only when geography is added. The project does not treat them as proven pathways.
+
+The residual map does two things. First, it filters the cuisine-similarity matrix through geography — a pair must exceed distance-based expectation to become interesting. Second, it turns numerical residuals into a map. Once mapped, the same residual reads differently depending on its spatial situation: a mainland adjacency, an island-maritime bridge, a regional proximity pattern, or a long-distance diagnostic link.
+
+The global screen shows that residual similarity is not confined to one part of the world. It includes compact regional links and longer-distance diagnostic links. Different residuals support different inferential weights — which is why the project moves from a global screen to focused case selection.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+A residual corridor is a candidate spatial relationship, not a proven historical route.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 9 — From global screen to focused case: East/Southeast Asia
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+From global screen to focused case: why East/Southeast Asia carries the strongest inference
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+The strongest focused case is East/Southeast Asia. This is not because the project is only about Asia. It is because the global residual screen needs to be narrowed to where spatial evidence is strongest.
+
+A good focused case needs four qualities: enough retained cuisine labels to compare; positive residual links that survive filtering; a coherent geography rather than a scattered set of unrelated labels; and a map that helps interpret the residuals rather than merely displaying them.
+
+East/Southeast Asia meets these requirements better than the other candidates. The retained cuisines include Chinese, Japanese, Korean, Thai, Vietnamese, and Filipino. The strongest residual links include both mainland and maritime/island situations: Thai–Vietnamese as a compact mainland link, Chinese–Korean as a regional East Asian link, and Filipino-related links crossing archipelagic geography.
+
+The focused-case map does not claim the model explains the history of these cuisines. It shows why the region is analytically useful: the residual links can be read in relation to mainland adjacency, regional proximity, archipelagic geography, and maritime space. Those spatial contexts make the focused case more interpretable than a global network of lines.
+
+This section is the main inference section. The global screen identifies candidates; East/Southeast Asia demonstrates how residual cuisine similarity becomes a readable spatial pattern.
+```
+
+> **➤ Click `+` → Image block. Upload `run4_primary_case_figure.png`.**
+> **➤ Caption:**
+
+```
+The East/Southeast Asia focused-case map shows the strongest regional residual cuisine links in the prototype. Line width reflects positive residual strength. It is the primary inference case because its residuals sit inside a coherent spatial setting with mainland, island, coastal, and regional structure.
+```
+
+> **➤ Alt text:**
+
+```
+Network map of East and Southeast Asia showing residual cuisine links between Chinese, Japanese, Korean, Thai, Vietnamese, and Filipino anchors. Strongest links shown with thicker blue lines include Thai–Vietnamese, Chinese–Korean, and Filipino–Vietnamese.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+East/Southeast Asia is not the whole project. It is the focused case where the global residual method produces the most defensible spatial interpretation.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 10 — Terrain, coastlines, islands, maritime space
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Terrain, coastlines, islands, and maritime space make the corridor legible
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+The East/Southeast Asia focused case becomes more legible when residual links are placed over relief, coastlines, islands, and maritime space. This is the purpose of the Run 5 topographic corridor map.
+
+The map adds no new causal model. It does not estimate least-cost paths, reconstruct trade routes, or prove terrain caused cuisine similarity. It provides spatial context for the residual links already identified by the cuisine-similarity and distance model.
+
+That context matters because residual links occupy different kinds of geography. Thai–Vietnamese is a compact mainland link. Chinese–Korean is a regional East Asian link. Filipino-related links cross the South China Sea and archipelagic geography. A flat matrix makes these all look like rows and columns. A relief-and-coastline map makes their spatial differences visible.
+
+The map also helps the StoryMap communicate visually. The viewer can see mainland Southeast Asia, the Korean peninsula, the Japanese archipelago, the Philippines, coastlines, and shallow seas in one frame. Corridor links become part of a landscape rather than abstract pairwise edges.
+
+The strongest East/Southeast Asia residuals sit within legible regional, coastal, island, and maritime contexts. The relief map strengthens the spatial reading; it does not prove a mechanism.
+```
+
+> **➤ Click `+` → Image block. Upload `run5_east_se_asia_topographic_corridor_map.png`. This is the largest figure — use full-width display if available.**
+> **➤ Caption:**
+
+```
+The Run 5 relief map places the strongest East/Southeast Asia residual links over topographic, coastal, island, and maritime context. Line width reflects residual strength; line color indicates same-subregion, island/maritime, or cross-subregion link types. The map makes the corridor visually legible but does not claim that terrain or maritime routes caused the observed cuisine similarities.
+```
+
+> **➤ Alt text:**
+
+```
+Shaded relief and coastline map of East and Southeast Asia. Cuisine anchors for Chinese, Korean, Japanese, Thai, Vietnamese, and Filipino are connected by colored corridor lines. Annotations call out the Tibetan Plateau / Himalayan barrier, peninsula and island exchange context, the South China Sea maritime context, and mainland Southeast Asia adjacency context. A side panel lists top residual/access links with numerical scores.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+The relief map provides spatial context, not causal proof.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 11 — Bridge scores: most top bridges are not Asian
+**This is the strengthened section. Do not skip the second paragraph — it is the project's strongest regional-balance finding.**
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Finding 5: residual bridge scores identify spatial bridge roles — and most top bridges are not Asian
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+Pairwise residuals are useful, but they can become a list of links. The bridge index asks a different question: which cuisine anchors repeatedly participate in positive residual relationships?
+
+Instead of treating each pair separately, the bridge-index analysis aggregates residual links into place-level spatial roles. It combines positive residual degree, participation in top residual links, mean residual strength, long-distance residual score, and average residual behavior. The result is a map of bridge roles in the residual culinary network.
+
+The result is regionally balanced — and is one of the project's strongest non-Asia findings. Of the top ten bridge-index cuisines, only one is Asian. The ranked list runs Filipino, Russian, Southern U.S., Jamaican, French, Spanish, British, Irish, Italian, Brazilian. That is a Caribbean–Atlantic–European–North-Atlantic pattern with one Pacific-archipelagic node. The Asia-rich texture of the focused case does not carry over into the bridge structure of the corpus, and that contrast is itself analytically important.
+
+A bridge score is a spatial-network position, not a causal identity. It does not mean a cuisine historically caused or transmitted other cuisines. It means that, after distance is modeled, that cuisine anchor participates in multiple unexpectedly strong residual links.
+
+This is also where the project most clearly requires GIS. Ingredient vectors alone can identify similar cuisines. They cannot tell us which mapped cuisines repeatedly exceed distance-based expectation, nor can they translate those residuals into place-level bridge roles. The bridge index depends on ingredient similarity, geographic distance, mapped anchors, residual modeling, and network aggregation working together.
+```
+
+> **➤ Click `+` → Image block. Upload `run4_geospatial_insight_figure.png`. Use full-width display.**
+> **➤ Caption:**
+
+```
+The residual bridge index converts pairwise residual links into place-level spatial roles. Left: cuisine anchors mapped by bridge score, with circle size and color reflecting role strength. Right: the top ten bridge cuisines ranked. Filipino is the top-ranked bridge; nine of the top ten are non-Asian. Ingredient vectors alone can identify similar cuisines, but only GIS can show which mapped cuisine anchors repeatedly bridge residual similarities after distance is modeled.
+```
+
+> **➤ Alt text:**
+
+```
+Two-panel geospatial insight figure. Left panel: world map of cuisine anchors with circle sizes proportional to residual bridge scores; Filipino, Russian, French, Spanish, Southern US, Jamaican, British, and Irish anchors are visibly emphasized. Right panel: horizontal bar chart of top ten bridge scores, listing in order Filipino, Russian, Southern US, Jamaican, French, Spanish, British, Irish, Italian, Brazilian.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+Ingredient data identifies resemblance. GIS identifies residual bridge roles — and in this corpus, those roles are mostly non-Asian.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 12 — Cuisine-pair vignettes
+**Tip:** if you want a more visual presentation, you can replace the four sub-headings below with a **Sidecar** block (left-side scrolling text, right-side rotating media). For a first build, plain headings + text are simpler and faster.
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Cuisine-pair vignettes
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+Maps and indices show structure; individual pairs make the pattern concrete. These vignettes are not historical explanations. They are examples of how the residual method creates different spatial readings.
+```
+
+> **➤ Click `+` → Heading (H3). PASTE:**
+
+```
+Thai–Vietnamese: a mainland adjacency case
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+The cleanest mainland example. The relationship appears as a strong positive residual — observed ingredient similarity higher than distance alone predicts. Spatially, the pair is compact and regional, sitting within mainland Southeast Asia. The relief map makes this visible: the link appears within a coherent mainland setting rather than across scattered global space.
+
+Safe claim: Thai–Vietnamese is a strong mainland adjacency example of residual cuisine similarity. Unsafe claim: the model proves a specific historical diffusion route.
+```
+
+> **➤ Click `+` → Heading (H3). PASTE:**
+
+```
+Chinese–Korean: a regional proximity case
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+A second focused example. The pair sits inside an East Asian regional setting and remains strong after the distance baseline. A similarity matrix can say two cuisines resemble one another. A residual map says the resemblance is stronger than expected after distance is considered, and places that resemblance inside a regional geography.
+
+Safe claim: a strong residual association inside a coherent East Asian setting. The mechanism is not claimed.
+```
+
+> **➤ Click `+` → Heading (H3). PASTE:**
+
+```
+Filipino: an island and maritime bridge case
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+Filipino-related links complicate a simple land-distance story — they sit in archipelagic and maritime context rather than a compact mainland setting. The bridge index reinforces this: Filipino is the highest-scoring bridge cuisine in the corpus.
+
+Safe claim: Filipino occupies a bridge role in the residual network and its links are more interpretable when mapped in island/maritime context. Unsafe claim: the model proves maritime exchange caused the similarities.
+```
+
+> **➤ Click `+` → Heading (H3). PASTE:**
+
+```
+Iberian / Atlantic-Pacific: the mandatory non-Asia diagnostic
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+Longer-distance residual patterns appear among Iberian, Atlantic, and Pacific-linked cuisine labels — Spanish, Brazilian, Mexican, Filipino, Cajun/Creole, Jamaican, Southern U.S. The boundary/permeability check shows the Iberian/Atlantic interregional grouping has the highest mean residual of any spatial grouping in the prototype (around 0.14, n=11), exceeding the same-subregion baseline.
+
+Distances are larger, cuisine labels broader, and the risk of recipe-platform bias higher. The value of this case is not proof — it is showing that the residual method surfaces long-distance corridor hypotheses worth future investigation.
+
+Safe claim: hypothesis-generating. Unsafe claim: a proven Atlantic or colonial food pathway.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+The vignettes turn residual pairs into spatial situations: mainland adjacency, regional proximity, island/maritime bridge context, and non-Asia diagnostic comparison.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 13 — Mandatory non-Asia diagnostic case and sensitivity
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Mandatory non-Asia diagnostic case and sensitivity
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+The StoryMap would be weaker if it only presented the East/Southeast Asia case. The global screen and the bridge-index figure both show that the residual method produces patterns beyond one region. The Iberian/Atlantic-Pacific diagnostic case makes that visible at the residual-pair level.
+
+This case includes longer-distance and cross-region residual patterns within an Iberian/Atlantic-Pacific family of cuisine labels. These patterns are visually compelling and raise questions about long-distance culinary resemblance. They are also harder to interpret than the East/Southeast Asia focused case.
+
+The reason is methodological. Long-distance residuals are more exposed to confounding from recipe-platform bias, broad cuisine labels, English-language recipe conventions, and shared generic ingredients. A recipe dataset may represent "Spanish," "Brazilian," or "Mexican" cuisine through a platform-specific lens, and may overrepresent pantry ingredients or popular recipe categories. The project therefore keeps this case diagnostic.
+
+That does not make it unimportant. It shows that the residual method surfaces non-Asian hypotheses, that the global model is not a pretext for an Asian regional study, and that scope discipline matters: some residuals are strong enough to motivate focused interpretation, others are best used as future-research signals.
+
+The boundary/permeability figure compares residual behavior across spatial groupings — same-subregion, same-region cross-subregion, East/Southeast Asia cross-subregion, Iberian/Atlantic interregional, and other cross-region categories. The Iberian/Atlantic interregional grouping has the highest mean residual in the prototype, supporting the diagnostic case while showing why broader non-Asia generalizations require additional covariates.
+
+The conclusion is balanced: the project is global in method, focused in inference, and diagnostic in its treatment of non-Asia long-distance cases.
+```
+
+> **➤ Click `+` → Image block. Upload `run4_secondary_or_limitations_figure.png`.**
+> **➤ Caption:**
+
+```
+The secondary/sensitivity figure compares mean residual cuisine similarity across spatial groupings. The Iberian/Atlantic interregional grouping has the highest mean residual in the prototype (≈0.14, n=11), exceeding even the same-subregion baseline. The figure supports the idea that residual cuisine similarity has spatial structure beyond Asia, while showing why broader non-Asia cases should remain diagnostic rather than causal.
+```
+
+> **➤ Alt text:**
+
+```
+Horizontal bar chart titled "Boundary/permeability check: residual similarity by spatial grouping." Iberian/Atlantic interregional bar at approximately 0.14 with n=11 is highest, followed by same-subregion at 0.115 with n=11. Same-region cross-subregion, East/Southeast Asia cross-subregion, and other cross-region groupings show small negative mean residuals.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+The non-Asia diagnostic case keeps the project global without overstating what the current evidence can prove.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 14 — Why Europe and Atlantic-linked material remain diagnostic, not primary
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Why Europe and Atlantic-linked material remain diagnostic, not primary
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+Europe and Atlantic-linked cuisines appear in the global screen, the bridge index, and the Iberian/Atlantic-Pacific diagnostic. They show the method surfaces long-distance residual patterns outside East/Southeast Asia. They are not treated as a second primary focused case.
+
+This is a methodological choice, not an omission. A focused case needs more than interesting residuals. It needs a coherent regional geography, enough retained labels, stable interpretation after sensitivity checks, and a visual structure that helps the map carry the argument. East/Southeast Asia meets these requirements most clearly in the current prototype.
+
+Europe/Atlantic-linked material is more exposed to interpretive risks. Some cuisine labels are broad. Some long-distance similarities may reflect platform-specific recipe vocabulary or shared generic ingredients. Without additional covariates for migration, trade, colonial history, language, or ingredient flows, the prototype should not elevate those links to the same inferential level as the primary case.
+
+This does not mean the Europe/Atlantic material is weak. The bridge-index result — where most top bridges are European, North-Atlantic, or Caribbean — is a substantive finding that deserves its own future study with covariates. In the current submission, it functions as a diagnostic comparison and a boundary on the project's claims.
+
+The hierarchy stays honest: East/Southeast Asia is the strongest focused inference case; Iberian/Atlantic-Pacific is the required non-Asia diagnostic; Europe-linked residuals are promising but not fully analyzed as a focused regional model.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+Europe/Atlantic-linked residuals are included as diagnostic signals, not as a fully modeled second primary case.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 15 — What this proves, and what it does not prove
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+What this proves, and what it does not prove
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+The project makes a spatial argument, not a causal historical argument.
+
+Strong claims. Cuisine similarity is spatially structured. The distance model shows similarity is related to geographic distance but not fully explained by it (R² ≈ 0.36). Positive residuals identify candidate culinary corridors. East/Southeast Asia is the strongest focused case. The bridge index produces a spatial insight ingredient clustering alone cannot produce; nine of its top ten cuisines are non-Asian. The Run 5 relief map makes the focused corridor more visually legible.
+
+Cautious claims. Selected residual patterns are consistent with regional adjacency, corridor plausibility, island/maritime context, or possible exchange histories. Iberian/Atlantic-Pacific residuals are useful diagnostic signals for future non-Asia work.
+
+Forbidden claims. That migration, trade, colonialism, empire, maritime routes, or terrain caused the observed similarities. That the recipe corpus represents all world cuisines. That cuisine labels are exact nation-states. That the relief map is a least-cost or causal terrain model. That Europe has been fully analyzed as a focused regional case.
+
+These limits are not weaknesses — they are what make the project defensible. The contribution is methodological and cartographic: GIS transforms a recipe corpus into a map of spatial expectations, residuals, focused cases, diagnostic comparisons, and bridge roles.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+Strong claim: spatial structure. Cautious claim: corridor hypotheses. Forbidden claim: causal proof.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 16 — Sources, methods, and reproducibility
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Sources, methods, and reproducibility
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+The project uses a cuisine-labeled recipe corpus as the food-data foundation. Recipes become cuisine-by-ingredient profiles through ingredient normalization and generic-ingredient filtering. The analysis calculates cuisine similarity, maps cuisine labels to approximate geographic anchors, computes pairwise distance, models similarity against distance, and maps residuals.
+
+The final maps draw on the project's processed cuisine-similarity outputs, distance/residual model outputs, focused East/Southeast Asia results, residual bridge-index outputs, secondary/diagnostic sensitivity summaries, and Run 5 topographic visualization. The Run 5 relief map uses documented topographic and coastal context as a visual layer, not a causal model.
+
+The workflow was developed in Python for data processing and figure generation, with ArcGIS StoryMaps as the final presentation format. The accompanying PDF report contains the full methodology, figures, limitations, and source notes.
+
+Limitations central to interpretation: the recipe corpus is not globally representative; cuisine labels are broad and cannot be treated as precise countries; ingredient normalization requires judgment; generic pantry ingredients can inflate similarity; cuisine-to-place mapping is approximate; residuals identify spatially unexpected resemblance, not causality; topographic context improves visual interpretation but does not prove terrain or maritime pathways caused the patterns.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+The PDF report is the technical companion; the StoryMap is the map-led submission narrative.
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 17 — Conclusion: what GIS changes
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Conclusion: what GIS changes
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+Culinary Corridors began with a simple question: which cuisines are similar? GIS changes that question.
+
+The project does not stop at ingredient resemblance. It asks whether resemblance follows geographic distance, where it exceeds distance-based expectation, which residuals become readable as focused corridors, and which cuisine anchors become bridge nodes in a mapped residual network.
+
+The global discovery screen shows candidate residual corridors across the prototype, scoped by what the corpus actually contains. The East/Southeast Asia case shows where those residuals become most spatially interpretable. The Run 5 relief map makes that focused corridor visually legible through terrain, coastlines, islands, and maritime space. The residual bridge index turns pairwise links into mapped roles — and those roles are mostly non-Asian, anchoring the project's regional balance. The Iberian/Atlantic-Pacific diagnostic case keeps the project global without claiming what the current evidence cannot support.
+
+The contribution is a method for making food similarity geographically explicit. Cuisine similarity is not only a cultural pattern. It is also a geographic pattern — and GIS reveals where that pattern follows distance, where it breaks distance, and where it forms corridors and bridge roles invisible from recipes alone.
+```
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+GIS changes the question from "which cuisines are similar?" to "where does similarity exceed geographic expectation?"
+```
+
+> **➤ Click `+` → Separator.**
+
+---
+
+# SECTION 18 — Technical report and backup materials
+
+> **➤ Click `+` → Heading (H2). PASTE:**
+
+```
+Technical report and backup materials
+```
+
+> **➤ Click `+` → Text block. PASTE:**
+
+```
+This StoryMap is the primary Fisher-facing narrative. A complete PDF report serves as the technical companion, containing the full investigation history, data pipeline, figure sequence, methodology, limitations, and submission notes.
+
+Use the PDF if the form requires a file upload, if a reviewer asks for technical detail, or if the StoryMap link cannot be accessed. If the form allows both, submit the StoryMap link first and include the PDF as a supporting document.
+```
+
+> **➤ (Optional) Click `+` → Button block. Set the button text to "Download technical report (PDF)" and link it to your hosted PDF URL once available.**
+
+> **➤ Click `+` → Quote block. PASTE:**
+
+```
+Recommended submission route: StoryMap link first, PDF backup second.
+```
+
+---
+
+# Final pre-submission QA (do this BEFORE you publish)
+
+Open your draft and walk through these checks. The order matters.
+
+**1. Regional balance test.** Read only the headings, image captions, and quote callouts in order. By the end, you should have heard "global", "global", "global", "focused case (East/Southeast Asia)", "focused case", "non-Asian bridge majority", "non-Asia diagnostic", "Europe diagnostic, not primary." If the headings and captions alone leave the impression of an Asia-only project, something is wrong.
+
+**2. Hero figure framing test.** Re-read Section 6 caption. It must clearly say the map's coverage reflects the corpus, not world food geography. If a reviewer could mistake the empty regions for findings, rewrite.
+
+**3. Section 11 strengthening test.** The second paragraph of Section 11 must explicitly list the top-ten bridge cuisines and state that nine of ten are non-Asian. If that paragraph was trimmed during pasting, restore it — this is the project's strongest non-Asia evidence.
+
+**4. Claim hierarchy test.** Search the document (Cmd/Ctrl-F) for the words "caused", "proved", "proves", "route", "pathway", "trade", "migration", "colonial". Every appearance must either be inside a "what this does NOT prove" framing, or inside Section 14 explaining why those claims are deferred. No accidental causal language.
+
+**5. Image display test.** View the draft on desktop. Each figure should display at full readable width. Then click "Preview" and switch to mobile preview (or open the preview link on your phone). Captions should remain readable; figures should not be clipped.
+
+**6. Figure alt text test.** For each of the six images, click the image, click the gear/edit icon, and confirm an alt-text value is set (the alt text I provided in this file). Empty alt text fails accessibility.
+
+**7. Link test.** If you've added a PDF download button (Section 18), click it from the preview to confirm it opens the right file in a new tab.
+
+**8. Incognito / logged-out test.** Once you publish, open the public StoryMap link in a private/incognito browser window. If it requires sign-in, your sharing settings are wrong. The Fisher reviewer must be able to open it without a Harvard account. Set sharing to "Everyone (public)" in the share menu.
+
+**9. Submission form test.** Confirm the Fisher submission form accepts a StoryMap URL. If it requires a PDF upload, attach the PDF report and put the StoryMap URL in the description or cover-letter field.
+
+**10. Save proof of submission.** Take a screenshot of the submitted form and save the email confirmation.
+
+---
+
+# Quick reference: section-to-figure-to-callout map
+
+| § | Section | Figure | One-line role |
+|---|---|---|---|
+| 1 | Cover | none (text-only) | Thesis |
+| 2 | Opening | none | Why mapping changes the question |
+| 3 | Research question | none | Five subquestions |
+| 4 | Why food = spatial | none | Scope and label discipline |
+| 5 | How the atlas works | none | The four-stage method |
+| 6 | Global discovery | **Hero** (`run4_hero_spatial_argument_figure`) | Discovery screen, honest about coverage |
+| 7 | Finding 1: distance | `run4_method_or_model_figure` | The R² ≈ 0.36 baseline |
+| 8 | Finding 2: residuals | none | Corridor concept, not historical route |
+| 9 | Asia focused case | `run4_primary_case_figure` | Strongest inference, methodologically selected |
+| 10 | Topographic corridor | `run5_east_se_asia_topographic_corridor_map` | Relief context |
+| 11 | Bridge scores | `run4_geospatial_insight_figure` | **9 of top 10 bridges are non-Asian** |
+| 12 | Vignettes | none | Four pair-level readings, balanced |
+| 13 | Non-Asia diagnostic | `run4_secondary_or_limitations_figure` | Iberian/Atlantic mean residual ≈ 0.14 |
+| 14 | Why not Europe primary | none | Methodological discipline |
+| 15 | What this proves | none | Strong / cautious / forbidden |
+| 16 | Sources & methods | none | Pipeline + limitations |
+| 17 | Conclusion | none | What GIS changes |
+| 18 | PDF backup | none (optional Button) | Submission route |
+
+---
+
+*End of build instructions. If the build looks right after the QA checklist, publish and submit.*

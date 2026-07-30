@@ -1,0 +1,31 @@
+path,status,decision,role,notes
+WORK.md,found,reuse,Run 3 source of truth,Current Run 3 job specification.
+docs/run2v2_amended_prototype_interpretation.md,found,reuse,Final interpretation basis,Separates strong conclusions from cautious hypotheses and forbidden claims.
+docs/run2v2_scope_lock_decision_memo.md,found,reuse,Scope discipline,Defines global discovery layer and focused cases.
+docs/run3_handoff_plan.md,found,reuse,Run 3 handoff,Contains final format recommendation and remaining risks.
+docs/fisher_project_blueprint.md,found,reuse,Fisher positioning,Provides original project framing and award-facing rationale.
+docs/award_and_winner_brief.md,found,reuse,Fisher evidence,Supports award-fit discussion and past-winner pattern analysis.
+data/processed/run2v2_residual_culinary_corridors_filtered.csv,found,reuse,Filtered residual model,Core global discovery and corridor data.
+data/processed/run2v2_focus_case_results.csv,found,reuse,Focused cases,East/Southeast Asia and Iberian/Atlantic-Pacific case outputs.
+data/processed/run2v2_cuisine_residual_bridge_scores.csv,found,reuse,Geospatial-only analysis,Core bridge-score evidence.
+data/processed/run2v2_boundary_permeability_results.csv,found,reuse,Geospatial boundary analysis,Exploratory but useful as appendix/supporting figure.
+data/processed/run2v2_path_connectivity_results.csv,found,reuse,Connectivity proxy,Use cautiously; not a true least-cost route model.
+data/processed/run2v2_cuisine_ingredient_matrix_filtered.csv,found,reuse,Sensitivity model input,Documents generic-ingredient filtering.
+data/crosswalks/run2v2_cuisine_case_subset_crosswalk.csv,found,reuse,Scope/case mapping,Provides final case roles and mapping confidence.
+data/crosswalks/run2v2_generic_ingredient_policy.csv,found,reuse,Sensitivity policy,Supports limitations and method appendix.
+data/crosswalks/cuisine_geo_crosswalk.csv,found,reuse,Coordinate crosswalk,Provides real coordinates and mapping caveats.
+data/run2v2_data_quality_audit.md,found,reuse,Data caveats,Supports limitations appendix.
+data/run2_data_access_log.md,found,reuse,Source/access log,Supports data sources appendix.
+data/raw/recipe_source_manifest.md,found,reuse,Recipe manifest,Supports source documentation.
+outputs/run2v2_filtered_distance_baseline_summary.md,found,reuse,Filtered distance model summary,Supports model narrative.
+outputs/run2v2_focus_case_summary.md,found,reuse,Focused case summary,Supports StoryMap/report results.
+outputs/run2v2_geospatial_analysis_summary.md,found,reuse,Geospatial method summary,Supports Fisher differentiation.
+outputs/run2v2_global_sensitivity_summary.md,found,reuse,Sensitivity summary,Supports global discovery caveat.
+outputs/run2v2_path_connectivity_summary.md,found,reuse,Connectivity summary,Use as exploratory support only.
+outputs/run2v2_reproducibility_log.md,found,reuse,Reproducibility baseline,Supports final manifest.
+figures/run2v2_global_residual_corridor_map_filtered.png,found,reuse as final,Global discovery figure,Copied to figures/final/final_global_discovery_figure.png.
+figures/run2_distance_decay_plot.png,found,reuse as final,Distance baseline figure,Copied to figures/final/final_distance_or_residual_model_figure.png.
+figures/run2v2_east_southeast_asia_case_map.png,found,reuse as final,Primary case figure,Copied to figures/final/final_east_southeast_asia_case_figure.png.
+figures/run2v2_residual_bridge_score_map.png,found,reuse as final,Geospatial bridge figure,Copied to figures/final/final_geospatial_bridge_or_boundary_figure.png.
+figures/run2v2_iberian_atlantic_case_map.png,found,reuse as final,Secondary/diagnostic figure,Copied to figures/final/final_secondary_or_sensitivity_figure.png.
+figures/run2v2_geospatial_method_comparison.png,found,reuse as appendix,Boundary/permeability support,Copied to figures/final/final_boundary_permeability_appendix_figure.png.

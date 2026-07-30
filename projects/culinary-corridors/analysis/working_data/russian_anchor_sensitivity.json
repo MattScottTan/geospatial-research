@@ -1,0 +1,57 @@
+{
+  "description": "Russian-anchor sensitivity: Local Morans I under Siberian centroid (61.52, 105.32) vs Moscow (55.75, 37.62), with same residual matrix.",
+  "inputs": {
+    "residual_matrix": "residual_matrix.npy",
+    "distance_matrix": "distance_matrix.npy (Siberian centroid)"
+  },
+  "method": "Inverse-distance row-standardized weights, conditional permutation (9999 perms, seed=42) of the non-Russian z-scores. Residual matrix and per-cuisine mean-residual scores are held fixed; only Russian-row distances and weights change.",
+  "siberian_centroid": {
+    "local_I": 0.1473119481352491,
+    "spatial_lag": -0.18932646148868612,
+    "z_score": -0.7780843046287655,
+    "mean_resid": -0.02497110360262705,
+    "quadrant": "LL",
+    "p_sim": 0.0814
+  },
+  "moscow_anchor": {
+    "local_I": 0.128648569319122,
+    "spatial_lag": -0.1653401418764024,
+    "z_score": -0.7780843046287655,
+    "mean_resid": -0.02497110360262705,
+    "quadrant": "LL",
+    "p_sim": 0.2447
+  },
+  "top5_partners": [
+    {
+      "cuisine": "irish",
+      "residual": 0.19293457550675197,
+      "distance_siberian_km": 5970.174553262619,
+      "distance_moscow_km": 2912.4323217656374
+    },
+    {
+      "cuisine": "mexican",
+      "residual": 0.18315861294443547,
+      "distance_siberian_km": 10223.417814285476,
+      "distance_moscow_km": 10419.69876697173
+    },
+    {
+      "cuisine": "british",
+      "residual": 0.1536435832840985,
+      "distance_siberian_km": 5614.1664952854,
+      "distance_moscow_km": 2544.023884217343
+    },
+    {
+      "cuisine": "southern_us",
+      "residual": 0.12167613126269555,
+      "distance_siberian_km": 9455.21883711508,
+      "distance_moscow_km": 8797.119466670141
+    },
+    {
+      "cuisine": "french",
+      "residual": 0.11362655556389428,
+      "distance_siberian_km": 6221.393605928581,
+      "distance_moscow_km": 2658.2146410212613
+    }
+  ],
+  "interpretation": "The LL classification is robust: Russian sits in a low-residual spatial neighborhood under either anchor placement. The Moscow anchor brings Russian closer to European partners, which can change the magnitude of Local Morans I but typically not its sign. The top-5 residual partners are unchanged (residuals are anchor-invariant)."
+}
