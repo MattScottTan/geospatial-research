@@ -1,0 +1,569 @@
+
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{ragged2e}
+\usepackage{xurl}
+\usepackage{url}
+\hypersetup{colorlinks=true, linkcolor=blue!50!black, urlcolor=blue!60!black}
+\definecolor{ink}{HTML}{203040}
+\definecolor{accent}{HTML}{0B5D7A}
+\definecolor{accent2}{HTML}{D47A2C}
+\definecolor{soft}{HTML}{EEF4F7}
+\definecolor{soft2}{HTML}{F8F3ED}
+\definecolor{warn}{HTML}{8A3B5B}
+\definecolor{good}{HTML}{1B6E5B}
+\titleformat{\section}{\Large\bfseries\color{ink}}{\thesection}{0.6em}{}
+\titleformat{\subsection}{\large\bfseries\color{ink}}{\thesubsection}{0.6em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{ink}}{\thesubsubsection}{0.6em}{}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{Final Product Map Specification}
+\rhead{AI Compute Accessibility Atlas}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setstretch{1.08}
+\newcolumntype{Y}{>{\RaggedRight\arraybackslash}X}
+\newcolumntype{P}[1]{>{\RaggedRight\arraybackslash}p{#1}}
+\begin{document}
+
+\begin{center}
+    {\LARGE \textbf{Final Product Map Specification and Working Report}}\\[0.4em]
+    {\large AI Compute Accessibility Atlas: EIP-Facing Build Plan}\\[0.8em]
+    \begin{tabularx}{0.9\textwidth}{>{\bfseries\RaggedLeft\arraybackslash}P{0.23\textwidth}Y}
+    Purpose: & Convert the current atlas into a submission-ready map package and case-study story. \\
+    Core claim: & \emph{Compute is not destiny, but it is part of the infrastructure bundle that shapes AI opportunity.} \\
+    Recommended cases: & Singapore, Seoul, Ho Chi Minh City, Lagos. \\
+    \end{tabularx}
+\end{center}
+
+\vspace{0.8em}
+\noindent\colorbox{soft}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{
+\textbf{How to use this document.} This is a production brief, not a theoretical memo. It tells you which maps to build, in what order, with which layers, how to symbolize them, what each one needs to prove, what to annotate, and what to drop if the data are weak. The aim is to keep the atlas as the quantitative backbone while adding four geospatial case studies that explain the outliers.}}
+
+\section{Decision Summary}
+
+The project is already strong enough for an EIP submission if it stays centered on a public-interest spatial question rather than overreaching on causality. The recent Harvard EIP winner pages consistently emphasize well-documented sources, logical geographic analysis, professional execution, and engaging presentation.
+The strongest final-product shape is therefore:
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.25em]
+    \item keep the atlas and spatial analysis as the quantitative backbone,
+    \item add four comparative city cases chosen from the outliers,
+    \item use the cases to surface omitted variables that the regressions cannot settle,
+    \item present the causal non-result as a sign of maturity rather than failure.
+\end{enumerate}
+
+\noindent The cases should not read like policy mini-essays attached to a map. They should remain explicitly geospatial: each case should show how the city sits inside an infrastructure bundle consisting of compute proximity, connectivity, interconnection, institutions, and where feasible, data-center market and power conditions.
+
+\subsection{Current case matrix}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{P{0.2\textwidth} P{0.14\textwidth} P{0.2\textwidth} Y}
+\toprule
+\textbf{Quadrant role} & \textbf{City} & \textbf{Current atlas signal} & \textbf{Why it belongs in the final product} \\
+\midrule
+Near compute / high AI & Singapore & 1{,}072 recent AI works; 4.1 km to nearest cloud region & ``Bundle alignment'' case: compute, cables, IX, institutions, policy, and data-center depth all line up. \\
+Near compute / low AI in current overlay & Seoul & 10 recent AI works; 1.3 km to nearest cloud region & ``Measurement caveat'' case: broad AI ecosystem is strong even though the current research overlay is weak. \\
+Far compute / high AI & Ho Chi Minh City & 373 recent AI works; 1{,}096.8 km to nearest cloud region & ``Beats the pattern'' case: universities, policy, and regional connectivity help explain performance. \\
+Far compute / low AI / priority city & Lagos & 0 recent AI works in the delivered overlay; 3{,}842.6 km to nearest cloud region & ``Stacked disadvantage'' case: distance, power, and infrastructure frictions accumulate. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent\textbf{Lock rule before final submission.} Refresh the cloud-region inventory from current AWS, Azure, and Google Cloud official lists, rerun the quadrant screen, and keep these four cities only if they still play the intended narrative roles. Provider footprints are changing quickly enough that the final case list should be locked \emph{after} the refresh, not before it.
+
+\section{Narrative Architecture for the Final Product}
+
+The final product should feel like a story with three moves:
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.35em]
+    \item \textbf{Reveal the hidden infrastructure layer.} Show that cloud compute access is geographically uneven across cities.
+    \item \textbf{Show the pattern and the exceptions.} Demonstrate that AI-linked cities are generally closer to compute, then identify the cities that overperform or underperform that pattern.
+    \item \textbf{Explain the exceptions spatially.} Use four case-study map plates to show that compute is only one part of a larger enabling bundle.
+\end{enumerate}
+
+\subsection{Recommended figure package}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{P{0.08\textwidth} P{0.23\textwidth} P{0.25\textwidth} Y}
+\toprule
+\textbf{ID} & \textbf{Figure} & \textbf{Question it answers} & \textbf{Narrative role} \\
+\midrule
+G1 & Global compute-access atlas map & Where are cities close to or far from major cloud regions? & Opening hook; makes the hidden layer visible. \\
+G2 & AI cities on the compute landscape & Are AI-linked cities sitting in the same parts of the map as compute-rich cities? & Bridges infrastructure geography to AI geography. \\
+G3 & Outlier / quadrant map & Which cities fit or defy the pattern? & Introduces the four cases and the mature claim. \\
+G4 & Regional bridge figure (SEA + Korea/Japan + West Africa insets) & What do the outlier regions look like before zooming to single-city plates? & Moves the reader from global to case scale. \\
+C1 & Singapore two-panel case plate & What does a fully aligned infrastructure bundle look like? & Positive benchmark. \\
+C2 & Seoul two-panel case plate & What happens when compute is near but the current overlay understates AI opportunity? & Measurement / exception case. \\
+C3 & Ho Chi Minh City two-panel case plate & How can a city outperform compute distance alone? & ``Beats the pattern'' case. \\
+C4 & Lagos two-panel case plate & What does stacked disadvantage look like spatially? & Public-interest / policy case. \\
+S1 & Final synthesis matrix (not a map) & What bundle components appear strongest in each city? & Closing interpretation. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\noindent You can deliver this as either a long-form PDF report or a StoryMap. The same figure logic works in both. For StoryMap, each case plate becomes a separate scroll section with synchronized map + short interpretive text.
+
+\section{Universal Cartographic Standards}
+
+\subsection{Projection and scale rules}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.25em]
+    \item \textbf{Global maps (G1--G3):} Use Robinson or Winkel Tripel for print/PDF. Avoid Mercator for the world view.
+    \item \textbf{Regional context panels (case-study Panel A):} Use an azimuthal equidistant projection centered on the case city if you want distance rings to be truthful and visually intuitive.
+    \item \textbf{Local ecosystem panels (case-study Panel B):} Use the local UTM zone or the most stable official projected CRS available for the city/metro area.
+    \item \textbf{Insets:} Allow small locator insets in geographic coordinates if they help orient the reader, but keep the main analytical panel in the projection best suited to the task.
+\end{itemize}
+
+\subsection{Core visual grammar}
+
+\begin{center}
+\begin{tabularx}{\textwidth}{P{0.24\textwidth} P{0.33\textwidth} Y}
+\toprule
+\textbf{Element} & \textbf{Recommendation} & \textbf{Why} \\
+\midrule
+Basemap & Very light land/water only; no busy road basemap on analytical maps & Keeps attention on the analytical layers and annotations. \\
+Compute-access ramp & Sequential blue-teal ramp: near = dark / saturated, far = pale / desaturated & Preserves one consistent meaning across all maps. \\
+AI city symbols & Warm orange circles sized by recent AI works & Creates a stable contrast with the compute ramp. \\
+Case-study city & Thick black outline + white halo + label in bold & Makes the focal city unmissable at all scales. \\
+Cloud regions & Provider-colored small squares or diamonds; same shape across all providers, color by provider & Keeps provider identity visible without overpowering the main message. \\
+Cable lines & Thin steel-blue lines with 30--50\% transparency & Shows connectivity without letting cables dominate the page. \\
+IXPs / interconnection nodes & Purple triangles & Distinguishes exchange points from cloud regions and universities. \\
+Universities / research institutions & White-filled squares with dark outline & Reads as ``knowledge node'' rather than ``network node.'' \\
+Data-center / facility points & Hollow hexagons or circles with dark stroke & Feels infrastructural without competing with cloud-region symbols. \\
+Power nodes (only if reliable) & Small dark-red circles / substations as tiny red crosses & Use sparingly; power should support the story, not clutter it. \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Color and classification rules}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.25em]
+    \item Use \textbf{the same compute-distance bins everywhere}. Recommended bins: 0--100 km, 100--500 km, 500--1{,}000 km, 1{,}000--2{,}000 km, 2{,}000+ km.
+    \item For the outlier / quadrant map, classify ``near'' vs ``far'' using the same threshold used in the narrative. If you refresh the atlas before final lock, update the threshold consistently in both the figure and the text.
+    \item Keep the quadrant palette fixed across the report. Recommended mapping:
+    \begin{itemize}[leftmargin=1.4em,itemsep=0.15em]
+        \item near compute / high AI = deep teal,
+        \item near compute / low AI = pale blue,
+        \item far compute / high AI = burnt orange,
+        \item far compute / low AI = plum or charcoal.
+    \end{itemize}
+\end{itemize}
+
+\subsection{Annotation rules}
+Every map should answer one sentence-length takeaway. That takeaway should appear in the caption and be echoed by one or two direct annotations on the map itself. Do not let the reader infer the point from the legend alone.
+
+\section{Source Stack and Data Priorities}
+
+\subsection{Tier system}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.25em]
+    \item \textbf{Tier 1 (authoritative / official):} provider region lists, government AI strategy pages, official university / institute pages, official IX operator pages.
+    \item \textbf{Tier 2 (industry infrastructure directories):} TeleGeography for submarine cable systems; PeeringDB for IXs, facilities, and interconnection locations.
+    \item \textbf{Tier 3 (context only):} Reuters or equivalent current reporting for power bottlenecks, new AI/data-center investment, or recent policy developments that matter but are not themselves core map geometries.
+\end{itemize}
+
+\subsection{Layer-by-layer source matrix}
+
+\begin{longtable}{P{0.18\textwidth} P{0.12\textwidth} P{0.2\textwidth} P{0.23\textwidth} P{0.2\textwidth}}
+\toprule
+\textbf{Layer} & \textbf{Geometry} & \textbf{Use in final product} & \textbf{Preferred source} & \textbf{Fallback / note} \\
+\midrule
+\endhead
+Cloud regions & Point & Backbone of atlas and case-study Panel A & AWS official region list; Azure official region list; Google Cloud official locations & Refresh before final lock; keep announced regions separate from live regions. \\
+Atlas city frame & Point & Existing quantitative backbone & Existing project output / city frame & Do not rebuild unless the whole atlas is being rerun. \\
+AI-linked city overlay & Point & G2, G3, and case selection & Existing project output / OpenAlex overlay & Make clear that this is research output, not the whole AI economy. \\
+Submarine cables & Line + landing points & Case-study Panel A, especially Singapore, Ho Chi Minh City, Lagos & TeleGeography submarine cable map & If licensing is restrictive, digitize only the major cables / landings that matter for the narrative. \\
+IXPs & Point & Panel A and Panel B for all four cases & Official IXP operator pages; PeeringDB & If several IX nodes are too dense, aggregate to one labeled exchange symbol. \\
+Facilities / data centers & Point & Panel B, mainly Seoul, Singapore, Lagos & PeeringDB facilities; official operator pages (e.g., Equinix, KINX) & Do not attempt a global facility census; map only the local nodes relevant to the case. \\
+Universities / AI institutes & Point & Panel B, especially Seoul and Ho Chi Minh City & Official university pages; existing OpenAlex institution references & Prefer a small number of clearly relevant institutions over exhaustive campus labeling. \\
+Tech districts / innovation areas & Polygon or point & Panel B, optional & Official city or university pages; manually geocoded district boundaries & Use only if the district is central to the story and easy to explain. \\
+Power nodes / energy infrastructure & Point / line & Optional support layer, mainly Lagos & Official utility / government maps if available; otherwise omit from the map and discuss in text & Do not force weak or non-comparable power layers onto every city. \\
+National AI strategy / regulation & Non-spatial sidebar + country-scale highlight & Case-study annotation / scorecard & Official government or OECD.AI policy pages & This is usually better as a text-sidecard than as a main map layer. \\
+AI jobs / patents / startups & Non-spatial chart or scorecard & Optional synthesis box & Official platforms or reliable market datasets & Add only if it materially sharpens one case. \\
+\bottomrule
+\end{longtable}
+
+\section{Backbone Atlas Map Specifications}
+
+\subsection{G1. Global compute-access atlas map}
+\textbf{Purpose.} Make the hidden infrastructure layer visible. This is the opening map.
+
+\textbf{Main question.} Which cities are close to major cloud regions, and which are far?
+
+\textbf{Extent and projection.} Global; Robinson or Winkel Tripel.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+    \item city point frame with nearest-region distance attribute,
+    \item cloud region points for AWS, Azure, and Google Cloud,
+    \item simplified coastlines and country outlines,
+    \item optional very light regional labels.
+\end{itemize}
+
+\textbf{Symbology.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+    \item Cities: color by distance bin using the fixed compute-access ramp.
+    \item Cloud regions: small provider-colored square / diamond symbols with thin halo.
+    \item Do \emph{not} size city points by population here; keep the message about compute proximity.
+\end{itemize}
+
+\textbf{Annotations.} One or two callouts only, such as a dense corridor and a sparse corridor. Avoid overlabeling.
+
+\textbf{Caption takeaway.} Compute access is not geographically flat; it is embedded in specific corridors and much thinner elsewhere.
+
+\subsection{G2. AI cities on the compute landscape}
+\textbf{Purpose.} Bridge the compute map to the AI map without yet making a causal claim.
+
+\textbf{Main question.} Are AI-linked cities concentrated in the same parts of the world as compute-rich cities?
+
+\textbf{Extent and projection.} Same as G1.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+    \item a muted city compute-access surface or distance-binned city backdrop,
+    \item AI-linked city points sized by recent AI works,
+    \item cloud region points,
+    \item locator labels for a few anchor cities only.
+\end{itemize}
+
+\textbf{Symbology.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+    \item Backdrop: keep the compute ramp, but desaturated relative to G1.
+    \item AI cities: warm orange circles sized by AI works; outline in white for readability.
+\end{itemize}
+
+\textbf{Caption takeaway.} Observed AI-linked cities tend to sit inside more compute-proximate parts of the global city system, but not all of them do.
+
+\subsection{G3. Outlier / quadrant map}
+\textbf{Purpose.} Identify the places that fit or defy the pattern and introduce the case-study logic.
+
+\textbf{Main question.} Which cities are aligned with the pattern, and which are exceptions?
+
+\textbf{Extent and projection.} Global; same projection as G1--G2.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+    \item matched AI-city subset,
+    \item quadrant classification or outlier classification,
+    \item highlighted labels for the four selected case cities,
+    \item optional priority-city marks for the far/low end.
+\end{itemize}
+
+\textbf{Symbology.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+    \item Four fixed quadrant colors.
+    \item Selected case-study cities: larger symbol + black halo.
+    \item Keep non-selected cities small and semi-transparent.
+\end{itemize}
+
+\textbf{Caption takeaway.} The overall pattern is clear, but so are the exceptions. Those exceptions are where the case studies begin.
+
+\subsection{G4. Regional bridge figure}
+\textbf{Purpose.} Move the reader from the world scale to the city scale.
+
+\textbf{Format.} Three inset maps on one page: Southeast Asia, Korea/Japan, West Africa.
+
+\textbf{Why these regions.} They contain the four case cities and show the regional systems around them.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+    \item cloud region points,
+    \item the case city,
+    \item major cable landing hubs and IXs,
+    \item a few neighboring cities that help explain the corridor.
+\end{itemize}
+
+\textbf{Caption takeaway.} These cities are not isolated points; each sits inside a wider regional network of infrastructure and institutions.
+
+\section{Case-Study Plate Template}
+
+Each of the four city cases should use the same template. Consistency matters more than squeezing in every possible layer.
+
+\subsection{Standard two-panel structure}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.25em]
+    \item \textbf{Panel A: Regional context map.} Shows the city in relation to cloud regions, cable landings, IXs, and nearby digital hubs.
+    \item \textbf{Panel B: Local enabling-ecosystem map.} Shows the city itself: interconnection nodes, major facilities, universities / AI institutes, and one optional city-specific layer if it is central to the story.
+    \item \textbf{Right-side scorecard or sidebar.} A compact qualitative matrix for compute access, connectivity, institutions, policy, data-center depth, and one city-specific note.
+\end{itemize}
+
+\subsection{Do not overload every case}
+Not every city needs every omitted variable mapped. The point is not symmetry for its own sake. The point is to surface the spatial layers that help explain \emph{that} city. For example:
+\begin{itemize}[leftmargin=1.4em,itemsep=0.25em]
+    \item Singapore needs strong cable + IX + institution mapping, but not an elaborate power layer.
+    \item Seoul needs strong institution + facility mapping and a text-side note on the limits of the research overlay.
+    \item Ho Chi Minh City needs regional corridor + institution mapping more than it needs data-center detail.
+    \item Lagos needs connectivity + facility + institution mapping, with power emphasized in the sidebar even if not strongly mapped.
+\end{itemize}
+
+\subsection{Universal sidebar fields}
+Use the same six fields in every case-study sidebar:
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.2em]
+    \item Compute access,
+    \item Connectivity,
+    \item Interconnection / facility depth,
+    \item Research institutions,
+    \item Policy / regulatory support,
+    \item One-sentence implication.
+\end{enumerate}
+
+\section{City-by-City Specifications}
+
+\subsection{C1. Singapore --- near compute / high AI}
+
+\textbf{Narrative role.} This is the positive benchmark. It shows what an aligned infrastructure bundle looks like.
+
+\textbf{The sentence the map must prove.} Singapore is not just close to hyperscaler regions; it is deeply embedded in cables, exchanges, institutions, and policy support, which helps explain why it sits at the high-access / high-AI end of the atlas.
+
+\subsubsection*{Panel A: regional context}
+\textbf{Extent.} Roughly a 1{,}500--2{,}000 km radius centered on Singapore, showing Singapore, Kuala Lumpur/Johor, Jakarta, Bangkok, and the nearest cloud regions.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.18em]
+    \item Singapore city marker,
+    \item all live AWS / Azure / GCP regions in maritime Southeast Asia,
+    \item major submarine cable systems and landing clusters touching Singapore,
+    \item SGIX or equivalent exchange point marker,
+    \item optional labels for Jakarta, Kuala Lumpur, Bangkok.
+\end{itemize}
+
+\textbf{What to emphasize.} Make Singapore look like a hub, not just a point. The map should show network density rather than only proximity.
+
+\subsubsection*{Panel B: local ecosystem}
+\textbf{Extent.} Singapore island / metro only.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.18em]
+    \item SGIX point(s),
+    \item key facility / data-center points from PeeringDB or operator pages,
+    \item NUS, NTU, and any clearly relevant AI institution/program node,
+    \item optional digital / industrial node labels if a small number can be geocoded cleanly.
+\end{itemize}
+
+\textbf{Sidebar emphasis.} National AI Strategy 2.0, very high international transmission and submarine cable capacity, and strong public AI investment.
+
+\textbf{What to avoid.} Do not clutter the local map with a full road network or every campus building.
+
+\subsection{C2. Seoul --- near compute / low AI in current overlay}
+
+\textbf{Narrative role.} This is the exception that prevents the project from sounding deterministic.
+
+\textbf{The sentence the map must prove.} Seoul is close to compute and rich in institutions and infrastructure, which suggests that the current research overlay is narrower than the broader AI economy.
+
+\subsubsection*{Panel A: regional context}
+\textbf{Extent.} Korean peninsula and nearby northeast Asian urban corridor, with Seoul centered.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.18em]
+    \item Seoul marker,
+    \item AWS Asia Pacific (Seoul) and relevant Azure / Google locations,
+    \item one or two major regional peer cities (Tokyo, Osaka, Busan),
+    \item KINX or another major Korean interconnection node marker.
+\end{itemize}
+
+\textbf{What to emphasize.} The map should show that Seoul is not a connectivity-poor or compute-poor place.
+
+\subsubsection*{Panel B: local ecosystem}
+\textbf{Extent.} Seoul metro, allowing a slightly wider reach if Pangyo / key interconnection zones matter and can be added cleanly.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.18em]
+    \item Seoul case city marker,
+    \item SNU AI Institute and one or two other clearly relevant institutions,
+    \item KINX / carrier-neutral or major facility points that demonstrate data-center depth,
+    \item optional innovation-district annotation if geocoded cleanly.
+\end{itemize}
+
+\textbf{Sidebar emphasis.} AI Basic Act, national AI computing-center push, and the point that research-output overlays can understate commercial or state-supported AI ecosystems.
+
+\textbf{What to avoid.} Do not turn this into a ``Korean AI policy'' page. The map still has to carry the argument.
+
+\subsection{C3. Ho Chi Minh City --- far compute / high AI}
+
+\textbf{Narrative role.} This is the city that beats the raw distance pattern.
+
+\textbf{The sentence the map must prove.} Ho Chi Minh City is not especially close to hyperscaler regions in the current atlas, but it is embedded in a regional connectivity and institutional corridor that helps explain why its observed AI activity is still strong.
+
+\subsubsection*{Panel A: regional context}
+\textbf{Extent.} Mainland / maritime Southeast Asia, large enough to show Ho Chi Minh City in relation to Singapore, Kuala Lumpur, Bangkok, and the nearest cloud regions after the provider refresh.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.18em]
+    \item Ho Chi Minh City marker,
+    \item live cloud regions in the surrounding region,
+    \item major cable systems / landings relevant to southern Vietnam,
+    \item VNIX-HCM or national exchange node,
+    \item one or two corridor labels (e.g., Singapore as nearest major hyperscaler hub, if still true after refresh).
+\end{itemize}
+
+\textbf{What to emphasize.} The point is not that the city is isolated. The point is that it is not locally cloud-rich in the same way as Singapore or Seoul, yet it still performs.
+
+\subsubsection*{Panel B: local ecosystem}
+\textbf{Extent.} Ho Chi Minh City metro.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.18em]
+    \item VNIX-HCM or relevant interconnection facility,
+    \item VNU-HCM / UIT and Fulbright AI Institute or equivalent clearly relevant institutions,
+    \item one optional innovation or technology district if it can be sourced cleanly,
+    \item optional local facility points if the data are reliable.
+\end{itemize}
+
+\textbf{Sidebar emphasis.} Vietnam's AI strategy, recent firm investment, and the idea that institutions and policy can offset weaker hyperscaler proximity.
+
+\textbf{What to avoid.} Do not imply that Ho Chi Minh City is disconnected. The case is about partial compensation, not absence of infrastructure.
+
+\subsection{C4. Lagos --- far compute / low AI / priority city}
+
+\textbf{Narrative role.} This is the strongest public-interest case.
+
+\textbf{The sentence the map must prove.} Lagos has real connectivity and institutional energy, but distance to hyperscaler regions and broader infrastructure frictions still stack against it.
+
+\subsubsection*{Panel A: regional context}
+\textbf{Extent.} West Africa plus the nearest external cloud hubs that matter to the city's access profile.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.18em]
+    \item Lagos marker,
+    \item nearest live cloud regions after refresh,
+    \item major submarine cable landings on the West African coast,
+    \item IXPN Lagos / major interconnection node,
+    \item optional labels for Accra, Abidjan, or Madrid / Cape Town depending on the refreshed nearest-region geography.
+\end{itemize}
+
+\textbf{What to emphasize.} Lagos is not ``off the map''; it is connected, but the connection stack is thinner and more fragile than in the positive benchmark cities.
+
+\subsubsection*{Panel B: local ecosystem}
+\textbf{Extent.} Lagos metro.
+
+\textbf{Required layers.}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.18em]
+    \item IXPN node(s),
+    \item Equinix Lagos facilities or equivalent carrier-neutral facilities,
+    \item University of Lagos AI / robotics or AI research lab,
+    \item optional cable landing or digital hub annotations if geocoded cleanly.
+\end{itemize}
+
+\textbf{Sidebar emphasis.} Nigeria's national AI strategy, persistent electricity constraints, and the distinction between entrepreneurial demand and infrastructure depth.
+
+\textbf{What to avoid.} Do not portray Lagos as empty. The point is stacked friction, not absence of digital activity.
+
+\section{Recommended Supporting Non-Map Figures}
+
+Although the main ask is map specification, two non-map figures are worth keeping because they reinforce the maps without complicating the layout.
+
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.3em]
+    \item \textbf{Distance distribution figure.} Keep the Stage 1 histogram or cumulative distribution that compares all cities to AI-linked cities.
+    \item \textbf{Case-study synthesis matrix.} A compact table showing each case city's relative strength on compute, connectivity, institutions, policy, and data-center depth.
+\end{enumerate}
+
+\noindent These should support the map argument, not replace it.
+
+\section{Production Order}
+
+Build in this order so that design and logic stay under control:
+\begin{enumerate}[leftmargin=1.4em,itemsep=0.28em]
+    \item Refresh provider region inventory and rerun case lock.
+    \item Finalize G1, G2, and G3 first; these determine whether the whole narrative still holds.
+    \item Build G4 regional bridge figure.
+    \item Build a single pilot case plate (Singapore) and lock the visual grammar.
+    \item Build the other three cases using the same template.
+    \item Add the synthesis matrix and tighten captions.
+    \item Only then polish StoryMap sequencing, typography, and interactive behavior.
+\end{enumerate}
+
+\section{Fallback Rules}
+
+\subsection{If a data layer is weak}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.25em]
+    \item If a power layer is hard to source or geocode consistently, remove it from the map and keep it in the sidebar text.
+    \item If facility points are too noisy or proprietary, use PeeringDB + one or two official operator points only.
+    \item If a case becomes less compelling after the provider refresh, replace it rather than stretching the story.
+\end{itemize}
+
+\subsection{If the map becomes too busy}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.25em]
+    \item Drop secondary labels before dropping analytical layers.
+    \item Aggregate multiple IX / facility nodes to one named symbol where appropriate.
+    \item Move policy and market explanation into the sidebar rather than forcing more symbols onto the map.
+\end{itemize}
+
+\section{What the Final Product Should Say}
+
+The final atlas should not say that cloud proximity mechanically causes AI success. It should say something more careful and more persuasive:
+
+\begin{quote}
+Modern AI depends on infrastructure that is remote to the user but still physically located. The atlas shows that this compute infrastructure is unevenly distributed across cities. The case studies then show that compute is not destiny: cities also depend on cables, exchanges, institutions, policy support, and infrastructure depth. But compute access is still one of the hidden layers that helps shape who has the easiest path into the AI economy.
+\end{quote}
+
+\section{Source Notes for Build-Out}
+
+This build plan assumes a final refresh and verification against current source pages before locking graphics. Recommended anchor pages include the following:
+
+\begin{itemize}[leftmargin=1.4em,itemsep=0.2em]
+    \item AWS Global Infrastructure regions page and AWS regions table.
+    \item Azure regions list and Azure global infrastructure pages.
+    \item Google Cloud locations page.
+    \item TeleGeography Submarine Cable Map.
+    \item PeeringDB for facilities and IXs.
+    \item Official exchange pages such as SGIX, VNIX, IXPN, and KINX.
+    \item Official policy and institution pages such as Singapore's National AI Strategy, Seoul National University AI Institute, Nigeria's National AI Strategy, and Vietnam-related national AI strategy / institutional pages.
+    \item Reuters only where it is needed for recent power or infrastructure context that is not itself the mapped geometry.
+\end{itemize}
+
+\vspace{1em}
+\noindent\colorbox{soft2}{\parbox{\dimexpr\textwidth-2\fboxsep\relax}{
+\textbf{Final practical note.} The winning move is not to map every conceivable variable. It is to map the right spatial relationships clearly enough that the reader can remember them. The atlas reveals the pattern. The four case-study plates explain the exceptions.}}
+
+\appendix
+\section{Reference URLs for Build-Out}
+
+These are starting points for the final build. Use them to refresh layers and verify the four cases before you lock graphics.
+
+\subsection{Core infrastructure and connectivity}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.15em]
+    \item AWS global infrastructure regions page: \url{https://aws.amazon.com/about-aws/global-infrastructure/regions_az/}
+    \item AWS regions table: \url{https://docs.aws.amazon.com/global-infrastructure/latest/regions/aws-regions.html}
+    \item Azure regions list: \url{https://learn.microsoft.com/en-us/azure/reliability/regions-list}
+    \item Azure global infrastructure page: \url{https://azure.microsoft.com/en-us/explore/global-infrastructure/geographies}
+    \item Google Cloud locations: \url{https://cloud.google.com/about/locations}
+    \item TeleGeography submarine cable map: \url{https://www.submarinecablemap.com/}
+    \item TeleGeography map services overview: \url{https://www2.telegeography.com/map-services}
+    \item PeeringDB: \url{https://www.peeringdb.com/}
+\end{itemize}
+
+\subsection{Exchange points and facilities}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.15em]
+    \item SGIX: \url{https://www.sgix.sg/}
+    \item IMDA page on the Singapore Internet Exchange: \url{https://www.imda.gov.sg/how-we-can-help/singapore-internet-exchange}
+    \item VNIX: \url{https://vnix.vn/en}
+    \item Vietnam National Internet Exchange page: \url{https://vnnic.vn/en/dns-vnix/vietnam-national-internet-exchange-vnix?lang=en}
+    \item IXPN: \url{https://ixp.net.ng/}
+    \item KINX data-center / interconnection page: \url{https://www.kinx.net/infrastructure/dc/?lang=en}
+    \item Equinix Lagos campus: \url{https://www.equinix.com/data-centers/europe-colocation/nigeria-colocation/lagos-data-centers}
+\end{itemize}
+
+\subsection{Policy and institution anchors for the four cases}
+\begin{itemize}[leftmargin=1.4em,itemsep=0.15em]
+    \item Singapore National AI Strategy: \url{https://www.smartnation.gov.sg/initiatives/national-ai-strategy/}
+    \item Singapore IMDA bandwidth / capacity statistics: \url{https://www.imda.gov.sg/about-imda/research-and-statistics/telecommunications/statistics-on-capacity-bandwidth-services/statistics-on-capacity-bandwidth-services-2023-2026}
+    \item Seoul National University AI Institute: \url{https://aiis.snu.ac.kr/eng/}
+    \item OECD Digital Government Review of Korea (AI section): \url{https://www.oecd.org/en/publications/digital-government-review-of-korea_9defc197-en/full-report/leveraging-ai-for-government-transformation_64eb9a1e.html}
+    \item Vietnam national AI strategy summary (OECD.AI): \url{https://oecd.ai/en/dashboards/policy-initiatives/national-strategy-on-rd-and-application-of-ai-9280}
+    \item Fulbright University Vietnam AI Institute: \url{https://fulbright.edu.vn/ai-institute/}
+    \item Nigeria National AI Strategy: \url{https://fmcide.gov.ng/initiative/nais/}
+    \item University of Lagos AI and Robotics Lab: \url{https://airol.unilag.edu.ng/}
+\end{itemize}
+
+\end{document}

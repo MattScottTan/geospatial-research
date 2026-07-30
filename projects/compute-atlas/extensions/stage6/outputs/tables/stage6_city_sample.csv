@@ -1,0 +1,27 @@
+slug,city,country,treated_city,event_year,cohort_label
+mountain_view_us,Mountain View,US,1,2009,US N. California
+san_mateo_us,San Mateo,US,1,2009,US N. California
+london_gb,London,GB,1,2016,London
+paris_fr,Paris,FR,1,2017,Paris
+villetaneuse_fr,Villetaneuse,FR,1,2017,Paris
+tokyo_jp,Tokyo,JP,1,2011,Tokyo
+kyoto_jp,Kyoto,JP,1,2018,Osaka
+ikoma_jp,Ikoma,JP,1,2018,Osaka
+seongnam_si_kr,Seongnam-si,KR,1,2016,Seoul
+hyderabad_in,Hyderabad,IN,1,2022,Hyderabad
+sangareddi_in,Sangāreddi,IN,1,2022,Hyderabad
+zurich_ch,Zurich,CH,1,2022,Zurich
+winterthur_ch,Winterthur,CH,1,2022,Zurich
+pittsburgh_us,Pittsburgh,US,0,,Never treated
+seattle_us,Seattle,US,0,,Never treated
+washington_d_c_us,Washington D.C.,US,0,,Never treated
+edinburgh_gb,Edinburgh,GB,0,,Never treated
+cambridge_gb,Cambridge,GB,0,,Never treated
+bordeaux_fr,Bordeaux,FR,0,,Never treated
+nancy_fr,Nancy,FR,0,,Never treated
+nomi_shi_jp,Nomi Shi,JP,0,,Never treated
+fukushima_jp,Fukushima,JP,0,,Never treated
+daejeon_kr,Daejeon,KR,0,,Never treated
+pune_in,Pune,IN,0,,Never treated
+bengaluru_in,Bengaluru,IN,0,,Never treated
+lausanne_ch,Lausanne,CH,0,,Never treated

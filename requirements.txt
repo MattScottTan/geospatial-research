@@ -1,0 +1,56 @@
+# Pip fallback. On Windows, prefer `conda env create -f environment.yml` —
+# geopandas / rasterio / cartopy need system GDAL, GEOS and PROJ, which conda
+# supplies and pip does not.
+#
+# Marked [used] where a module is actually imported by code in this repo;
+# everything else is the standard stack for the analyses these projects
+# describe but currently perform in ArcGIS. See docs/REPRODUCIBILITY_GAPS.md.
+
+# ---- Core ----
+numpy>=1.26                 # [used]
+pandas>=2.1                 # [used]
+scipy>=1.11                 # [used] spatial, sparse, sparse.linalg
+
+# ---- Vector / raster I-O ----
+geopandas>=0.14             # [used]
+pyogrio>=0.7                # [used] fast GPKG/GeoJSON reader
+shapely>=2.0                # [used]
+fiona>=1.9
+pyproj>=3.6
+rtree>=1.1
+rasterio>=1.3               # [used]
+
+# ---- Distance ----
+geopy>=2.4                  # geodesic great-circle distance
+
+# ---- Spatial statistics ----
+# The Moran's I and Getis-Ord Gi* in both StoryMaps were run in ArcGIS Pro.
+# These are the Python equivalents needed to bring that into the pipeline.
+libpysal>=4.9               # spatial weights (KNN, DistanceBand, Queen)
+esda>=2.5                   # Moran's I, Local Moran, Getis-Ord G/Gi*
+spreg>=1.4                  # SAR / CAR / spatial error regression
+splot>=1.1
+mapclassify>=2.6
+
+# ---- Modelling ----
+scikit-learn>=1.3           # [used] GaussianProcessRegressor + kernels
+statsmodels>=0.14           # [used]
+
+# ---- Bayesian ----
+# The StoryMap credits PyMC and GPyTorch; the committed pipeline actually uses
+# sklearn's GP and scipy.sparse. Both are listed so either path runs.
+pymc>=5.10
+arviz>=0.17
+torch>=2.1
+gpytorch>=1.11
+
+# ---- Plotting / cartography ----
+matplotlib>=3.8             # [used]
+cartopy>=0.22               # [used] culinary figure builders
+contextily>=1.5
+folium>=0.15
+
+# ---- Notebooks / utils ----
+jupyterlab>=4.0
+tabulate>=0.9               # [used]
+tqdm>=4.66

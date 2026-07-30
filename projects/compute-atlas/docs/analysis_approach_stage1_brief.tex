@@ -1,0 +1,195 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\setlength{\parskip}{0.65em}
+\setlength{\parindent}{0pt}
+\titleformat{\section}{\large\bfseries\color{black}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{black}}{\thesubsection.}{0.5em}{}
+
+\title{\textbf{AI Compute Accessibility Atlas:}\\
+\large Analysis Approach, Stage 1 EDA, Key Insights, and Main Results}
+\author{Project reference memo}
+\date{March 12, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fcolorbox{black}{gray!8}{\parbox{0.93\linewidth}{
+\textbf{Purpose of this memo.} This note is a reusable explanation of how the current project works analytically, with special emphasis on the \emph{first level of analysis}: the exploratory geospatial analysis that establishes the geography of compute access before the paper moves into clustering diagnostics and spatial regression. It is designed as a concept-and-method reference rather than as a submission-ready narrative.
+}}
+\end{center}
+
+\section{What the analysis is trying to do}
+The project asks whether proximity to large cloud-compute infrastructure appears to be part of the geography of observed AI activity. The logic is deliberately staged. Before fitting models, the project first has to make compute access visible, measurable, and comparable across cities. Only then does it make sense to ask whether cities that are farther from major cloud regions also tend to show less observed AI research activity.
+
+The analysis therefore unfolds in four layers:
+\begin{enumerate}[leftmargin=*]
+    \item build the infrastructure and city comparison layers;
+    \item run descriptive geospatial EDA to see whether compute access is uneven and whether AI-linked cities occupy a different part of that landscape;
+    \item test whether the observed AI pattern is spatially clustered;
+    \item estimate simple spatial models to check whether the negative distance-to-AI relationship survives basic controls for population and geography.
+\end{enumerate}
+
+\section{The full analysis stack in one view}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.13\linewidth} >{\raggedright\arraybackslash}p{0.32\linewidth} >{\raggedright\arraybackslash}p{0.22\linewidth} >{\raggedright\arraybackslash}p{0.25\linewidth}}
+\toprule
+\textbf{Stage} & \textbf{Question} & \textbf{Main geospatial/statistical move} & \textbf{Why it matters} \\
+\midrule
+1. Accessibility baseline & How close or far are major cities from large cloud regions? & Point layers + nearest-region great-circle distance + global mapping & Converts ``compute access'' into a measurable city-level variable. \\
+2. Comparative EDA & Are AI-linked cities systematically closer to compute than the broader city system? & Distribution comparison, weighted distance profile, descriptive scatter, thematic maps & Establishes whether there is a real descriptive gap worth modeling. \\
+3. Spatial diagnostics & Is the AI pattern spatially clustered? If so, where? & Moran's I and local Gi* & Distinguishes non-random clustering from a purely visual map impression. \\
+4. Spatial modeling & Does the distance relationship survive controls for city size and geography? & Driver regression + GP residual field; driver regression + CAR/GMRF neighbor effect & Tests whether the negative distance sign persists after basic spatial adjustment. \\
+\bottomrule
+\end{longtable}
+
+This memo focuses mainly on Stages 1 and 2, since those are the first-level exploratory analyses that prepare the ground for the later clustering and modeling work.
+
+\section{Stage 1 EDA: what it is doing and why it works}
+
+\subsection{Goal of Stage 1}
+Stage 1 is the foundational descriptive layer. Its job is to answer three questions before any regression is introduced:
+\begin{enumerate}[leftmargin=*]
+    \item Is compute access spatially uneven across the global city system?
+    \item Are AI-linked cities positioned differently from cities in general?
+    \item Is the pattern strong and consistent enough to justify deeper spatial analysis?
+\end{enumerate}
+
+This stage matters because, if compute access looked geographically flat, the rest of the paper would have very little to explain.
+
+\subsection{Data ingredients used in the EDA}
+The first-level analysis combines three core layers:
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Cloud infrastructure layer.} A point layer of named AWS, Azure, and Google Cloud regions.
+    \item \textbf{City comparison frame.} The top 8{,}000 cities in the delivered \texttt{worldcities} frame.
+    \item \textbf{Observed AI overlay.} A user-provided OpenAlex-derived city layer measuring observed AI-related works in the delivered repository filter.
+\end{itemize}
+
+The point of this setup is simple but essential: it creates a global background frame, not just a map of AI cities. That makes it possible to compare AI-linked places to the wider urban system rather than describing them in isolation.
+
+\subsection{The key constructed variable}
+The main constructed variable is \textbf{distance to the nearest cloud region}, measured in kilometers using great-circle distance. For each city, the project asks:
+\[
+\text{distance}_i = \min\{\text{distance to nearest AWS region, Azure region, or GCP region}\}.
+\]
+
+This is a deliberately simple access proxy. It is not the same thing as latency, GPU availability, service coverage, transfer cost, or legal access. Its value is that it is transparent, globally comparable, and easy to interpret on a map.
+
+\section{What each part of the Stage 1 EDA is doing}
+
+\subsection{EDA Part 1: infrastructure inventory and study frame}
+The first check is a study-design check. The project confirms that there is a usable infrastructure layer, a large background city frame, and an AI overlay that can be attached to that frame. In the current build, the atlas uses 29 AWS regions, 47 Azure regions, and 35 Google Cloud regions; the background frame contains 8{,}000 cities; the AI overlay contributes 328 matched rows, with 322 within the current 75 km match threshold and 319 unique matched city geometries for spatial diagnostics.
+
+\textbf{Why this matters.} This step verifies that the study has enough coverage to support a global comparison. Without it, later maps could be dismissed as artifacts of thin or mismatched data.
+
+\textbf{Key insight.} The project is not just mapping a handful of AI places. It has a broad enough spatial frame to ask comparative questions.
+
+\subsection{EDA Part 2: nearest-region distance for every city}
+This is the central move of Stage 1. Each city is assigned a nearest-cloud distance, turning cloud infrastructure into a measurable urban accessibility problem.
+
+\textbf{Why this matters.} It operationalizes the paper's central concept: compute accessibility. Without a comparable city-level measure, the rest of the project remains only rhetorical.
+
+\textbf{Key insight.} The geography of compute access is visibly uneven, not flat. The median city in the 8{,}000-city frame sits roughly 657 km from its nearest major cloud region, which means that close cloud access is \emph{not} the default condition across the global city system.
+
+\subsection{EDA Part 3: the global access map and smoothed distance surface}
+The next step is to make the accessibility landscape legible. The project maps city-level nearest-region distance directly, then adds a coarse global distance surface to make regional patterns easier to read.
+
+\textbf{Why this matters.} The map moves the discussion from abstract infrastructure talk to a concrete geographic pattern. The smoothed surface is a communication aid rather than a predictive model, but it makes broad regional gaps easy to grasp.
+
+\textbf{Key insight.} The strongest cloud-access corridors are concentrated in North America, Europe, and East Asia, while many other regions remain systematically farther from the main hyperscaler footprint.
+
+\subsection{EDA Part 4: the AI overlay map}
+The project then maps the observed AI works by city.
+
+\textbf{Why this matters.} Before comparing AI to compute, the paper has to show the geography of the AI overlay on its own terms.
+
+\textbf{Key insight.} The AI pattern is concentrated rather than diffuse. Many of the strongest observed AI locations sit in the same broad world regions where cloud infrastructure is dense.
+
+\subsection{EDA Part 5: the distance histogram for all cities versus AI-linked cities}
+This is the cleanest first comparative result. The project compares the distribution of nearest-cloud distance for the full 8{,}000-city frame with the corresponding distribution for matched AI cities.
+
+\textbf{Why this matters.} This is where the paper stops being only an infrastructure atlas and becomes a comparative geography of AI opportunity.
+
+\textbf{Key insight.} The AI-city distribution sits much farther to the left. The median AI city is about 237 km from its nearest cloud region, compared with 657 km for the broader city frame. Roughly 72\% of AI cities are within 500 km of a cloud region, versus about 44\% of the full city frame. That is a large descriptive gap.
+
+\subsection{EDA Part 6: the AI-weighted distance profile}
+The next descriptive check weights cities by observed AI works instead of counting all AI-linked cities equally.
+
+\textbf{Why this matters.} It asks not only where AI cities are located, but where the bulk of observed AI activity is actually concentrated.
+
+\textbf{Key insight.} Weighting by observed AI works pulls the center of gravity even closer to compute. The AI-weighted median distance is about 164 km, which suggests that the heaviest observed AI production is even more compute-proximate than simple AI-city presence already indicates.
+
+\subsection{EDA Part 7: the descriptive scatterplot}
+Finally, the project plots distance to compute against $\log(1 + \text{AI works})$.
+
+\textbf{Why this matters.} It is a raw plausibility check before the paper moves into any formal modeling.
+
+\textbf{Key insight.} The relationship is not perfectly tight, but the broad direction is consistent with the theory: high observed AI output is disproportionately concentrated among more compute-proximate cities.
+
+\section{Why the first-level EDA is analytically persuasive}
+Stage 1 works because it does not ask the reader to accept a regression result on faith. Instead, it builds the case step by step:
+\begin{enumerate}[leftmargin=*]
+    \item It shows that compute access can be measured clearly.
+    \item It shows that the resulting access landscape is geographically uneven.
+    \item It shows that AI-linked cities occupy a distinctly more compute-proximate part of that landscape.
+    \item It shows that the same pattern strengthens when AI output is used as a weight.
+    \item It shows that the raw negative relationship is visible before any model is fit.
+\end{enumerate}
+
+This sequence is what makes the later spatial diagnostics and models interpretable. The EDA is not decorative. It is the empirical foundation of the paper.
+
+\section{Key results from the current build}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.48\linewidth} >{\raggedright\arraybackslash}p{0.18\linewidth} >{\raggedright\arraybackslash}p{0.26\linewidth}}
+\toprule
+\textbf{Metric or finding} & \textbf{Current value} & \textbf{Interpretation} \\
+\midrule
+Median nearest-cloud distance for full 8{,}000-city frame & $\approx 657$ km & The average large city is not especially close to major cloud infrastructure. \\
+Median nearest-cloud distance for matched AI cities & $\approx 237$ km & AI-linked cities are substantially closer to compute than the full city frame. \\
+Share of AI cities within 500 km of a cloud region & $\approx 72\%$ & Most AI-linked cities lie in relatively compute-proximate territory. \\
+Share of all large cities within 500 km of a cloud region & $\approx 44\%$ & Compute proximity is much less common in the full city system. \\
+AI-weighted median nearest-cloud distance & $\approx 164$ km & The bulk of observed AI activity is even more compute-proximate than simple AI-city presence suggests. \\
+Moran's I for matched unique-city AI pattern & $\approx 0.066$ & The AI pattern is modestly but non-randomly clustered in space. \\
+Local hot spots / cold spots & 7 / 33 & The map is not only a story of a few superstar hubs; cold spots are more numerous and dispersed. \\
+Priority cities in current screen & 1{,}988 & Many large cities combine weak compute proximity with no observed AI works in the delivered filter. \\
+GP distance coefficient (per additional 1{,}000 km) & $\approx -0.206$ & The negative distance relationship survives a broad-regional spatial adjustment. \\
+CAR/GMRF distance coefficient (per additional 1{,}000 km) & $\approx -0.052$ & The sign remains negative under stronger local-neighbor pooling, though the effect attenuates. \\
+\bottomrule
+\end{longtable}
+
+\section{How Stage 1 connects to the later stages}
+The first-level EDA does \emph{not} prove causation. It also does not tell us whether distance is standing in for latency, service availability, regulation, price, agglomeration, institutional strength, or all of these at once. What it does do is establish that the question is worth asking. Once the EDA shows a substantial descriptive gap, the later stages become natural:
+\begin{itemize}[leftmargin=*]
+    \item spatial clustering diagnostics test whether the AI pattern is non-random;
+    \item GP and CAR/GMRF models check whether the negative distance sign persists after basic controls for population and geography;
+    \item the priority-city screen turns the atlas into a triage and policy tool.
+\end{itemize}
+
+In other words, Stage 1 does not finish the argument, but it makes the rest of the argument possible.
+
+\section{Limits to keep visible even at the EDA stage}
+A good reading of the Stage 1 results should keep four cautions in view:
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Nearest-region distance is a first-order proxy.} It captures physical proximity, not the full lived experience of cloud access.
+    \item \textbf{The AI overlay is an observed filter, not a census of all AI activity.} It is useful, but incomplete.
+    \item \textbf{The EDA is descriptive.} It shows a pattern, not a treatment effect.
+    \item \textbf{Regional patterns can mix multiple mechanisms.} Compute geography, talent concentration, institutional history, and cloud-provider placement decisions may all reinforce one another.
+\end{enumerate}
+
+\section{Bottom line}
+The first level of analysis succeeds because it turns a vague idea --- ``compute access may matter for AI opportunity'' --- into a sequence of concrete spatial comparisons. The EDA shows that compute access is geographically uneven, that AI-linked cities occupy a much more compute-proximate part of that landscape than the broader city system, and that the same directional pattern remains visible before any formal model is fit. That is why the Stage 1 analysis works: it makes the paper's later claims feel empirically grounded rather than merely speculative.
+
+\end{document}

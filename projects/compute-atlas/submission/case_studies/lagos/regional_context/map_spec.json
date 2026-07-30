@@ -1,0 +1,10 @@
+{
+  "city": "Lagos",
+  "country": "Nigeria",
+  "radius_km": 4500,
+  "rings": [
+    1000,
+    2000,
+    4000
+  ]
+}

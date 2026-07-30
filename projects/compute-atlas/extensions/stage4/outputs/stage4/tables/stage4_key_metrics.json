@@ -1,0 +1,11 @@
+{
+  "n_matched_total": 322,
+  "n_within_country": 300,
+  "countries_within_country": 41,
+  "baseline_coef": -0.21989738925762936,
+  "baseline_p": 0.2423588103456109,
+  "country_fe_coef": 0.15119892087554737,
+  "country_fe_p": 0.6832268214845048,
+  "within_country_coef": 0.08813064262518533,
+  "within_country_p": 0.7871075515603877
+}

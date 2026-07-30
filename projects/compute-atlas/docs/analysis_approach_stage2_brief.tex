@@ -1,0 +1,227 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\setlength{\parskip}{0.65em}
+\setlength{\parindent}{0pt}
+\titleformat{\section}{\large\bfseries\color{black}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{black}}{\thesubsection.}{0.5em}{}
+
+\title{\textbf{AI Compute Accessibility Atlas:}\\
+\large Analysis Approach, Stage 2 Spatial Diagnostics, Policy Screening, and Model Results}
+\author{Project reference memo}
+\date{March 12, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fcolorbox{black}{gray!8}{\parbox{0.93\linewidth}{
+\textbf{Purpose of this memo.} This note explains the \emph{second level of analysis} in the current atlas. Stage 1 established the descriptive baseline: compute access is geographically uneven, and AI-linked cities sit closer to major cloud regions than the broader 8{,}000-city comparison frame. Stage 2 asks what to do with that descriptive gap. It adds spatial diagnostics, policy-screening layers, and first-pass spatial controls so the project can move from ``there seems to be a pattern'' to ``what kind of pattern is this, where is it concentrated, and does the main sign survive basic geographic adjustment?''
+}}
+\end{center}
+
+\section{What Stage 2 is trying to accomplish}
+Stage 2 begins once the descriptive baseline is already in place. At that point, the project has shown three things: cloud infrastructure is spatially uneven, AI-linked cities are much closer to compute than the broader city system, and the raw distance-to-AI relationship is directionally negative. The next problem is interpretation.
+
+The second-stage analysis therefore asks four follow-up questions:
+\begin{enumerate}[leftmargin=*]
+    \item Is the observed AI pattern spatially clustered in a statistically meaningful way, or does the map only look clustered because a few famous hubs dominate the eye?
+    \item Where do local hot spots and cold spots appear once neighboring cities are considered together?
+    \item Which large cities combine weak compute proximity with weak observed AI activity and therefore merit closer policy attention?
+    \item After controlling for city size and for spatial dependence, does greater distance from major cloud infrastructure still line up with lower observed AI activity?
+\end{enumerate}
+
+In short, Stage 2 changes the project from a descriptive atlas into a more disciplined spatial diagnosis.
+
+\section{How Stage 2 fits into the full analysis stack}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.14\linewidth} >{\raggedright\arraybackslash}p{0.30\linewidth} >{\raggedright\arraybackslash}p{0.22\linewidth} >{\raggedright\arraybackslash}p{0.26\linewidth}}
+\toprule
+\textbf{Layer} & \textbf{Question} & \textbf{Main tool} & \textbf{Why it matters} \\
+\midrule
+Stage 1 baseline & Is compute access uneven, and are AI-linked cities descriptively closer to it? & Nearest-region distance, maps, histograms, weighted profiles, scatterplots & Establishes the descriptive pattern that motivates deeper analysis. \\
+Stage 2A diagnostics & Is the AI pattern spatially clustered at all, and where? & Global Moran's I and local Gi* & Separates non-random clustering from a merely visual impression. \\
+Stage 2B screening & Where do weak compute access and weak observed AI activity stack together? & Quadrant view and priority-city screen & Turns the atlas into a triage and communication tool. \\
+Stage 2C model check & Does the main distance relationship survive basic spatial adjustment? & Driver regression + GP residual field; driver regression + CAR/GMRF neighbor effect & Tests whether the negative distance sign persists after controlling for population and geography. \\
+\bottomrule
+\end{longtable}
+
+This memo focuses on Stages 2A, 2B, and 2C.
+
+\section{The analytical logic of Stage 2}
+Stage 2 follows a simple progression.
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Test the map.} The first move is to ask whether the spatial pattern is statistically organized.
+    \item \textbf{Locate the pattern.} The next move is to identify where clusters and gaps appear locally.
+    \item \textbf{Translate the pattern into a screening layer.} The atlas then asks which large cities look comparatively underserved in the delivered data.
+    \item \textbf{Check whether the main relationship survives controls.} Finally, the atlas asks whether the negative distance-to-AI sign remains once city size and geography are absorbed more explicitly.
+\end{enumerate}
+
+This order matters. If the project jumped directly to coefficients, the reader would not know whether the data were spatially structured in the first place. If it stopped at clustering maps, it would never answer whether the distance relationship survives basic controls. Stage 2 therefore acts as the bridge between descriptive EDA and interpretable modeling.
+
+\section{Stage 2A: spatial diagnostics}
+
+\subsection{Part 1: Global Moran's I}
+\textbf{What it is.} Moran's I is the atlas's whole-map clustering check. It asks whether cities with similar observed AI values tend to be near one another more often than random assignment would suggest.
+
+Conceptually, the statistic compares each city's value to the values of nearby cities and summarizes whether similar values co-locate. In this project, the diagnostic is run on the restored unique-city matched sample so duplicate city matches do not overwhelm the map.
+
+\textbf{Why this matters.} Stage 1 already showed that the AI overlay looks concentrated, but visual concentration alone is not enough. Moran's I tells the reader whether the pattern is spatially organized in a formal sense.
+
+\textbf{Key result.} The report describes a \emph{positive but modest} Moran statistic: Moran's I is about $0.066$ with a permutation z-score of about $2.86$. That is a middle result, and it is an important one. It says the pattern is not random, but it also says the map is not reducible to one overpowering regional gradient.
+
+\textbf{Key insight.} The atlas has a real clustering problem to take seriously, but not one so strong that every city-level difference disappears into a single broad regional story.
+
+\subsection{Part 2: Local Gi* hot spots and cold spots}
+\textbf{What it is.} Local Gi* is the neighborhood-scale clustering diagnostic. Instead of asking whether the map is clustered overall, it asks where groups of nearby cities are collectively hotter or colder than the surrounding pattern would suggest.
+
+\textbf{Why this matters.} Moran's I can tell you that clustering exists, but it cannot tell you where it lives. Gi* turns the whole-map result into local geography.
+
+\textbf{Key result.} In the restored unique-city diagnostic, the report finds 7 hot spots and 33 cold spots.
+
+\textbf{Key insight.} The strongest signal is asymmetry. The hot spots are relatively few, while the cold spots are more numerous and geographically dispersed. That matters because it changes how the atlas should be read. The project is not only a map of a few superstar hubs; it is also a map of many places where weak observed AI activity clusters locally.
+
+\subsection{Why the spatial diagnostics work together}
+The value of pairing Moran's I with local Gi* is that the two tools answer different questions. Moran's I asks whether the AI pattern is spatially organized at all. Gi* asks where local concentrations and local deficits appear. Used together, they keep the atlas from overreacting to either level of evidence.
+
+\textbf{Combined insight.} The pattern is neither random nor wholly explained by a tiny set of famous hubs. It is spatially structured in a more distributed way.
+
+\section{Stage 2B: policy screening and triage layers}
+
+\subsection{Part 3: the quadrant diagnostic}
+\textbf{What it is.} The quadrant plot is the simplest triage device in the project. It splits cities by high or low observed AI activity and high or low compute proximity.
+
+\textbf{Why this matters.} The quadrant view is not a model. It is a decision aid. It helps the reader see which cities fall into combinations such as strong activity plus strong proximity, weak activity plus weak proximity, or other mixed cases.
+
+\textbf{Key insight.} The quadrant framing makes the project legible to nontechnical audiences. It translates an abstract regression question into a simple visual diagnosis: where do weak compute access and weak observed AI activity appear together?
+
+\subsection{Part 4: the priority-city screen}
+\textbf{What it is.} The priority-city layer converts the quadrant intuition into a concrete screening rule. In the current build, a city is flagged when it has zero observed AI works in the delivered overlay and sits above the chosen threshold for compute distance.
+
+\textbf{Why this matters.} This is the point where the atlas becomes usable as a policy-facing tool. It is no longer only describing patterns; it is helping the reader decide where closer qualitative follow-up might be warranted.
+
+\textbf{Key result.} The current build flags 1{,}988 priority cities.
+
+\textbf{How to read that number.} The screen does \emph{not} say these places lack talent, capacity, or future potential. It says the delivered data shows a stacked disadvantage: weak proximity to large cloud infrastructure together with no observed AI works in the current overlay.
+
+\textbf{Key insight.} The priority layer is a triage device, not a verdict. Its value lies in making absence and distance visible together.
+
+\subsection{Part 5: regional deep dives}
+\textbf{What they are.} The project complements the global maps with regional panels for Southeast Asia, Sub-Saharan Africa, and Latin America.
+
+\textbf{Why this matters.} A global map can hide the fact that the same aggregate pattern can imply very different regional diagnoses. The regional figures make those differences easier to interpret.
+
+\textbf{Key results and insight.}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Southeast Asia} looks like a corridor-and-concentration story: Singapore is the anchor node, but nearby large cities do not automatically share the same compute-proximate AI footprint.
+    \item \textbf{Sub-Saharan Africa} looks like a compute-scarcity story: the current cloud footprint remains concentrated in South Africa while priority cities spread across West, East, and Central Africa.
+    \item \textbf{Latin America} looks more like concentration within coverage: the region has more cloud presence than Sub-Saharan Africa, but many priority cities still fall outside the strongest compute centers.
+\end{itemize}
+
+The regional panels therefore keep the atlas from making one generic global claim when the underlying policy situations differ by corridor.
+
+\section{Stage 2C: first-pass spatial models}
+
+\subsection{Why a model is needed after the maps}
+Once the atlas has shown descriptive gaps and spatial clustering, the next question is whether the core relationship remains once obvious confounders are absorbed. The report keeps this model stage intentionally simple. The goal is not to build a forecasting engine. The goal is to ask a narrow question in a disciplined way:
+
+\begin{quote}
+After controlling for city size and for spatial dependence, does greater distance from major cloud infrastructure still line up with lower observed AI activity?
+\end{quote}
+
+The response variable is the log-transformed observed AI count, and the key predictors are nearest-cloud distance and city population.
+
+\subsection{Part 6: driver regression plus Gaussian Process residual field}
+\textbf{What it is.} The GP specification treats broad residual geography as a smooth background field across space. In plain English, it is the \emph{broad-regional-gradient model}. Nearby places may resemble one another because they are embedded in a similar regional environment.
+
+A compact way to write the model is
+\[
+\log(1 + AI_i) = \beta_0 + \beta_1\,Dist_i + \beta_2\,\log(Pop_i) + g(s_i) + \varepsilon_i,
+\]
+where $g(s_i)$ is a smooth spatial effect over location $s_i$.
+
+\textbf{Why this matters.} If the negative distance pattern only reflected broad world-region differences, then the distance term would be expected to disappear once a smooth geographic background was included.
+
+\textbf{Key result.} It does not disappear. In the current build, the GP distance coefficient is about $-0.206$ per additional 1{,}000 km, while the population coefficient remains positive.
+
+\textbf{Key insight.} Even after absorbing broad residual geography, cities farther from major cloud regions still tend to show lower observed AI activity.
+
+\subsection{Part 7: driver regression plus CAR/GMRF neighbor effect}
+\textbf{What it is.} The CAR/GMRF specification replaces the smooth background field with a local-neighbor effect on a city graph. In plain English, it is the \emph{local-clustering model}. Instead of saying that residual geography is a smooth surface, it says neighboring cities may directly share unobserved local influences.
+
+A compact representation is
+\[
+\log(1 + AI_i) = \beta_0 + \beta_1\,Dist_i + \beta_2\,\log(Pop_i) + u_i + \varepsilon_i,
+\]
+where $u_i$ is a graph-based local spatial effect.
+
+\textbf{Why this matters.} This is a stricter test of whether the distance term survives once the model aggressively absorbs local geographic similarity.
+
+\textbf{Key result.} The sign remains negative, but the magnitude shrinks. In the current build, the CAR/GMRF distance coefficient is about $-0.052$ per additional 1{,}000 km.
+
+\textbf{Key insight.} The attenuation is not a failure. It tells the reader that some of the raw distance penalty overlaps with regional and local ecosystem effects. But the fact that the sign stays negative means the distance relationship is not completely explained away.
+
+\subsection{Why two spatial models are better than one}
+The GP and CAR/GMRF models play different roles. The GP version is more natural if the residual geography is smooth and broad. The CAR/GMRF version is more natural if neighboring cities share tight local dependence. When both keep the distance sign negative, the atlas can make a more robust claim than it could from a single specification.
+
+\textbf{Combined insight.} The negative distance relationship weakens under stronger spatial absorption, but it does not reverse and it does not vanish.
+
+\section{Key results from the current Stage 2 build}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.44\linewidth} >{\raggedright\arraybackslash}p{0.18\linewidth} >{\raggedright\arraybackslash}p{0.30\linewidth}}
+\toprule
+\textbf{Metric or result} & \textbf{Current value} & \textbf{Interpretation} \\
+\midrule
+Moran's I for the restored unique-city AI diagnostic & $\approx 0.066$ & The map shows modest but non-random positive spatial clustering. \\
+Permutation z-score for Moran's I & $\approx 2.86$ & The clustering signal is strong enough to treat the spatial pattern as real rather than purely visual. \\
+Local Gi* hot spots & 7 & Strong clusters of high observed AI activity exist, but they are relatively few. \\
+Local Gi* cold spots & 33 & Clusters of weak observed AI activity are more numerous and more dispersed. \\
+Priority cities flagged by the current screening rule & 1{,}988 & Many large cities combine weak compute proximity with no observed AI works in the delivered overlay. \\
+Regional reading: Southeast Asia & Corridor and concentration & Compute access is anchored strongly around Singapore rather than spreading evenly across nearby large cities. \\
+Regional reading: Sub-Saharan Africa & Scarcity & Cloud presence remains highly concentrated relative to the size of the urban field. \\
+Regional reading: Latin America & Concentration within coverage & Coverage exists, but priority cities still cluster outside the strongest compute centers. \\
+GP distance coefficient (per additional 1{,}000 km) & $\approx -0.206$ & The negative distance relationship survives a broad-regional spatial control. \\
+CAR/GMRF distance coefficient (per additional 1{,}000 km) & $\approx -0.052$ & The negative sign survives a stronger local-neighbor control, though it attenuates. \\
+Population coefficient in both models & Positive & Larger cities still tend to support more observed AI activity, as expected. \\
+\bottomrule
+\end{longtable}
+
+\section{What Stage 2 adds that Stage 1 could not}
+Stage 1 showed that the descriptive pattern was large and visually plausible. Stage 2 adds three things that Stage 1 alone could not provide.
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Formal spatial confirmation.} Moran's I and local Gi* show that the pattern is spatially structured in a measurable way.
+    \item \textbf{Policy-oriented triage.} The quadrant and priority-city layers translate the atlas into a tool for follow-up, not just description.
+    \item \textbf{A first robustness check on the main sign.} The GP and CAR/GMRF specifications show that the negative distance term survives basic controls for city size and geography.
+\end{enumerate}
+
+That is why Stage 2 is important. It does not only make the project more technical. It makes the earlier descriptive claim more credible and more useful.
+
+\section{What Stage 2 still cannot prove}
+Even with these additions, the project remains an observational atlas rather than a causal design.
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Spatial controls do not identify causal effects.} GP and CAR/GMRF terms absorb dependence, but they do not answer what would happen if a cloud region opened in a specific city.
+    \item \textbf{Distance is still a proxy.} The models do not directly observe latency, GPU availability, pricing, service-by-region differences, or regulatory frictions.
+    \item \textbf{The overlay remains incomplete.} The observed AI research layer is useful, but it is not a census of all AI opportunity or all commercial AI activity.
+    \item \textbf{The model sample is limited.} The fitted models rely on the matched overlay sample rather than the full 8{,}000-city frame.
+\end{enumerate}
+
+These limits do not erase the Stage 2 findings, but they set the correct ceiling on what the current atlas can claim.
+
+\section{Bottom line}
+The second level of analysis works because it sharpens, rather than replaces, the Stage 1 story. The spatial diagnostics show that the AI pattern is non-random but not monopolized by a tiny set of famous hubs. The screening layers turn the atlas into a usable policy and follow-up tool. The GP and CAR/GMRF models then show that the core relationship remains directionally intact after city size and two different forms of spatial dependence are taken into account.
+
+The most defensible reading is therefore a middle one: compute accessibility is a spatially robust correlate of observed AI activity, but the atlas does not yet identify a causal treatment effect. Stage 2 matters because it puts that middle claim on firmer ground.
+
+\end{document}

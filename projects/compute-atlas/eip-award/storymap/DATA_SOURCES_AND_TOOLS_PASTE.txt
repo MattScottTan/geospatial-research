@@ -1,0 +1,52 @@
+Data Sources and Tools
+
+This atlas draws on four primary data sources, processed and analyzed using ArcGIS Pro, ArcGIS Online, and Python.
+
+
+Data Sources
+
+City frame. The world's 8,000 largest cities by population are drawn from the Natural Earth populated places dataset (v5.1.1), which provides coordinates and population estimates for urban centers globally.
+
+Cloud compute regions. 60+ major deployed cloud compute regions operated by Amazon Web Services, Microsoft Azure, and Google Cloud Platform were compiled from each provider's public infrastructure documentation as of February 2026. Only live, deployed regions were included; announced or planned regions were excluded. Region coordinates were geocoded from provider documentation and verified against published availability zone maps.
+
+AI research activity. Recent AI-classified publications (2020–2025) were sourced from OpenAlex, an open scholarly metadata index. Publications were matched to cities by institutional affiliation geocoding, producing 328 AI-linked city records (319 unique cities). Works were aggregated to unique cities for spatial diagnostics.
+
+Country boundaries. Administrative boundaries are from the Natural Earth Admin 0 dataset (1:110m resolution).
+
+Basemaps. All maps use Esri's Light Gray Canvas basemap via ArcGIS Online.
+
+
+Tools and Technology
+
+ArcGIS Pro was used for spatial statistics and validation:
+
+Spatial Autocorrelation (Global Moran's I), from the Spatial Statistics toolbox, tested whether the pattern of AI research activity across cities is clustered, dispersed, or random. The test returned I = 0.066, z = 2.86, p = 0.008, confirming statistically significant positive spatial autocorrelation.
+
+Hot Spot Analysis (Getis-Ord Gi*), from the Spatial Statistics toolbox, identified where statistically significant clusters of high or low AI activity are located. The analysis classified 7 hot spots and 33 cold spots across 319 unique AI-linked cities.
+
+Cluster and Outlier Analysis (Anselin Local Moran's I), from the Spatial Statistics toolbox, provided a supplementary diagnostic classifying cities into high-high, low-low, high-low, and low-high cluster types.
+
+ArcGIS Online was used for interactive web map authoring, hosted feature layer publication, buffer analysis (500 km rings around cloud regions), and public map sharing.
+
+ArcGIS StoryMaps was used for narrative design, layout, embedded interactive maps, and public publication of the final atlas.
+
+Python was used for data processing, distance computation, statistical testing, and spatial modeling. Key packages include GeoPy for geodesic great-circle distance calculation, PySAL for spatial weights and spatial autocorrelation validation, SciPy for distributional tests (Kolmogorov-Smirnov, Mann-Whitney U, chi-square), GPyTorch for Gaussian Process spatial regression, PyMC for the conditional autoregressive (CAR/GMRF) model, and Matplotlib for static figure generation.
+
+Spatial statistics results were validated across both ArcGIS Pro and Python implementations, with consistent cluster assignments. ArcGIS Pro is cited as the primary analytical platform throughout the atlas.
+
+
+Compute Opportunity Bundle Index
+
+The bundle index scores each city on five components, combined as a weighted sum after normalizing each to a 0–100 scale:
+
+Proximity to nearest cloud region (40 percent weight): the core access measure, calculated as geodesic distance to the nearest AWS, Azure, or Google Cloud region.
+
+Provider diversity (15 percent weight): the number of distinct hyperscalers (AWS, Azure, GCP) reachable within a threshold distance.
+
+Redundancy (15 percent weight): the total number of cloud regions within reach, regardless of provider.
+
+Urban scale (15 percent weight): city population, proxying for market depth, labor availability, and demand concentration.
+
+Institutional depth (15 percent weight): presence of top-ranked AI research institutions from the OpenAlex overlay.
+
+Proximity receives the largest weight because physical distance to compute is the most direct constraint on AI workload performance. The remaining four components are weighted equally as enabling conditions that determine whether proximity translates into realized opportunity.

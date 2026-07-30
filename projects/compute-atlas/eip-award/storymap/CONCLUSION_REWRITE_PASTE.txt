@@ -1,0 +1,25 @@
+Conclusion
+
+This atlas set out to answer a specific question: once city size and geography are accounted for, do cities farther from cloud compute infrastructure show less observed AI research activity, and where are those disparities most consequential?
+
+The answer required five analytical steps, each building on the last.
+
+First, the atlas established the baseline. Across 8,000 of the world's largest cities, the median distance to the nearest major cloud compute region is 657 km. For the 328 cities matched to recent AI publications in the OpenAlex record, that median drops to 237 km. A Kolmogorov-Smirnov test, a Mann-Whitney U test, and a chi-square test all confirm this is not an artifact of sample size: AI-linked cities and the broader city system are drawn from different distributions.
+
+Second, the atlas weighted by research volume. The concentration sharpened: within 500 km of a major cloud region, 72 percent of AI-linked cities account for 81 percent of all observed AI works. The cities producing the most research sit disproportionately inside the densest compute corridors.
+
+Third, the atlas tested for spatial structure. Global Moran's I (I = 0.066, z = 2.86, p = 0.008) confirmed that the pattern is not randomly scattered: high-activity cities cluster near other high-activity cities, and low-activity cities cluster together. Getis-Ord Gi* hot spot analysis, implemented in the ArcGIS Pro Spatial Statistics toolbox, identified where those clusters fall: 7 hot spots concentrated in East and Southeast Asia, 33 cold spots across the Americas and peripheral Europe.
+
+Fourth, the atlas screened for priority cities. 1,988 cities across 125 countries sit on the wrong side of both gaps simultaneously: zero observed AI works and a distance to the nearest cloud region exceeding the upper-quartile threshold of 1,252 km. These are not marginal settlements. Lagos, Kinshasa, Khartoum, Lima, and Bogotá all appear in the top ranks: cities with millions of residents, growing digital economies, and stated ambitions in technology.
+
+Fifth, the atlas controlled for confounders. Two spatial regression specifications, a Gaussian Process model and a conditional autoregressive model, tested whether the distance-activity relationship survives controls for city population and broad geographic structure. In both models, the distance coefficient remains negative. The relationship does not disappear when city size and continental position are accounted for.
+
+These five steps move the atlas from observation to evidence. The project does not claim that relocating a city closer to a cloud region would mechanically increase its AI research output. What it establishes is that distance to compute infrastructure is one observable dimension of a broader geographic structure that corresponds with where AI activity is, and is not, currently concentrated.
+
+The four case studies tested this structure against the complexity of real cities. Singapore confirmed the pattern: proximity, provider diversity, institutions, and national strategy all reinforce one another. Dublin revealed that hosting compute is not the same as producing AI: infrastructure density without a scaled research base leaves a gap the bundle index is designed to surface. Ho Chi Minh City showed that institutional investment and regional connectivity can partially overcome distance. Lagos demonstrated what stacked disadvantage looks like: a city of enormous scale, growing demand, and active startup ecosystems, but without local hyperscaler compute, reliable power, or institutional anchors in the scholarly record.
+
+Distance alone does not tell the whole story. That is why the atlas constructed the Compute Opportunity Bundle Index: to distinguish cities where proximity translates into realized opportunity from cities where it does not.
+
+For planners, innovation agencies, and international development organizations, the atlas offers a concrete starting point. The priority-city screening layer identifies where infrastructure investment in cloud compute could address the starkest mismatches between urban demand and current supply. The bundle index identifies where proximity already exists but surrounding conditions have not yet caught up. Together, they transform this atlas from a descriptive exercise into a practical public-interest tool.
+
+Compute is not destiny. But it is not invisible either. The strongest contribution of this project is that it makes the infrastructure layer of AI opportunity visible, measurable, and geographically explicit, across 8,000 cities, three hyperscaler networks, and every region of the world.

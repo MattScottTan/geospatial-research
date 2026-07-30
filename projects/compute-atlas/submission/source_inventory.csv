@@ -1,0 +1,15 @@
+dataset,path_or_source,provider,spatial_resolution,temporal_resolution,access_type,harvard_login_required,used_for
+Global cities frame,data/raw/worldcities.csv,worldcities / SimpleMaps-derived,city point,snapshot,bundled public/local,no,"8,000-city comparison frame, population weights, case lock"
+Cloud regions AWS,data/raw/cloud_regions_aws.csv,AWS region list source in repo,region point,snapshot,bundled public/local,no,baseline compute-access layer
+Cloud regions Azure,data/raw/cloud_regions_azure.csv,Azure region list source in repo,region point,snapshot,bundled public/local,no,baseline compute-access layer
+Cloud regions GCP,data/raw/cloud_regions_gcp.csv,Google Cloud region list source in repo,region point,snapshot,bundled public/local,no,baseline compute-access layer
+Natural Earth countries,data/raw/ne_110m_admin_0_countries.geojson,Natural Earth,country polygons,static,bundled public/local,no,cartographic basemap for global figures
+OpenAlex city overlay,data/raw/openalex_ai_city_overlay.csv,OpenAlex-derived project input,city point overlay,recent snapshot,bundled local/project,no,AI activity overlay
+OpenAlex top institutions,data/raw/openalex_ai_institutions_top.csv,OpenAlex-derived project input,institution point/city anchor,recent snapshot,bundled local/project,no,"institution anchor signal, case-study support, originality layer"
+OpenAlex topics used,data/raw/openalex_topics_used.json,OpenAlex-derived project input,topic metadata,snapshot,bundled local/project,no,AI topic provenance
+Processed city metrics,outputs/tables/city_access_metrics.csv,derived in workspace,city,current rebuild,derived local,no,"core atlas outputs, originality prototypes, case lock"
+Processed AI city join,outputs/tables/city_access_ai.csv,derived in workspace,city,current rebuild,derived local,no,"core results, case lock, institutional/AI thresholds"
+Moran and hotspots,outputs/tables/morans_i_summary.csv + outputs/gis/cities_with_hotspots.geojson,derived in workspace,city / cluster,current rebuild,derived local,no,core spatial diagnostics
+Priority city layer,outputs/tables/priority_cities.csv + outputs/gis/priority_cities.geojson,derived in workspace,city,current rebuild,derived local,no,"policy screening, case study context"
+Bundle index outputs,final_submission/originality/final/*,derived in workspace from bundled city/cloud/OpenAlex layers,city,current rebuild,derived local,no,primary originality layer
+ArcGIS Online / StoryMaps publication environment,"manual online step, not local file",Harvard ArcGIS Online organization,n/a,submission-time,Harvard login/manual,yes,"hosted layers, web maps, StoryMap assembly/publication"

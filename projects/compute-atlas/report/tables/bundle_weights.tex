@@ -1,0 +1,17 @@
+\begin{table}[ht]
+\centering
+\small
+\begin{tabular}{p{0.33\textwidth}cp{0.43\textwidth}}
+\toprule
+Component & Weight & Interpretation \\ 
+\midrule
+Nearest-region proximity & 0.40 & Closer cities receive higher standardized access scores \\ 
+Provider diversity within 1,000 km & 0.15 & Cities near more providers receive higher scores \\ 
+Regional redundancy within 1,500 km & 0.15 & Cities near more total regions receive higher scores \\ 
+City scale (population) & 0.15 & Larger cities receive a modest scale boost \\ 
+Institutional anchors & 0.15 & Cities with stronger OpenAlex-linked AI institutions score higher \\ 
+\bottomrule
+\end{tabular}
+\caption{Compute Opportunity Bundle Index components and weights. All components are standardized to a 0--1 range before weighting, then combined into a 0--100 bundle score.}
+\label{tab:bundle_weights}
+\end{table}

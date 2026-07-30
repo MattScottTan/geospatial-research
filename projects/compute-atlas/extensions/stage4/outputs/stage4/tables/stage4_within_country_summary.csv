@@ -1,0 +1,2 @@
+model,n,countries,coef_dist1000_dm,se_dist1000_dm,p_dist1000_dm,coef_log_pop_dm,corr_demeaned
+Within-country demeaned OLS,300,41,0.08813064262518533,0.3263269912487923,0.7871075515603877,0.3413774746875114,-0.02615001272399682

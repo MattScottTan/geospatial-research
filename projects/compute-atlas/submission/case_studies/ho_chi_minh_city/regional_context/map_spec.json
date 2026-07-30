@@ -1,0 +1,10 @@
+{
+  "city": "Ho Chi Minh City",
+  "country": "Vietnam",
+  "radius_km": 2500,
+  "rings": [
+    500,
+    1000,
+    1500
+  ]
+}

@@ -1,0 +1,338 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{setspace}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{xcolor}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue
+}
+
+\setstretch{1.12}
+\setlength{\parskip}{0.5em}
+\setlength{\parindent}{0pt}
+
+\title{\textbf{Concept and Motivation Brief}\\
+\large AI Compute Accessibility Atlas for EIP}
+\author{Prepared as a framing memo for the project}
+\date{March 12, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This memo consolidates the conceptual framing developed in discussion so far. It is meant to lock down the motivation, central question, scope, caveats, and main areas of uncertainty before moving deeper into the empirical analysis. The central idea is that modern AI depends on physical compute infrastructure, that this infrastructure is unevenly distributed across space, and that this geographic unevenness may shape where AI opportunity becomes easiest to realize. The memo also addresses the strongest objections to this idea, especially the fact that cloud compute is accessed virtually, and explains why the current paper uses observed AI research activity as its first outcome even though research is not the whole of AI opportunity.
+\end{abstract}
+
+\section{Executive summary}
+
+This project begins from a simple but under-explored idea: \textbf{modern AI depends on physical compute infrastructure, and that infrastructure is unevenly distributed across space}. Public discussion often treats cloud compute as virtual and therefore placeless. That is only partly true. Users access cloud services remotely, but cloud providers still build \emph{physical regions} because location affects latency, data residency, compliance, service availability, resilience, and cost. AWS says its cloud spans 39 geographic regions and 123 availability zones; Azure advertises 70+ regions and 400+ datacenters; Google Cloud explicitly says customers choose regions to meet latency, availability, and sovereignty requirements.\footnote{AWS, \emph{Global Infrastructure Regions \& AZs}. \url{https://aws.amazon.com/about-aws/global-infrastructure/regions_az/}. Accessed March 12, 2026.}\footnote{Microsoft Azure, \emph{Azure global infrastructure}. \url{https://azure.microsoft.com/en-us/explore/global-infrastructure}. Accessed March 12, 2026.}\footnote{Google Cloud, \emph{Global Locations - Regions \& Zones}. \url{https://cloud.google.com/about/locations}. Accessed March 12, 2026.}
+
+The project therefore asks whether \textbf{compute proximity is part of the geography of AI opportunity}. In its current form, the paper studies one tractable outcome --- observed AI research activity --- and asks whether cities farther from major cloud regions tend to show less of that activity, even after accounting for city size and broad spatial dependence.
+
+The project matters because AI is increasingly an infrastructure story, not only a talent story. Microsoft said in January 2025 that it planned to invest about \$80 billion in AI-enabled datacenters in fiscal 2025. Synergy Research reported that AWS, Microsoft, and Google together accounted for 63\% of enterprise cloud infrastructure spending in Q3 2025, with the market reaching \$107 billion for the quarter. The International Energy Agency projects that data-center electricity consumption could rise to around 945 TWh by 2030, with AI as a major driver.\footnote{Reuters, \emph{Microsoft plans to invest \$80 billion on AI-enabled data centers in fiscal 2025}, January 3, 2025. \url{https://www.reuters.com/technology/artificial-intelligence/microsoft-plans-spend-80-bln-ai-enabled-data-centers-fiscal-2025-01-03/}.}\footnote{Synergy Research Group, \emph{Cloud Market Share Trends - Big Three Together Hold 63\%}, November 19, 2025. \url{https://www.srgresearch.com/articles/cloud-market-share-trends-big-three-together-hold-63-while-oracle-and-the-neoclouds-inch-higher}.}\footnote{International Energy Agency, \emph{Energy and AI - Executive summary}. \url{https://www.iea.org/reports/energy-and-ai/executive-summary}. Accessed March 12, 2026.}
+
+A concise public-facing description of the project is:
+
+\begin{quote}
+\textbf{This project maps a hidden layer of digital inequality: access to the cloud infrastructure that underpins modern AI. It shows where compute is concentrated, where it is distant, and where those gaps appear to align with weaker observed AI activity.}
+\end{quote}
+
+\section{Why this question matters}
+
+\subsection{AI is increasingly an infrastructure story}
+
+AI is often described in terms of researchers, firms, models, labs, and venture capital. That framing misses a crucial enabling layer: large-scale cloud infrastructure. Training and serving advanced AI systems requires datacenters, high-end chips, networking, cooling, and electricity. The scale of current investment is one reason this is no longer a side issue. Microsoft's planned \$80 billion fiscal-2025 datacenter spend is not a small IT upgrade; it is evidence that AI capability is being built on top of physical infrastructure at extraordinary scale.\footnote{Reuters, \emph{Microsoft plans to invest \$80 billion on AI-enabled data centers in fiscal 2025}, January 3, 2025.}
+
+The same point appears in market structure. Synergy's Q3 2025 figures show that three providers --- AWS, Microsoft, and Google --- together controlled 63\% of enterprise cloud infrastructure spending. That means a large share of the compute stack used by the modern AI economy runs through a small set of firms with highly uneven physical footprints.\footnote{Synergy Research Group, \emph{Cloud Market Share Trends - Big Three Together Hold 63\%}, November 19, 2025.}
+
+\subsection{The infrastructure is geographically uneven}
+
+Cloud providers do not build uniformly across space. They build where there is sufficient demand, electricity, land, connectivity, regulatory feasibility, and commercial value. Their own documentation makes this spatially explicit. Google says customers choose regions to meet latency, availability, and sovereignty requirements. Azure says geographies help keep business-critical data and apps nearby while satisfying data residency and compliance needs. AWS organizes the cloud through named geographic regions and availability zones.\footnote{Google Cloud, \emph{Global Locations - Regions \& Zones}.}\footnote{Microsoft Azure, \emph{Choose the Right Azure Region for You}. \url{https://azure.microsoft.com/en-us/explore/global-infrastructure/geographies}. Accessed March 12, 2026.}\footnote{AWS, \emph{Global Infrastructure Regions \& AZs}.}
+
+This means there is a real geographic question here. Even if cloud services are remotely accessible, some cities are still much better positioned than others relative to the infrastructure fabric on which advanced AI depends.
+
+\subsection{The public-interest stakes are large}
+
+This question matters for at least four reasons.
+
+\textbf{First, economic opportunity.} If compute access is one input into AI participation, then cities farther from major cloud infrastructure may face extra friction in building research ecosystems, deploying products, or attracting adjacent investment.
+
+\textbf{Second, infrastructure planning.} AI datacenters now matter for electricity demand, land use, and grid strategy. The International Energy Agency's 2030 electricity projections underscore that this is an energy and planning issue, not only a software issue.\footnote{International Energy Agency, \emph{Energy and AI - Executive summary}.}
+
+\textbf{Third, digital inequality.} The project reframes AI inequality as partly an infrastructure question. Instead of only asking which places have talent or venture capital, it asks whether some places are structurally disadvantaged by their position relative to compute.
+
+\textbf{Fourth, strategic policy.} Recent news makes clear that governments increasingly view compute infrastructure as strategic national capacity. Reuters reported on March 10, 2026 that France was explicitly linking nuclear power exports to the ability to support AI datacenters. Reuters also reported that AWS said it would invest more than \$5.3 billion in a Saudi Arabia region, tying cloud and AI infrastructure to national hub ambitions.\footnote{Reuters, \emph{France to harness nuclear power for AI data centres, says Macron}, March 10, 2026. \url{https://www.reuters.com/business/energy/france-harness-nuclear-power-ai-data-centres-says-macron-2026-03-10/}.}\footnote{Reuters, \emph{Amazon's AWS to launch Saudi Arabia data centers, invest over \$5.3 billion}, March 4, 2024. \url{https://www.reuters.com/technology/amazons-aws-launch-saudi-arabia-data-centers-invest-over-53-bln-2024-03-04/}.}
+
+\section{The key conceptual challenge: ``But isn't compute virtual?''}
+
+Yes --- from the user's point of view, cloud compute is virtual. A researcher or startup in Singapore can absolutely use compute hosted in Brazil, the United States, or elsewhere. Physical presence next to the server is not required.
+
+But that does \emph{not} mean compute is geography-free.
+
+The better way to state the project's premise is:
+
+\begin{quote}
+\textbf{Cloud compute is virtual in how it is consumed, but physical in how it is provisioned.}
+\end{quote}
+
+That distinction matters because the physical location of infrastructure still affects:
+
+\begin{itemize}[leftmargin=*]
+  \item latency,
+  \item data residency and compliance,
+  \item which services or machine types are available in a region,
+  \item transfer costs, and
+  \item resilience and regional redundancy.
+\end{itemize}
+
+So the project should \textbf{not} claim that cities far from cloud regions cannot do AI. That would be too strong. The defensible claim is narrower and better:
+
+\begin{quote}
+\textbf{Distance to compute should be read as a proxy for access friction, not a proxy for absolute access.}
+\end{quote}
+
+This is an important conceptual guardrail. It lets the project acknowledge the virtual nature of cloud use while still arguing that physical geography may shape speed, cost, governance, reliability, and ecosystem advantage.
+
+\section{The central question}
+
+The paper's central question is:
+
+\begin{quote}
+\textbf{Once we account for city size and for the fact that nearby places often resemble one another, do cities that are farther from major cloud regions tend to show less observed AI research activity?}
+\end{quote}
+
+A more policy-facing version of the same question is:
+
+\begin{quote}
+\textbf{Which large cities appear mismatched --- big enough to matter, but still relatively far from major compute infrastructure and weak in the delivered AI activity overlay?}
+\end{quote}
+
+This is the right core question because it is both substantive and spatially appropriate. It asks whether compute accessibility belongs in the explanation of AI concentration, and it turns that hypothesis into a map-based diagnostic rather than a purely abstract debate.
+
+\section{Why the answer is non-obvious}
+
+This question is worth asking precisely because the answer is not obvious from first principles.
+
+\subsection{Cloud is remotely accessible}
+
+The simplest objection is the strongest one: if cloud compute can be accessed from anywhere, then maybe physical proximity does not matter much at all.
+
+\subsection{Many other factors shape AI geography}
+
+AI activity is clearly influenced by talent, universities, firms, venture capital, language, regulation, industrial policy, and existing tech ecosystems. It is plausible that these forces dominate the story, leaving cloud proximity with little independent role.
+
+\subsection{Cloud infrastructure is not randomly placed}
+
+Hyperscalers tend to build where demand, power, connectivity, and institutions are already favorable. Proximity to compute may therefore simply correlate with being an already advantaged place. That makes causal interpretation difficult.
+
+\subsection{Not all AI tasks depend on location in the same way}
+
+Some AI activity can tolerate remote compute with limited friction. Other activity --- data-intensive training, regulated deployment, low-latency inference, or public-sector applications with strict residency constraints --- may be much more sensitive to where the infrastructure sits.
+
+\subsection{The current outcome is a proxy, not a full census}
+
+The paper does not measure all of ``AI opportunity.'' It measures a specific observed outcome: AI research activity in the delivered overlay. That means the result is informative, but only about one slice of a much broader ecosystem.
+
+The question is therefore non-obvious because there are strong arguments on both sides: one side says cloud is virtual, so geography should matter less than people think; the other says AI depends on real infrastructure, so geography may still shape who gets the easiest path.
+
+\section{Why the current paper uses AI research as its outcome}
+
+\subsection{The pragmatic reason}
+
+The project uses AI research output because it is currently the \textbf{cleanest globally comparable city-level signal} available in the delivered repository. OpenAlex catalogs 474 million scholarly works and links them to authors, institutions, funders, and more. That makes research output geocodable, timestamped, topic-filterable, and cross-nationally comparable in a way that many other AI indicators are not.\footnote{OpenAlex, \emph{The open catalog to the global research system}. \url{https://openalex.org/}. Accessed March 12, 2026.}
+
+Put simply:
+
+\begin{quote}
+\textbf{AI research is not used because it is the only important outcome. It is used because it is the most measurable global city-level outcome in the current build.}
+\end{quote}
+
+\subsection{What research output captures well}
+
+Research output is a reasonable proxy for:
+
+\begin{itemize}[leftmargin=*]
+  \item knowledge production,
+  \item visible institutional participation,
+  \item scientific capacity, and
+  \item city-level presence in the formal research ecosystem.
+\end{itemize}
+
+If the question is ``where is codified, institutionally visible AI-related knowledge production occurring?'', research is a sensible first measure.
+
+\subsection{What research output misses}
+
+Research output is not a complete measure of AI opportunity. It misses or underweights:
+
+\begin{itemize}[leftmargin=*]
+  \item private frontier model development,
+  \item commercial deployment,
+  \item enterprise adoption,
+  \item startup formation,
+  \item labor-market demand, and
+  \item internal or proprietary AI use.
+\end{itemize}
+
+This matters because current AI is increasingly shaped by industry. Stanford's 2025 AI Index reports that nearly 90\% of notable AI models in 2024 came from industry, even while academia remained the leading source of highly cited AI research.\footnote{Stanford HAI, \emph{The 2025 AI Index Report}. \url{https://hai.stanford.edu/ai-index/2025-ai-index-report}. Accessed March 12, 2026.}
+
+The right interpretation is therefore:
+
+\begin{quote}
+\textbf{Research output should be treated as a first-layer indicator of AI opportunity, not as the whole concept itself.}
+\end{quote}
+
+\section{Other meaningful indicators of AI opportunity}
+
+If the long-run goal is to measure ``AI opportunity'' rather than only ``AI research,'' then several additional layers are meaningful.
+
+\subsection{Patents}
+
+Patents capture commercially oriented inventive activity and IP positioning. WIPO reports that generative-AI patent families rose from 733 in 2014 to more than 14,000 in 2023, while scientific publications rose from 116 to more than 34,000 over the same period. Patents and publications both matter, but they capture different margins of AI development.\footnote{WIPO, \emph{Patent Landscape Report: Generative Artificial Intelligence}. \url{https://www.wipo.int/en/web/patent-analytics/generative-ai}.}
+
+\subsection{Notable-model production}
+
+This tracks which institutions are building frontier systems. It is especially important now that industry dominates notable-model creation.
+
+\subsection{Business adoption}
+
+This asks where AI is actually being used inside firms and workflows. Stanford's 2025 AI Index reports that 78\% of organizations globally said they were using AI in 2024, up from 55\% in 2023.\footnote{Stanford HAI, \emph{The 2025 AI Index Report}.}
+
+\subsection{Labor-market signals}
+
+AI job postings and skills demand can reveal where firms are actually hiring for AI capability, which may differ from where papers are published.
+
+\subsection{Startups and investment}
+
+This captures entrepreneurial ecosystem strength and commercialization potential.
+
+\subsection{Direct compute consumption}
+
+The ideal but hardest-to-obtain indicator would be actual compute use, cloud spend, GPU consumption, or allocation. That would move closest to the mechanism the paper is trying to study.
+
+The core lesson is straightforward:
+
+\begin{quote}
+\textbf{Research output is a good first indicator, but not the only meaningful one.}
+\end{quote}
+
+\section{What the project can claim --- and what it should not claim}
+
+\subsection{Defensible claims}
+
+The project can credibly claim that:
+
+\begin{enumerate}[leftmargin=*]
+  \item cloud compute infrastructure is physically distributed and spatially uneven;
+  \item observed AI research activity in the delivered overlay is more concentrated near major cloud regions than the broader city system is;
+  \item that negative distance-to-AI pattern survives simple controls for population and broad spatial dependence; and
+  \item the atlas is useful as a screening and communication tool for identifying places where weak compute proximity and weak observed AI activity appear together.
+\end{enumerate}
+
+\subsection{Claims to avoid}
+
+The project should avoid claiming that:
+
+\begin{enumerate}[leftmargin=*]
+  \item opening a cloud region would automatically create an AI hub;
+  \item cities far from cloud regions cannot participate in AI;
+  \item the current overlay is a complete census of global AI activity; or
+  \item distance to the nearest cloud region is a complete measure of compute access.
+\end{enumerate}
+
+Those stronger claims are not supported by the current design.
+
+\section{Why this is a strong EIP framing}
+
+The best selling point is not simply that the project uses spatial methods. It is that it identifies the \textbf{right spatial question}. The clearest way to state the contribution is:
+
+\begin{quote}
+\textbf{It makes an invisible bottleneck in the AI economy visible on a map.}
+\end{quote}
+
+That is compelling for EIP because it combines:
+
+\begin{itemize}[leftmargin=*]
+  \item a timely public problem,
+  \item a genuinely geographic insight,
+  \item a clear visual product, and
+  \item a practical screening use case.
+\end{itemize}
+
+Framed well, this is not merely a technical note about distances to cloud regions. It is a \textbf{public-interest infrastructure atlas of AI opportunity}. That is the formulation most likely to make the project feel distinctive, relevant, and spatially insightful.
+
+\section{Main uncertainties that should remain visible}
+
+Before deeper analysis, the project should keep several uncertainties in view.
+
+\subsection{Outcome uncertainty}
+
+The OpenAlex-derived AI overlay is useful, but it is still a filtered research layer rather than a complete measure of all AI activity.
+
+\subsection{Mechanism uncertainty}
+
+Distance to a cloud region is only a proxy. It does not directly observe latency, pricing, capacity, service availability, or cloud-adoption behavior.
+
+\subsection{Causal uncertainty}
+
+The current study is observational. It can show robust spatial association, but it cannot by itself identify the causal effect of cloud-region proximity.
+
+\subsection{Interpretation uncertainty}
+
+A flagged ``AI desert'' may reflect weak compute access, but it may also reflect other missing ingredients such as institutions, firms, talent pipelines, or a mismatch between research-based outcomes and more commercial forms of AI activity.
+
+These limitations do not weaken the project if they are stated clearly. They sharpen what the atlas is actually for: not causal proof, but \textbf{spatial diagnosis and public-interest screening}.
+
+\section{Recommended framing for the introduction}
+
+A concise opening paragraph for the project could read as follows:
+
+\begin{quote}
+AI is often discussed as a story about firms, models, and talent. It is also a story about infrastructure. Training and deploying modern AI systems depends on cloud regions, datacenters, chips, power, and network capacity, and those assets are not spread evenly across space. This project asks whether that uneven physical geography belongs in the explanation of why AI opportunity appears concentrated in some cities and thinner in others. Rather than treating cloud compute as invisible background plumbing, the atlas treats it as a measurable part of the geography of AI.
+\end{quote}
+
+A concise statement of the paper's contribution could read:
+
+\begin{quote}
+This paper does not prove that opening a cloud region would create an AI hub. It does show that compute accessibility is a robust spatial correlate of observed AI research activity, and that some cities appear to face a stacked disadvantage of size, weak compute proximity, and weak observed AI presence in the delivered filter.
+\end{quote}
+
+\section{What should happen next}
+
+Once the framing is settled, the next stage of analysis should focus on three things:
+
+\begin{enumerate}[leftmargin=*]
+  \item strengthening the empirical presentation of the current result without overstating causality;
+  \item making the outcome and matching logic as transparent as possible; and
+  \item deciding whether the project remains a research-output atlas or expands into a broader multi-indicator measure of AI opportunity.
+\end{enumerate}
+
+The point of this memo is to make sure the conceptual foundation is locked down before that next stage begins.
+
+\section*{References}
+
+\begin{itemize}[leftmargin=*]
+  \item AWS. \emph{Global Infrastructure Regions \& AZs}. \url{https://aws.amazon.com/about-aws/global-infrastructure/regions_az/}. Accessed March 12, 2026.
+  \item Microsoft Azure. \emph{Azure global infrastructure}. \url{https://azure.microsoft.com/en-us/explore/global-infrastructure}. Accessed March 12, 2026.
+  \item Microsoft Azure. \emph{Choose the Right Azure Region for You}. \url{https://azure.microsoft.com/en-us/explore/global-infrastructure/geographies}. Accessed March 12, 2026.
+  \item Google Cloud. \emph{Global Locations - Regions \& Zones}. \url{https://cloud.google.com/about/locations}. Accessed March 12, 2026.
+  \item OpenAlex. \emph{The open catalog to the global research system}. \url{https://openalex.org/}. Accessed March 12, 2026.
+  \item Stanford HAI. \emph{The 2025 AI Index Report}. \url{https://hai.stanford.edu/ai-index/2025-ai-index-report}. Accessed March 12, 2026.
+  \item Synergy Research Group. \emph{Cloud Market Share Trends - Big Three Together Hold 63\%}. November 19, 2025. \url{https://www.srgresearch.com/articles/cloud-market-share-trends-big-three-together-hold-63-while-oracle-and-the-neoclouds-inch-higher}.
+  \item Reuters. \emph{Microsoft plans to invest \$80 billion on AI-enabled data centers in fiscal 2025}. January 3, 2025. \url{https://www.reuters.com/technology/artificial-intelligence/microsoft-plans-spend-80-bln-ai-enabled-data-centers-fiscal-2025-01-03/}.
+  \item Reuters. \emph{France to harness nuclear power for AI data centres, says Macron}. March 10, 2026. \url{https://www.reuters.com/business/energy/france-harness-nuclear-power-ai-data-centres-says-macron-2026-03-10/}.
+  \item Reuters. \emph{Amazon's AWS to launch Saudi Arabia data centers, invest over \$5.3 billion}. March 4, 2024. \url{https://www.reuters.com/technology/amazons-aws-launch-saudi-arabia-data-centers-invest-over-53-bln-2024-03-04/}.
+  \item International Energy Agency. \emph{Energy and AI - Executive summary}. \url{https://www.iea.org/reports/energy-and-ai/executive-summary}. Accessed March 12, 2026.
+  \item WIPO. \emph{Patent Landscape Report: Generative Artificial Intelligence}. \url{https://www.wipo.int/en/web/patent-analytics/generative-ai}.
+\end{itemize}
+
+\end{document}

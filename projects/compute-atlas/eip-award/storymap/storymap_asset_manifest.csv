@@ -1,0 +1,24 @@
+asset_id,story_section,asset_type,source_path,intended_use,agol_upload_required,harvard_login_required,notes
+layer_ai_access_cities,1 Hook / 4 How the atlas works,hosted layer,outputs/gis/ai_access_cities.geojson,upload to AGOL as ai_access_cities,yes,yes,Primary global compute-access city layer
+layer_hotspots,5 What the atlas found,hosted layer,outputs/gis/cities_with_hotspots.geojson,upload to AGOL as cities_with_hotspots,yes,yes,Hot spot / cold spot layer
+layer_priority,5 What the atlas found,hosted layer,outputs/gis/priority_cities.geojson,upload to AGOL as priority_cities,yes,yes,Priority city screening layer
+layer_cloud_regions,1 Hook / 4 How the atlas works,hosted layer,data/processed/cloud_regions.gpkg,upload to AGOL as cloud_regions,yes,yes,AWS/Azure/GCP region reference layer
+fig_access_map,1 Hook,static image,outputs/figures/fig1_access_map.png,StoryMap fallback or report reuse,no,no,Global compute access map
+fig_ai_map,2 Why this matters,static image,outputs/figures/fig2_ai_map.png,Embedded image,no,no,AI overlay map
+fig_hist,5 What the atlas found,static image,outputs/figures/fig7_distance_hist.png,Result slide,no,no,Distance histogram
+fig_weighted,5 What the atlas found,static image,outputs/figures/fig8_ai_weighted_distance.png,Result slide,no,no,Weighted AI distance figure
+fig_hotspots,5 What the atlas found,static image,outputs/figures/fig11_hotspot_map.png,Result slide / fallback,no,no,Hotspot map
+fig_priority,5 What the atlas found / 8 What this means,static image,outputs/figures/fig12_priority_cities_map.png,Result slide / synthesis reuse,no,no,Priority city map
+fig_coef_compare,4 How the atlas works / 5 results follow-up,static image,outputs/figures/fig5_coef_compare.png,Methods or compact model check,no,no,Coefficient comparison
+fig_quadrants,8 What this means,static image,outputs/figures/fig3_quadrants.png,Interpretive synthesis image,no,no,Quadrant view
+fig_bundle_map,6 Beyond distance,static image,final_submission/originality/final/fig_bundle_index_map.png,Originality section hero figure,no,no,Bundle index map
+fig_bundle_vs_distance,6 Beyond distance,static image,final_submission/originality/final/fig_bundle_vs_distance.png,Originality comparison figure,no,no,Bundle vs distance comparison
+fig_bundle_top_cities,6 Beyond distance,static image,final_submission/originality/final/fig_bundle_top_cities.png,Originality ranking figure,no,no,Top bundle cities
+fig_singapore_regional,7 Singapore,static image,final_submission/case_studies/singapore/regional_context/singapore_regional_context.png,Case-study module image,no,no,Singapore regional context
+fig_singapore_local,7 Singapore,static image,final_submission/case_studies/singapore/local_ecosystem/singapore_local_ecosystem.png,Case-study module image,no,no,Singapore local ecosystem
+fig_seoul_regional,7 Seoul,static image,final_submission/case_studies/seoul/regional_context/seoul_regional_context.png,Case-study module image,no,no,Seoul regional context
+fig_seoul_local,7 Seoul,static image,final_submission/case_studies/seoul/local_ecosystem/seoul_local_ecosystem.png,Case-study module image,no,no,Seoul local ecosystem
+fig_hcmc_regional,7 Ho Chi Minh City,static image,final_submission/case_studies/ho_chi_minh_city/regional_context/ho_chi_minh_city_regional_context.png,Case-study module image,no,no,Ho Chi Minh City regional context
+fig_hcmc_local,7 Ho Chi Minh City,static image,final_submission/case_studies/ho_chi_minh_city/local_ecosystem/ho_chi_minh_city_local_ecosystem.png,Case-study module image,no,no,Ho Chi Minh City local ecosystem
+fig_lagos_regional,7 Lagos,static image,final_submission/case_studies/lagos/regional_context/lagos_regional_context.png,Case-study module image,no,no,Lagos regional context
+fig_lagos_local,7 Lagos,static image,final_submission/case_studies/lagos/local_ecosystem/lagos_local_ecosystem.png,Case-study module image,no,no,Lagos local ecosystem

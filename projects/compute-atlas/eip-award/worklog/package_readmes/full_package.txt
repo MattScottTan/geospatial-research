@@ -1,0 +1,81 @@
+CLOUDY WITH A CHANCE OF COMPUTE — Full Project Package
+======================================================
+
+EIP Student of the Year + Fisher Prize Submission
+Matthew Scott Tan, Harvard University
+StoryMap: https://storymaps.arcgis.com/stories/744a1c433d554cef8b3861d72836fdd2
+
+
+FOLDER CONTENTS
+---------------
+
+01_StoryMap_PDF/
+  Cloudy_with_a_Chance_of_Compute.pdf   Current StoryMap print export (22 pages)
+
+02_Paste_Ready_Text/
+  DATA_SOURCES_AND_TOOLS_PASTE.txt      Data sources + tools section (copy into StoryMap)
+  CONCLUSION_REWRITE_PASTE.txt          Rewritten conclusion (replace pages 21-22)
+  SOURCES_CREDITS_TOOLS.md              Full closing section: data table, tools, bibliography [1]-[31],
+                                        open science sidebar, acknowledgments template, author bio template,
+                                        citation format
+
+03_Strategy_and_Planning/
+  AWARD_PLAYBOOK.md                     Weighted rubric, 35-item checklist, 10 templates, 7-map kit,
+                                        15 failure modes — all cross-referenced to past winners
+  WINNER_MATRIX.md                      18 EIP + Fisher winners inventoried, 6 full feature extractions,
+                                        official + implicit judging criteria captured
+  SUBMISSION_GAP_ANALYSIS.md            Rubric scorecard (3.95/5.00), 8 specific gaps identified,
+                                        prioritized task list
+  CONTINUATION_WORK.md                  Full project state: completed revisions, verified numbers,
+                                        remaining work, key decisions
+  REVISION_CHECKLIST.md                 Section-by-section editing guide with 11 section checklists
+
+04_ArcGIS_Instructions/
+  HERO_MAP_INSTRUCTIONS.md              Click-by-click for styling the hero map in ArcGIS Online
+                                        (color ramp, provider symbols, legend, 500km buffers)
+  SPATIAL_STATS_ARCGIS_INSTRUCTIONS.md  Click-by-click for Moran's I, Gi*, Optimized Hot Spot,
+                                        and LISA in ArcGIS Pro
+
+
+REMAINING TASKS (priority order)
+--------------------------------
+
+SUBMISSION-CRITICAL:
+  [ ] Add author bio + professional headshot to StoryMap
+  [ ] Paste DATA_SOURCES_AND_TOOLS section into StoryMap
+  [ ] Paste rewritten CONCLUSION into StoryMap
+  [ ] Embed 2 interactive web maps (global accessibility + priority cities)
+  [ ] Run Moran's I and Gi* in ArcGIS Pro (see 04_ArcGIS_Instructions)
+  [ ] Fix Lagos map "???" artifact
+  [ ] Test StoryMap in incognito browser + mobile
+
+HIGH-VALUE REVISIONS:
+  [ ] Trim four city case studies by ~30%
+  [ ] Fix/replace Local Ecosystem lat/lon charts
+  [ ] Apply custom StoryMap theme
+  [ ] Add novelty callout box
+
+STRONG UPGRADES:
+  [ ] Publish code to GitHub, add open science link
+  [ ] Add 500km buffer rings to hero map
+  [ ] Run LISA in ArcGIS Pro (HH/LL/HL/LH maps to case studies)
+
+BIBLIOGRAPHY:
+  [ ] Verify all 31 entries — 5 flagged for correction:
+      [1] McKinsey — wrong title/year
+      [2] CSIS — cannot match to existing publication
+      [4] IMF — misidentified as Fiscal Monitor (actually SDN 2024/002)
+      [5] UNCTAD — 2024 edition may not exist (series jumps 2023 to 2025)
+      [7] UNCTAD — cannot match under cited title
+
+
+CURRENT RUBRIC SCORE: 3.95 / 5.00
+----------------------------------
+  Framing:          5/5  (15% weight)  — strong
+  Architecture:     4/5  (15% weight)  — needs prose tightening
+  GIS/Cartography:  3.5/5 (25% weight) — biggest gap: maps + interactivity
+  Evidence:         4.5/5 (20% weight) — strong after stat tests added
+  Originality:      5/5  (15% weight)  — unique in winner corpus
+  Polish:           3/5  (10% weight)  — bio, theme, captions needed
+
+  Target: 4.3-4.7 after must-do items completed

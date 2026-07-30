@@ -1,0 +1,211 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+\setlength{\parskip}{0.65em}
+\setlength{\parindent}{0pt}
+\titleformat{\section}{\large\bfseries\color{black}}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{black}}{\thesubsection.}{0.5em}{}
+
+\title{\textbf{AI Compute Accessibility Atlas:}\\
+\large Analysis Approach, Stage 3 Synthesis, Final Interpretation, and Overall Argument}
+\author{Project reference memo}
+\date{March 12, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{center}
+\fcolorbox{black}{gray!8}{\parbox{0.93\linewidth}{
+\textbf{Purpose of this memo.} This note explains the \emph{third analytical layer} in the current project: the synthesis step that turns Stage 1 descriptive evidence and Stage 2 spatial checks into the paper's main claim. Stage 3 does not add a new map or a new model. Its job is to show how the earlier pieces fit together, why the overall approach works, what conclusion the current evidence really supports, and where the line between a strong spatial diagnosis and an overclaim should be drawn.
+}}
+\end{center}
+
+\section{What Stage 3 is trying to do}
+By the time the project reaches Stage 3, the atlas has already done two forms of work. Stage 1 established that cloud-compute access is geographically uneven and that AI-linked cities sit much closer to major cloud regions than the broader 8{,}000-city comparison frame. Stage 2 then checked whether that pattern is spatially structured, translated it into a screening tool, and tested whether the negative distance-to-AI sign survives basic controls for city size and geography.
+
+Stage 3 asks a different question:
+\begin{quote}
+Given everything the earlier stages have shown, what is the strongest defensible conclusion the paper can make, and why is that conclusion worth caring about?
+\end{quote}
+
+This is the interpretation layer. Without it, the atlas is a stack of descriptive figures and coefficients. With it, the project becomes a coherent argument.
+
+\section{How Stage 3 fits into the whole analysis}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.16\linewidth} >{\raggedright\arraybackslash}p{0.28\linewidth} >{\raggedright\arraybackslash}p{0.22\linewidth} >{\raggedright\arraybackslash}p{0.24\linewidth}}
+\toprule
+\textbf{Layer} & \textbf{Main question} & \textbf{Main evidence} & \textbf{Interpretive role} \\
+\midrule
+Stage 1 & Is compute access geographically uneven, and do AI-linked cities appear closer to it? & Nearest-region distance, maps, histograms, weighted distance profiles, descriptive scatterplots & Establishes the raw pattern and shows that the question is worth asking. \\
+Stage 2 & Is the pattern spatially organized, where does it cluster, and does the main sign survive controls? & Moran's I, local Gi*, quadrant view, priority-city screen, GP and CAR/GMRF models & Tests whether the pattern is more than a visual coincidence and whether it survives basic spatial adjustment. \\
+Stage 3 & What does the combined evidence allow the paper to say, and what should it avoid saying? & Synthesis of Stages 1 and 2 plus explicit limitations & Converts a set of results into a disciplined substantive conclusion. \\
+\bottomrule
+\end{longtable}
+
+A useful way to think about Stage 3 is that it performs the paper's \emph{logic check}. It asks whether the conclusions match the actual strength of the evidence.
+
+\section{The overall argument in plain English}
+The paper's full argument can be stated in six steps.
+\begin{enumerate}[leftmargin=*]
+    \item Major cloud-compute infrastructure is physically located in uneven ways across the global urban system.
+    \item The average large city is not especially close to that infrastructure.
+    \item AI-linked cities sit in a noticeably more compute-proximate part of the world-city landscape.
+    \item The observed AI pattern is spatially organized rather than random, but it is not reducible to a tiny set of superstar hubs.
+    \item The negative relationship between compute distance and observed AI activity survives simple controls for city size and two different forms of spatial dependence.
+    \item Therefore, compute accessibility belongs inside the explanation of why observed AI activity is concentrated where it is, even though the current atlas does not identify a causal treatment effect.
+\end{enumerate}
+
+This last step is the real work of Stage 3. It tells the reader what all the earlier evidence means when taken together.
+
+\section{Why the approach works}
+\subsection{Reason 1: the paper turns an invisible infrastructure layer into a measurable geography}
+The first reason the approach works is conceptual. ``Cloud compute'' can sound placeless because users access it remotely. The atlas makes a simple but important move: cloud access may be virtual in consumption, but the infrastructure behind it is still physically located. That means it can be represented spatially and compared across cities.
+
+This move matters because it turns a vague concern about ``AI infrastructure'' into a measurable city-level accessibility problem. Once that variable exists, the project can ask whether the geography of AI activity appears to move with it.
+
+\subsection{Reason 2: the paper uses a genuine comparison frame}
+The second reason the approach works is design discipline. The atlas does not only map AI-linked cities. It compares them to a broad frame of 8{,}000 cities. That matters because a subset has no meaning without a background distribution. The contrast between the full city frame and the AI-linked subset is what makes the descriptive results informative rather than anecdotal.
+
+\subsection{Reason 3: the paper uses multiple kinds of evidence, not one fragile indicator}
+The approach also works because it does not rely on one plot or one coefficient. It layers:
+\begin{itemize}[leftmargin=*]
+    \item direct accessibility measures,
+    \item descriptive maps and distributions,
+    \item whole-map and local clustering checks,
+    \item a policy-facing screen,
+    \item and two different spatial model structures.
+\end{itemize}
+
+That layered structure matters because each technique answers a different question. The project is therefore stronger than a one-method paper and more interpretable than a black-box model.
+
+\subsection{Reason 4: the paper keeps the model intentionally modest}
+A further strength is restraint. The model stage is deliberately simple: distance to the nearest major cloud region, city population, and a spatial term. This is analytically useful because it keeps the central estimand readable. The paper is not trying to win by technical complexity. It is trying to answer a clear spatial question without hiding the mechanism under too many moving parts.
+
+\section{What each earlier stage contributes to the final conclusion}
+\subsection{What Stage 1 contributes}
+Stage 1 contributes the descriptive baseline. Its value is threefold.
+\begin{enumerate}[leftmargin=*]
+    \item It shows that compute access is geographically uneven.
+    \item It shows that AI-linked cities are materially closer to compute than the broader city system.
+    \item It shows that the raw relationship is strong enough to justify further analysis.
+\end{enumerate}
+
+Without Stage 1, Stage 2 would have no credible starting point. The paper would jump to clustering tests and coefficients before establishing that the underlying geography is even interesting.
+
+\subsection{What Stage 2 contributes}
+Stage 2 contributes discipline and usability.
+\begin{enumerate}[leftmargin=*]
+    \item Moran's I and local Gi* show that the pattern is spatially structured, not merely visually suggestive.
+    \item The quadrant and priority-city layers convert the atlas from a description into a screening tool.
+    \item The GP and CAR/GMRF models show that the central distance sign remains negative after city size and geography are absorbed more explicitly.
+\end{enumerate}
+
+Without Stage 2, the paper could show a plausible map pattern but not say much about its spatial robustness.
+
+\section{The key combined results that Stage 3 has to interpret}
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.40\linewidth} >{\raggedright\arraybackslash}p{0.16\linewidth} >{\raggedright\arraybackslash}p{0.34\linewidth}}
+\toprule
+\textbf{Result} & \textbf{Current value} & \textbf{Why it matters in the combined argument} \\
+\midrule
+Median distance for the full 8{,}000-city frame & $\approx 657$ km & Compute-proximate access is not the default condition for the global city system. \\
+Median distance for AI-linked cities & $\approx 237$ km & AI-linked cities occupy a much closer part of the access landscape than cities in general. \\
+Share within 500 km of a cloud region: AI-linked cities vs full frame & $72\%$ vs $44\%$ & The descriptive gap is large, not marginal. \\
+AI-weighted median distance & $\approx 164$ km & The bulk of observed AI activity is even more compute-proximate than AI-city presence alone suggests. \\
+Moran's I & $\approx 0.066$ & The spatial pattern is modestly but meaningfully clustered rather than random. \\
+Local Gi* clusters & 7 hot spots, 33 cold spots & Weak observed AI activity is locally concentrated in many more places than a few famous hubs would suggest. \\
+Priority-city screen & 1{,}988 cities flagged & The atlas can identify stacked disadvantage rather than only describe a global gradient. \\
+GP distance coefficient (per additional 1{,}000 km) & $\approx -0.206$ & The negative relationship survives a broad-regional spatial control. \\
+CAR/GMRF distance coefficient (per additional 1{,}000 km) & $\approx -0.052$ & The negative sign survives an even stricter local-neighbor adjustment, though it attenuates. \\
+\bottomrule
+\end{longtable}
+
+Taken together, these results support a middle conclusion. The descriptive relationship is strong, the clustering is real, the screening layer is policy-usable, and the sign persists after two forms of spatial adjustment. That is enough to say the pattern is substantive. It is not enough to say the atlas has identified a causal effect.
+
+\section{The strongest claim the current evidence supports}
+The strongest defensible claim is:
+\begin{quote}
+\textbf{Compute accessibility is a spatially robust correlate of observed AI activity, and it belongs inside the explanation of why contemporary AI activity is concentrated where it is.}
+\end{quote}
+
+That sentence is strong enough to matter and narrow enough to be honest.
+
+The paper can also make a practical companion claim:
+\begin{quote}
+\textbf{The atlas is useful as a public-interest screening tool because it reveals where weak compute proximity and weak observed AI activity appear to stack together.}
+\end{quote}
+
+These are the claims Stage 3 should keep in focus. They are the conclusions that remain standing after the earlier evidence is combined.
+
+\section{What the paper should not claim}
+Stage 3 is just as much about boundary-setting as about synthesis. The current evidence does \emph{not} justify the following claims.
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{Not:} ``Distance from a cloud region causes low AI activity.''\\
+    The current atlas is observational. Cloud regions are not placed randomly, and spatial controls are not the same as causal identification.
+    \item \textbf{Not:} ``Cities far from compute cannot participate in AI.''\\
+    Cloud access is remote. Distance should be interpreted as friction, not as an absolute barrier.
+    \item \textbf{Not:} ``The OpenAlex overlay is a census of all AI opportunity.''\\
+    The overlay is a useful observed layer of research-related activity, but it does not directly capture private model development, firm adoption, or all commercial AI deployment.
+    \item \textbf{Not:} ``The smooth surfaces are fine-resolution forecasts.''\\
+    The rasters are communication products that help the reader orient to broad patterns.
+\end{enumerate}
+
+This restraint is not a weakness. It is part of why the overall argument works.
+
+\section{Why the project is still meaningful despite those limits}
+The project remains meaningful because the question it asks is important even before causality is settled. The atlas identifies a hidden infrastructure layer in the AI economy and shows that its geography aligns in non-trivial ways with observed AI concentration. That is valuable in its own right.
+
+In practice, the atlas helps a reader move from vague concern to better follow-up questions. It helps distinguish:
+\begin{itemize}[leftmargin=*]
+    \item places that look close to compute and already strong in observed AI activity,
+    \item places that look far from compute and weak in the current overlay,
+    \item regions where the issue appears to be genuine infrastructure scarcity,
+    \item and regions where the issue appears to be concentration around a few dominant hubs.
+\end{itemize}
+
+That is why the atlas works as an EIP project even without a causal design. It turns a broad concern about digital inequality into a concrete geographic diagnosis.
+
+\section{How Stage 3 sharpens the EIP-facing story}
+For judges and general readers, Stage 3 should make the paper sound like a public-interest GIS atlas rather than a methods exercise. The key message is not that the project ran a sophisticated spatial model. The key message is that it reveals a hidden geography of AI opportunity.
+
+A clean EIP-facing formulation is:
+\begin{quote}
+\textbf{This atlas makes an invisible bottleneck visible. It shows that access to the cloud infrastructure underlying modern AI is not geographically flat, and that this unevenness overlaps meaningfully with where observed AI activity does and does not appear.}
+\end{quote}
+
+That pitch is stronger than a purely technical summary because it tells the reader why the project matters socially and spatially.
+
+\section{What remains uncertain, and why that is acceptable}
+Stage 3 also has to explain uncertainty without undermining the whole project.
+\begin{enumerate}[leftmargin=*]
+    \item \textbf{The distance metric is simplified.} Distance is a transparent proxy, but real access also depends on latency, routing, pricing, capacity, service-by-region differences, and regulation.
+    \item \textbf{The observed AI overlay is partial.} It is a strong first proxy for research-related AI activity, not a complete measure of all AI opportunity.
+    \item \textbf{The fitted sample is limited.} The models use the matched overlay sample, not the full 8{,}000-city frame.
+    \item \textbf{Causal identification is still missing.} The atlas reveals a meaningful spatial pattern, but it does not tell us what would happen if cloud infrastructure were added to a particular city.
+\end{enumerate}
+
+These uncertainties do not erase the main result. They clarify what kind of result it is: a strong spatial diagnosis rather than a final causal answer.
+
+\section{Where the next analytical step would go}
+If the project wanted to move beyond Stage 3 into a stronger research design, the next step would not be a more ornate cross-sectional model. It would be a design that uses time variation around cloud-region openings, other infrastructure shocks, or richer provider-aware access measures. That is the path from a robust atlas to a stronger causal or quasi-causal paper.
+
+In other words, Stage 3 closes the current paper properly while also pointing toward a credible next paper.
+
+\section{Bottom line}
+Stage 3 is the step that turns the project from a collection of maps, diagnostics, and coefficients into a single well-bounded argument. The earlier stages show that compute access is uneven, that AI-linked cities are systematically closer to major cloud infrastructure, that the pattern is spatially structured, and that the negative distance sign survives simple spatial controls. The synthesis step then states the right conclusion: compute accessibility appears to be an overlooked part of the geography of observed AI activity, but the atlas stops short of claiming causal identification.
+
+That is why the approach works. It is ambitious enough to reveal something real, structured enough to defend the claim, and restrained enough to stay credible.
+
+\end{document}

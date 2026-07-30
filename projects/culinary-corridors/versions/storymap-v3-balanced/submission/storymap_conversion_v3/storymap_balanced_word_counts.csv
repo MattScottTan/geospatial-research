@@ -1,0 +1,20 @@
+section,title,paste_text_word_count,regional_role
+1,Cover / title / subtitle / author note,137,global
+2,Opening contrast and introduction,357,global
+3,Research question and subquestions,186,global
+4,Why food can be treated as spatial data,269,global
+5,How the culinary atlas works,328,global
+6,Global discovery screen,275,global
+7,"Finding 1: distance matters, but incompletely",254,global
+8,Finding 2: residuals reveal candidate culinary corridors,283,global
+9,From global screen to focused case: why East/Southeast Asia carries the strongest inference,251,primary
+10,"Finding 4: terrain, coastlines, islands, and maritime space make the corridor legible",240,primary
+11,Finding 5: residual bridge scores identify spatial bridge roles,236,global/geospatial
+12,Cuisine-pair vignettes,613,mixed
+13,Mandatory non-Asia diagnostic case and sensitivity,277,diagnostic
+14,"Why Europe and Atlantic-linked material remain diagnostic, not primary",268,diagnostic
+15,"What this proves, and what it does not prove",285,limitation
+16,"Sources, methods, and reproducibility",246,sources
+17,Conclusion and final contribution,220,conclusion
+18,PDF backup / technical report note,89,ops
+TOTAL,,4814,

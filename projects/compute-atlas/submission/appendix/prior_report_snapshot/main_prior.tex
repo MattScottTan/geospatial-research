@@ -1,0 +1,411 @@
+\documentclass[11pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{amsmath}
+\usepackage{hyperref}
+\usepackage[numbers]{natbib}
+\usepackage{enumitem}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  urlcolor=blue,
+  citecolor=blue
+}
+
+\title{\textbf{AI Compute Accessibility Atlas for EIP}\\
+\large Where cloud compute is close, where it is far, and why that matters for cities}
+\author{EIP submission draft}
+\date{March 11, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+AI is often discussed as a story about companies, labs, and talent. It is also a story about physical infrastructure. Training and deploying modern AI systems depends on cloud regions - the geographic clusters of datacenters run by large providers such as Amazon Web Services (AWS), Microsoft Azure, and Google Cloud - as well as power and network capacity. Those assets are not spread evenly across space. This report therefore asks a simple question with clear public-interest stakes: do cities that sit farther from major cloud regions also show less observed AI research activity in the delivered overlay, even after accounting for city size and broad regional clustering?
+
+The short answer is yes. Across a global frame of 8,000 cities, AI-linked cities sit much closer to deployed cloud regions than the broader city system, and the negative distance-to-AI relationship remains in two spatial models. The strongest conclusion is that compute accessibility is a robust spatial correlate of observed AI activity. This atlas does \emph{not} prove that opening a cloud region would create an AI hub. It does show that compute geography belongs in the conversation about why AI opportunity is concentrated in some places and thinner in others.
+\end{abstract}
+
+\section{Why this matters and what this atlas asks}
+AI does not happen on a blank map. Cities participate in AI from very different starting positions. Some sit close to dense clusters of cloud infrastructure. Others are hundreds or thousands of kilometers farther away from the same services. If compute access is part of the enabling environment for AI, then those gaps matter for who can participate, who scales quickly, and which places may be left out of the current wave of AI development.
+
+That makes this atlas useful for more than description. It is designed as a screening tool for judges, planners, and public-interest readers who want to see where compute access is concentrated, where it is thin, and where those infrastructure gaps overlap with weak observed AI activity. Instead of treating cloud infrastructure as invisible background plumbing, the atlas treats it as a measurable part of the geography of AI.
+
+\subsection{The central question}
+The report asks a plain-language question: once we account for city size and for the fact that nearby places often resemble one another, do cities that are farther from major cloud regions tend to show less observed AI research activity? It also asks where the largest mismatches remain between large urban populations and weak compute access.
+
+\subsection{The short answer}
+The evidence points in the same direction across maps, comparisons, and models. AI-linked cities are much closer to major cloud infrastructure than the wider city system, and that pattern does not disappear after adjusting for population and spatial clustering. The contribution of this report is therefore not a causal estimate. It is a clear spatial baseline showing that compute accessibility is part of the story, and that some cities appear to face a stacked disadvantage of size, weak compute proximity, and no observed AI works in the delivered filter.
+
+\subsection{What this atlas does - and does not do}
+This atlas does four things in sequence:
+\begin{itemize}[leftmargin=*]
+  \item maps how close large cities are to the nearest AWS, Azure, or Google Cloud region;
+  \item compares AI-linked cities with the broader 8,000-city frame;
+  \item checks whether the distance pattern survives basic controls for population and geography; and
+  \item flags ``priority cities'' where weak compute proximity and weak observed AI activity appear together in the delivered data.
+\end{itemize}
+
+What it does \emph{not} do is estimate the causal effect of opening a cloud region. Cloud infrastructure is not placed randomly, so the most honest claim here is about a durable spatial association, not a treatment effect.
+
+\section{Data}
+\subsection{Cloud infrastructure layer}
+The infrastructure layer is a public list of cloud-region coordinates for AWS, Azure, and Google Cloud \citep{cloudregions}. In this report, a cloud region is treated as a named geographic cluster of datacenters rather than as a full map of every facility. That is enough for a first-pass measure of how close a city is to large-scale cloud infrastructure.
+
+\input{tables/region_counts.tex}
+
+\subsection{City comparison frame}
+To tell whether AI-linked cities are unusually close to compute, the atlas needs a broad background comparison. It uses the top 8,000 cities in \texttt{worldcities.csv}, which provides city names, coordinates, and population values under a CC-BY-4.0 license \citep{worldcities}. Population is not a full measure of research capacity, but it is a transparent way to distinguish small places from very large urban systems.
+
+\subsection{Observed AI research overlay}
+The AI layer is a user-provided OpenAlex-derived overlay of city-level AI-related works \citep{openalex}. In plain English, it records where the delivered repository filter observed AI-related research activity. It should be read as an observed overlay, not as a census of every AI-active city in the world.
+
+Table~\ref{tab:topics} shows the three OpenAlex topics preserved in the delivered extract.
+
+\input{tables/openalex_topics.tex}
+
+The current build matches 328 overlay rows onto the \texttt{worldcities} frame. Of those, 322 fall within the current 75 km match threshold and 6 are farther away but remain in the working sample. For Moran's I and local Gi* - the two clustering checks used later - duplicate matches are collapsed to 319 unique city geometries so the spatial spine stays readable.
+
+\paragraph{Important caveat.}
+The repository preserves the delivered files and topic IDs, but not the exact OpenAlex query end date or the exact recency window behind \texttt{ai\_works\_recent}. A city that is absent from the overlay should therefore be read as ``not observed in this delivered filter,'' not as a verified zero-AI location.
+
+\section{How the atlas measures the relationship}
+\subsection{Measure 1: distance to the nearest cloud region}
+In this project, compute accessibility means the great-circle distance in kilometers from a city to its nearest AWS, Azure, or Google Cloud region. This is a simple proxy. It is not a direct measure of latency, price, GPU availability, or service quality. It is used because it is transparent, comparable across thousands of cities, and easy to interpret on a map.
+
+\subsection{What the main model is checking}
+At its core, the model asks a simple question: when two cities are similar in size, does the one farther from cloud infrastructure tend to show less observed AI research activity? The main outcome is \(\log(1 + \text{AI works})\), which reduces the visual and statistical dominance of a few very large counts.
+
+The formal regression is
+\[
+\log(1 + \text{AI works}_i) = \beta_0 + \beta_1 \,\text{distance}_{i,1000} + \beta_2 \,\log(\text{population}_i) + s_i + \varepsilon_i,
+\]
+where \(\text{distance}_{i,1000}\) is nearest-region distance in 1,000 km units, \(\log(\text{population}_i)\) is a basic city-size control, and \(s_i\) is an added geography term. The null hypothesis is that distance has no relationship with observed AI works. The directional alternative is that greater distance is associated with less observed AI activity.
+
+This is still an observational comparison, not a treatment-effect design. Cloud regions are not randomly assigned across cities, so the distance coefficient should be read as a partial association rather than as the causal effect of moving a city closer to compute.
+
+\subsection{Why the model stays intentionally simple}
+The statistical goal here is modest. The report is not trying to build the best possible forecasting model of AI activity. It is trying to answer an interpretable question about distance, city size, and geography. Keeping the driver set simple makes the central relationship easier to explain and keeps the report focused on what EIP judges need to understand.
+
+\subsection{Additional spatial checks and screening layers}
+The atlas adds three descriptive tools on top of the distance comparison:
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Global Moran's I}: a whole-map check for whether high or low values cluster more than chance would suggest.
+  \item \textbf{Local Gi*}: a neighborhood-level check that identifies local hot spots and cold spots.
+  \item \textbf{Priority cities}: a screening layer that flags cities with zero observed AI works in the delivered overlay and distance above the current upper-quartile threshold.
+\end{itemize}
+
+These tools do different jobs. Moran's I asks whether the pattern is spatially organized at all. Local Gi* asks where unusually strong or weak local clusters appear. The priority screen asks where weak compute access and weak observed AI activity stack together in cities that may deserve closer policy attention. All three are descriptive diagnostics, not causal tests.
+
+\subsection{Two ways of accounting for geography}
+The report estimates the same core relationship in two different spatial ways.
+
+\paragraph{Model 1: driver regression plus Gaussian Process residual field.}
+The Gaussian Process (GP) version treats unexplained geography as a smooth background surface across the map \citep{rasmussen2006}. In plain English, it is the broad-regional-gradient model: nearby places are allowed to resemble one another because they sit in a similar regional environment.
+
+\paragraph{Model 2: driver regression plus CAR/GMRF city-neighbor effect.}
+The CAR/GMRF version instead links each city to nearby cities in a graph and lets neighbors share a local effect \citep{besag1974,rue2005}. In plain English, it is the local-clustering model: it is more aggressive about absorbing similarity among neighboring cities.
+
+Using both is useful because the comparison is informative. If distance remains negative in both models, the result is less likely to be only a city-size artifact or a purely visual map effect. If the distance term shrinks once stronger local pooling is introduced, that suggests some of the raw compute gradient overlaps with broader regional ecosystems.
+
+Table~\ref{tab:model_coefs} is the key guide to the model results. Readers should focus on the sign of the distance coefficient and how much it changes across the two spatial approaches.
+
+\input{tables/model_coefs.tex}
+
+\section{Results}
+The results section answers four practical questions: where compute access is strongest, whether AI-linked cities sit closer to that infrastructure, which places appear most underserved in the delivered data, and whether the distance pattern survives basic spatial checks.
+
+\subsection{Large parts of the world remain far from major cloud regions}
+Start with Figure~\ref{fig:accessmap}. The main thing to notice is not any one city. It is the broad split between the dense compute corridors in North America, Europe, and East Asia and the much larger areas where major cloud infrastructure remains relatively far away.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig1_access_map.png}
+  \caption{Distance in kilometers from each city to its nearest major cloud region. The large gaps outside the main North American, European, and East Asian corridors are the basic spatial fact the rest of the atlas tries to interpret.}
+  \label{fig:accessmap}
+\end{figure}
+
+Figure~\ref{fig:surfdist} tells the same story in a smoother way. It is not a routing model or a city-by-city forecast. It is a simple communication surface that makes the broad geography of access easy to read at a glance.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig9_distance_surface.png}
+  \caption{Global nearest-region surface at 1 degree resolution. The surface is a communication device rather than an operational routing model, but it makes the broad compute-access geography immediately legible.}
+  \label{fig:surfdist}
+\end{figure}
+
+The headline number is straightforward: the median city in the 8,000-city frame sits about 657 km from its nearest cloud region. In other words, close access to large-scale cloud infrastructure is not the norm across the global city system. For an EIP audience, that matters because many large cities still experience cloud compute as remote infrastructure rather than as something locally embedded in their urban economy.
+
+\subsection{AI-linked cities cluster much closer to cloud infrastructure}
+Figures~\ref{fig:aimap} to \ref{fig:scatter} all point in the same direction. The map shows where the overlay clusters. The histogram shows how much closer AI-linked cities are to compute than the broader city system. The weighted chart shows that the heaviest AI producers are closer still. The scatterplot makes the broad negative pattern visible before any model is fit.
+
+Figure~\ref{fig:aimap} is the location view. What matters is the concentration: the observed AI overlay gathers in many of the same world regions where cloud infrastructure is already dense.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig2_ai_map.png}
+  \caption{OpenAlex AI works by city. The main visual impression is concentration rather than dispersion: the overlay clusters in the same broad world regions where cloud infrastructure is already dense.}
+  \label{fig:aimap}
+\end{figure}
+
+Figure~\ref{fig:dist_hist} is the cleanest side-by-side comparison. Look at how far left the AI-city distribution sits relative to the distribution for the full 8,000-city frame.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.88\textwidth]{figures/fig7_distance_hist.png}
+  \caption{Distance-to-compute comparison for all large cities versus matched AI cities. The typical AI-linked city sits much closer to a deployed cloud region than the broader city frame.}
+  \label{fig:dist_hist}
+\end{figure}
+
+Figure~\ref{fig:ai_weighted_dist} adds one more important point: once the cities are weighted by observed AI works, the center of gravity moves even closer to compute.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.88\textwidth]{figures/fig8_ai_weighted_distance.png}
+  \caption{AI-weighted distance profile. Weighting by recent AI works pulls the center of gravity even closer to compute, which shows that a disproportionate share of observed AI activity is produced in compute-proximate places.}
+  \label{fig:ai_weighted_dist}
+\end{figure}
+
+Figure~\ref{fig:scatter} is the plain descriptive scatter. It does not prove anything by itself, but it helps the reader see why the distance question is worth modeling at all.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.82\textwidth]{figures/fig4_scatter_ai_vs_dist.png}
+  \caption{Distance to compute versus \(\log(1 + \text{AI works})\). The plot remains descriptive, but it makes the near-cloud clustering of high-output cities visible before any model is fit.}
+  \label{fig:scatter}
+\end{figure}
+
+The size of the descriptive gap is large. The median AI city is about 237 km from its nearest cloud region, versus 657 km for the broader city frame. About 72\% of AI cities are within 500 km of a cloud region, compared with 44\% of the full frame. When cities are weighted by observed AI works, the weighted median falls to about 164 km. In plain English: the typical large city is not especially close to compute, but the typical AI-linked city is, and the typical unit of observed AI work is closer still.
+
+\subsection{The pattern is spatially clustered, but not only because of a few famous hubs}
+The next question is whether the map is just picking up a few obvious clusters. Figures~\ref{fig:hotspots} and \ref{fig:moran} show why the answer is more nuanced than that.
+
+Figure~\ref{fig:hotspots} is the local view. It shows where nearby cities collectively look hotter or colder than the surrounding pattern would suggest.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig11_hotspot_map.png}
+  \caption{Local Gi* hot spots and cold spots for observed AI activity across the unique-city matched sample. The hot spots are few, while the cold spots are more numerous and geographically dispersed.}
+  \label{fig:hotspots}
+\end{figure}
+
+Figure~\ref{fig:moran} is the whole-map summary. What to look for is not a dramatic slope, but a positive one: enough clustering to matter, not enough to make every local difference disappear into one single regional story.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.82\textwidth]{figures/morans_i_scatterplot.png}
+  \caption{Global Moran scatterplot for the restored unique-city AI diagnostics. Moran's I is about 0.066 with a permutation z-score of about 2.86, which indicates modest but non-random spatial clustering.}
+  \label{fig:moran}
+\end{figure}
+
+The restored unique-city diagnostic reports 7 hot spots and 33 cold spots, and the global Moran statistic is positive but small. That is a useful middle result. It says the pattern is not random, but it also says the atlas is not just reproducing a tiny handful of superstar hubs.
+
+\subsection{The priority-city screen turns the atlas into a policy tool}
+Figures~\ref{fig:quadrants} and \ref{fig:prioritymap} move from description to triage. They do not tell us which city will become the next AI hub. They do help show where weak compute access and weak observed AI activity appear together in the delivered data.
+
+Figure~\ref{fig:quadrants} is the simplest diagnostic split. It helps the reader see which cities combine weaker compute proximity with weaker observed AI activity.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig3_quadrants.png}
+  \caption{Quadrant view of high or low AI activity versus high or low compute proximity. The diagnostic value is in identifying where weak compute access and weak observed AI activity appear together.}
+  \label{fig:quadrants}
+\end{figure}
+
+Figure~\ref{fig:prioritymap} turns that idea into a global screening layer. What matters here is not that every flagged city is ``failing.'' The point is that the screen highlights where a large urban scale coexists with weak compute proximity and no observed AI works in the delivered overlay.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig12_priority_cities_map.png}
+  \caption{Priority-city screening map. In the current build, 1,988 cities meet the rule of zero observed AI works in the delivered overlay plus above-threshold compute distance.}
+  \label{fig:prioritymap}
+\end{figure}
+
+In the current build, 1,988 cities meet the priority rule of zero observed AI works in the delivered overlay plus above-threshold compute distance. That is why the ``AI deserts'' framing is useful. It does not claim these cities lack talent or innovation potential. It says they deserve a closer look because the delivered data shows a stacked disadvantage.
+
+Table~\ref{tab:underserved} is the reader's quick reality check. It lists illustrative large-city cases that are far from major cloud regions and absent from the current OpenAlex filter.
+
+\input{tables/underserved_cities.tex}
+
+\subsection{The regional story changes by corridor}
+The global map is useful, but regional figures make the diagnosis easier to interpret. They show that the same overall pattern can look like corridor concentration in one place and infrastructure scarcity in another.
+
+Figure~\ref{fig:sea} is the Southeast Asia view. What to notice is that dense cloud buildout around Singapore does not automatically translate into the same level of compute-proximate AI activity in every nearby large city.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig6_sea_zoom.png}
+  \caption{Southeast Asia focus. Singapore is the clearest anchor node, but the panel is more useful because it also shows nearby large-city places such as Bangkok where scale does not automatically translate into the same compute-proximate AI footprint.}
+  \label{fig:sea}
+\end{figure}
+
+Figure~\ref{fig:ssa} is the Sub-Saharan Africa view. The key message is scarcity: the current cloud footprint remains concentrated in South Africa while many other large cities remain far from it.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig13_subsaharan_africa_deep_dive.png}
+  \caption{Sub-Saharan Africa deep dive. The current cloud footprint remains concentrated in South Africa, while the priority-city layer stretches across West, East, and Central Africa.}
+  \label{fig:ssa}
+\end{figure}
+
+Figure~\ref{fig:latam} is the Latin America view. The regional cloud footprint is denser than in Sub-Saharan Africa, but the priority screen still clusters outside the strongest compute centers.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig14_latin_america_deep_dive.png}
+  \caption{Latin America deep dive. The regional cloud footprint is denser than in Sub-Saharan Africa, but the priority screen still clusters along the Andes, northern South America, and the Caribbean corridor.}
+  \label{fig:latam}
+\end{figure}
+
+Taken together, the three regional panels suggest three different policy readings. Southeast Asia looks more like a corridor-and-concentration story. Sub-Saharan Africa looks more like a compute-scarcity story. Latin America looks more like a concentration-within-coverage story.
+
+\subsection{The models keep the same sign, but shrink the size of the effect}
+Figure~\ref{fig:coef} and Table~\ref{tab:model_coefs} are the key evidence here. The question is simple: after controlling for population and geography, does greater distance from major cloud infrastructure still line up with lower observed AI research activity?
+
+Figure~\ref{fig:coef} shows the main takeaway visually. The distance term stays negative in both models, while the population term stays positive.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=0.82\textwidth]{figures/fig5_coef_compare.png}
+  \caption{Model comparison for the distance coefficient. The distance term stays negative in both models, while the population term stays positive.}
+  \label{fig:coef}
+\end{figure}
+
+Figure~\ref{fig:gpsurf} helps the reader interpret the GP model as a broad regional background rather than as a city-level forecasting surface.
+
+\begin{figure}[ht]
+  \centering
+  \includegraphics[width=\textwidth]{figures/fig10_gp_surface.png}
+  \caption{Global GP surface for a reference 1M-person city. The point is not local forecasting but broad regional interpretation of the fitted residual geography.}
+  \label{fig:gpsurf}
+\end{figure}
+
+The coefficient magnitudes tell the rest of the story. In the GP model, the distance coefficient is about -0.206 per additional 1,000 km. In the CAR/GMRF model, it is about -0.052. That is not a contradiction. It means the negative association survives both spatial approaches, but part of the raw distance penalty overlaps with broader regional ecosystems once a stronger local-neighbor adjustment is introduced.
+
+Table~\ref{tab:top_ai_cities} gives the reader a concrete reference point by listing the leading AI cities in the overlay and their nearest cloud regions.
+
+\input{tables/top_ai_cities.tex}
+
+\section{What this means for EIP}
+The most defensible conclusion is a middle one. Compute accessibility is a spatially robust correlate of observed AI activity, but this report does not identify a causal treatment effect of opening a cloud region. That distinction matters. The atlas is stronger than a visual correlation and weaker than a causal estimate, which is exactly where a careful EIP submission should be.
+
+The practical value is that the atlas turns a broad concern about digital inequality into a more specific set of questions. It helps readers see where the issue looks like infrastructure scarcity, where it looks like concentration around existing hubs, and where large cities may deserve closer follow-up because they appear both far from compute and weak in the delivered AI overlay.
+
+That makes the atlas useful as a screening and communication tool. It can help judges, planners, and public-interest readers ask better next questions:
+\begin{itemize}[leftmargin=*]
+  \item Which regions seem to face a genuine compute-footprint shortage rather than only a local talent gap?
+  \item Which large cities deserve closer qualitative follow-up because weak compute access may be stacking with other disadvantages?
+  \item Where does the policy challenge look like missing infrastructure, and where does it look more like a concentration of advantages in a few existing hubs?
+\end{itemize}
+
+\section{Limitations to keep in mind}
+The report is designed to stay readable without hiding its limits.
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Distance is not latency, price, or capacity.} Straight-line proximity is a transparent first-order proxy, but real access also depends on routing, service availability, GPU allocation, regulation, and price.
+  \item \textbf{The OpenAlex overlay is useful but not fully documented.} The repository preserves the delivered files and topic IDs, but not the exact query end date or recency window. The overlay should therefore be read as a defensible observed layer, not as an exhaustive ground truth.
+  \item \textbf{The model sample is limited.} The models are fit on 328 matched overlay rows, not the full 8,000-city universe. That is enough to reveal a pattern, but not enough to justify fine-grained forecasting claims.
+  \item \textbf{Spatial models do not create causal identification.} GP and CAR/GMRF terms absorb geographic dependence, but they do not turn an observational atlas into a causal estimate.
+  \item \textbf{The smooth surfaces are communication products.} The 1 degree rasters are useful for orientation, but they should not be read as fine-resolution predictive maps.
+\end{itemize}
+
+\section{Conclusion}
+The report's short answer is the same one stated up front: yes, compute geography appears to matter. Across the 8,000-city comparison frame, AI-linked cities sit closer to major cloud infrastructure than the broader city system, and the negative distance-to-AI relationship remains after adjusting for population and two different forms of spatial dependence. The strongest claim supported by the evidence is that compute accessibility belongs inside the explanation of why today's AI activity is concentrated where it is.
+
+Just as important, the report sets a clear boundary around that claim. It does not show that opening a cloud region would automatically create an AI hub. Cloud-region placement, research depth, energy systems, capital, and institutional strength all evolve together. The right reading is therefore practical rather than triumphant: this atlas is a useful spatial diagnosis of where compute access is strong, where it is weak, and where that weakness appears to overlap with weak observed AI activity.
+
+If the next stage of work needs a causal answer, it should use time variation around major cloud-region openings or other infrastructure shocks. That is the right path if the question shifts from ``where are the gaps?'' to ``does improved compute access change a city's AI trajectory?''
+
+\section{Using the atlas beyond the PDF}
+The repository includes a matched set of StoryMap and ArcGIS handoff documents so the same narrative can be published in browser form as well as PDF form:
+\begin{itemize}[leftmargin=*]
+  \item \texttt{docs/arcgis\_upload\_guide.md}: upload order and field guidance for hosted layers.
+  \item \texttt{docs/arcgis\_webmap\_guide.md}: the three ArcGIS web maps and their exact layer, symbology, label, and popup settings.
+  \item \texttt{docs/storymap\_blueprint.md}: the section-by-section narrative and media placement plan.
+  \item \texttt{docs/storymap\_assembly\_guide.md}: the click-by-click StoryMap assembly and sharing workflow.
+\end{itemize}
+
+\section{Reproducibility note}
+All code and data-processing steps used for this atlas are included in the repository:
+\begin{itemize}[leftmargin=*]
+  \item \texttt{src/pipeline.py}: end-to-end data pipeline and figure generation.
+  \item \texttt{src/style\_config.py}: shared D1 styling for maps, charts, and deep dives.
+  \item \texttt{outputs/gis/}: GeoPackage, GeoJSON, and GeoTIFF exports used for mapping.
+  \item \texttt{outputs/tables/}: model summaries, spatial diagnostics, and priority-city outputs.
+  \item \texttt{report/main.tex}: the report source for this EIP narrative.
+\end{itemize}
+
+\newpage
+
+\begin{thebibliography}{99}
+
+\bibitem{openalex}
+OpenAlex. \emph{OpenAlex: An open catalog of scholarly papers, authors, institutions, journals, and more}.\
+\url{https://openalex.org/}. Accessed 2026-03-06.
+
+\bibitem{cloudregions}
+dgl. \emph{cloud-regions: approximate coordinates for cloud regions (AWS, Azure, GCP)}.\
+\url{https://github.com/dgl/cloud-regions/}. Data derived from OpenStreetMap (ODbL).
+
+\bibitem{worldcities}
+SimpleMaps / condwanaland. \emph{worldcities: Global city location and population dataset (worldcities.csv)}.\
+\url{https://github.com/condwanaland/worldcities/}. CC-BY-4.0.
+
+\bibitem{naturalearth}
+Natural Earth. \emph{Free vector and raster map data}.\
+\url{https://www.naturalearthdata.com/}. Public domain.
+
+\bibitem{rasmussen2006}
+C. E. Rasmussen and C. K. I. Williams. \emph{Gaussian Processes for Machine Learning}. MIT Press, 2006.
+
+\bibitem{besag1974}
+J. Besag. Spatial interaction and the statistical analysis of lattice systems. \emph{Journal of the Royal Statistical Society: Series B}, 36(2):192--236, 1974.
+
+\bibitem{rue2005}
+H. Rue and L. Held. \emph{Gaussian Markov Random Fields: Theory and Applications}. Chapman and Hall/CRC, 2005.
+
+\bibitem{sevilla2022}
+J. Sevilla, L. Heim, A. Ho, T. B. Besiroglu, M. Hobbhahn, and P. Villalobos. \emph{Compute Trends Across Three Eras of Machine Learning}. 2022.\
+\url{https://arxiv.org/abs/2202.05924}.
+
+\bibitem{aiindex2025}
+Stanford Institute for Human-Centered Artificial Intelligence. \emph{AI Index Report 2025}. Stanford University, 2025.\
+\url{https://hai.stanford.edu/ai-index/2025-ai-index-report}.
+
+\bibitem{oecd2025compute}
+V. Lehdonvirta, B. Wu, Z. J. Hawkins, C. Caira, and L. Russo. \emph{Measuring domestic public cloud compute availability for artificial intelligence}. OECD Artificial Intelligence Papers, No. 49, OECD Publishing, Paris, 2025.\
+\url{https://www.oecd-ilibrary.org/science-and-technology/measuring-domestic-public-cloud-compute-availability-for-artificial-intelligence_31ce04d8-en}.
+
+\bibitem{oecd2023compute}
+OECD. \emph{A blueprint for building national compute capacity for artificial intelligence}. OECD Digital Economy Papers, No. 350, OECD Publishing, Paris, 2023.\
+\url{https://www.oecd-ilibrary.org/science-and-technology/a-blueprint-for-building-national-compute-capacity-for-artificial-intelligence_558d01f6-en}.
+
+\bibitem{iea2025energyai}
+International Energy Agency. \emph{Energy and AI}. 2025.\
+\url{https://www.iea.org/reports/energy-and-ai}.
+
+\bibitem{openai2025stargate}
+OpenAI. \emph{Announcing The Stargate Project}. January 21, 2025.\
+\url{https://openai.com/index/announcing-the-stargate-project/}.
+
+\bibitem{ap2025homer}
+Associated Press. \emph{Coal-fired power plant, now retired, to become massive gas-powered campus for AI, data centers}. April 2, 2025.\
+\url{https://apnews.com/article/data-centers-gas-plant-pennsylvania-homer-city-2e1401f770e4ef0d48884d87f6cc0b1b}.
+
+\bibitem{carlino2015}
+G. Carlino and W. R. Kerr. Agglomeration and innovation. In G. Duranton, J. V. Henderson, and W. C. Strange, editors, \emph{Handbook of Regional and Urban Economics}, Volume 5, pages 349--404. Elsevier, 2015.
+
+\bibitem{jaeger2009}
+P. T. Jaeger, J. Lin, and J. M. Grimes. Where is the cloud? Geography, economics, environment, and jurisdiction in cloud computing. \emph{First Monday}, 14(5), 2009.\
+\url{https://firstmonday.org/ojs/index.php/fm/article/view/2456/2171}.
+
+\end{thebibliography}
+
+\end{document}

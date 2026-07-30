@@ -1,0 +1,10 @@
+{
+  "city": "Singapore",
+  "country": "Singapore",
+  "radius_km": 2000,
+  "rings": [
+    250,
+    500,
+    1000
+  ]
+}

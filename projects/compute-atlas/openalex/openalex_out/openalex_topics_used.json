@@ -1,0 +1,109 @@
+{
+  "selected_topic_ids": [
+    "T10181",
+    "T12254",
+    "T10320"
+  ],
+  "candidates": [
+    [
+      "Natural Language Processing Techniques",
+      "T10181",
+      290539
+    ],
+    [
+      "Machine Learning in Bioinformatics",
+      "T12254",
+      276039
+    ],
+    [
+      "Neural Networks and Applications",
+      "T10320",
+      249728
+    ],
+    [
+      "EEG and Brain-Computer Interfaces",
+      "T10429",
+      163388
+    ],
+    [
+      "Topic Modeling",
+      "T10028",
+      159898
+    ],
+    [
+      "Biomedical Text Mining and Ontologies",
+      "T11710",
+      157144
+    ],
+    [
+      "Advanced MRI Techniques and Applications",
+      "T10378",
+      149156
+    ],
+    [
+      "Machine Learning in Materials Science",
+      "T11948",
+      133054
+    ],
+    [
+      "Radiomics and Machine Learning in Medical Imaging",
+      "T12422",
+      131616
+    ],
+    [
+      "Advanced Image and Video Retrieval Techniques",
+      "T10627",
+      118802
+    ],
+    [
+      "Artificial Intelligence in Healthcare and Education",
+      "T11636",
+      116365
+    ],
+    [
+      "Advanced Neural Network Applications",
+      "T10036",
+      100455
+    ],
+    [
+      "Artificial Intelligence in Healthcare",
+      "T11396",
+      75848
+    ],
+    [
+      "Artificial Intelligence in Games",
+      "T11574",
+      49290
+    ],
+    [
+      "Explainable Artificial Intelligence (XAI)",
+      "T12026",
+      44555
+    ],
+    [
+      "Hate Speech and Cyberbullying Detection",
+      "T12262",
+      42776
+    ],
+    [
+      "Computational and Text Analysis Methods",
+      "T13910",
+      42124
+    ],
+    [
+      "Machine Learning and Data Classification",
+      "T12535",
+      39230
+    ],
+    [
+      "Machine Learning and Algorithms",
+      "T12072",
+      34977
+    ],
+    [
+      "Text and Document Classification Technologies",
+      "T11550",
+      34931
+    ]
+  ]
+}
