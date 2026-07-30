@@ -1,0 +1,26 @@
+SHELL := /bin/bash
+PY := python
+
+.PHONY: core report stage4 stage5 stage6 live-stage6 all-extended
+
+core:
+	$(PY) code/pipeline.py all
+
+report:
+	cd report && latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+
+stage4:
+	$(PY) extensions/stage4/src/stage4_causal_extension.py
+
+stage5:
+	$(PY) extensions/stage5/src/stage5_pilot_panel.py
+
+stage6:
+	@echo "Frozen Stage 6 artifacts are already included under extensions/stage6/outputs and docs/."
+	@echo "Use 'make live-stage6' to rebuild from live OpenAlex data."
+
+live-stage6:
+	$(PY) extensions/stage6/src/stage6_expanded_panel.py
+
+all-extended: stage4 stage5
+	@echo "Core extension scripts completed. Stage 6 frozen artifacts remain available in extensions/stage6/."

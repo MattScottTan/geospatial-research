@@ -31,7 +31,7 @@ periodic random band matrix of Sodin's theorem.
 4. **Spectral spatial confounding.** Decompose the covariate in the eigenbasis of Q and
    express the bias in β̂ via the limiting spectral distribution. Would explain the
    factor-of-four gap between the GP and CAR distance coefficients in
-   `projects/compute-atlas`.
+   `../eip`.
 
 Nothing here is settled. Item 1's d = 2 case and item 3 are the ones with a clear
 theorem shape.

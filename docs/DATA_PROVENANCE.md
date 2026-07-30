@@ -3,7 +3,7 @@
 Checked before committing anything, because publishing a repo redistributes every input
 in it. One file is excluded pending confirmation.
 
-## projects/compute-atlas/data/raw
+## eip/data/raw
 
 | File | Source | Licence | Committed |
 |---|---|---|---|
@@ -40,11 +40,11 @@ only city table anywhere is `worldcities.csv`, and it is SimpleMaps.
 
 So the published StoryMap appears to credit the wrong source for its central dataset. This
 is now a correction to make rather than a question to investigate: confirm against
-`src/pipeline.py`'s `prepare` stage, then add the SimpleMaps attribution above wherever
+`code/pipeline.py`'s `prepare` stage, then add the SimpleMaps attribution above wherever
 Natural Earth is currently credited for the city frame. Natural Earth remains correctly
 credited for country boundaries.
 
-## projects/culinary-corridors/data/raw
+## fisher/data/raw
 
 | File | Source | Licence | Committed |
 |---|---|---|---|
