@@ -88,3 +88,6 @@ archive/
 *.pem
 secrets.*
 .codex/
+
+# ---- research-track experiment outputs (regenerated) ----
+analysis/outputs/
