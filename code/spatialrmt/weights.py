@@ -141,11 +141,15 @@ def _sinkhorn(W: csr_matrix, iters: int = 200, tol: float = 1e-10) -> csr_matrix
 # --------------------------------------------------------------------------
 def weights_summary(W: csr_matrix) -> dict:
     """Structural facts about a weights matrix, for reporting alongside any statistic."""
+    from scipy.sparse.csgraph import connected_components
+
     Wc = W.tocsr()
     n = Wc.shape[0]
     deg = np.diff(Wc.indptr)
     sym = (abs(Wc - Wc.T) > 1e-12).nnz == 0
     rs = np.asarray(Wc.sum(axis=1)).ravel()
+    n_comp, labels = connected_components(Wc, directed=not sym, connection="weak")
+    sizes = np.bincount(labels)
     return {
         "n": int(n),
         "nnz": int(Wc.nnz),
@@ -156,6 +160,11 @@ def weights_summary(W: csr_matrix) -> dict:
         "degree_max": int(deg.max()),
         "degree_mean": float(deg.mean()),
         "islands": int((deg == 0).sum()),
+        # Disconnection is not a curiosity: it caps how far spatial information can
+        # propagate, makes whole-graph mixing undefined, and gives the normalised
+        # adjacency eigenvalue 1 with multiplicity equal to the component count.
+        "n_components": int(n_comp),
+        "largest_component": int(sizes.max()),
         "S0": float(Wc.sum()),
     }
 

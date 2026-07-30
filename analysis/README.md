@@ -59,10 +59,54 @@ weights settings is fitting local structure and labelling it a trend.
 **Implementation check.** Occupancy saturates at 1/IPR → N/3 in the full-matrix limit,
 the GOE value, confirming the ensemble generation and localisation measures are correct.
 
+## 03 — Standard toolkit diagnostics on the eip data
+
+```bash
+python analysis/03_toolkit_diagnostics.py
+```
+
+Not a re-analysis — the published statistics reproduce and are not in question. This
+asks what the ordinary diagnostics of the field report about this weights matrix and
+this response. Five checks, results below.
+
+**Connectivity — the largest finding.** The k = 8 symmetrized graph has **2 components,
+the largest holding 252 of 319 cities**. Sixty-seven cities sit in a separate component
+between which spatial information cannot propagate at all, so Moran's I is summarising
+two disjoint systems as though they were one. Nothing in the submission or its methods
+documentation mentions this, and no standard workflow surfaces it.
+
+**Mixing vs edge resolution.** Within the largest component the mixing time is **424
+steps** against `n^(1/3) ≈ 6.8` to resolve the edge — a ratio of **62×**. The walk is
+nowhere near mixed when the edge is resolved, which is the Thouless comparison
+evaluated on real data rather than a synthetic ensemble. Consistent with the d = 2
+critical degree of ~47 against the k = 8 in use.
+
+**Eigenvector occupancy.** The leading 20 eigenvectors occupy 13.8% of the domain on
+average (range 6.4%–24.7%) — regional, not global. Selecting on the response keeps 3 of
+60, at ~36 cities each. Adding them moves the log-distance coefficient from −0.0567 to
+−0.0451.
+
+**Spatial cross-validation.** R² is negative under every scheme — random −0.021, block
+−0.013, k-means −0.017. Log-distance alone predicts AI output *worse than the mean*.
+Note this is not a leakage demonstration: the inflation is −0.008, essentially nil,
+because there is no predictive signal to leak. The published association is real; it is
+just not predictive skill, which the StoryMap does not claim. Worth stating explicitly
+if the atlas is ever used to rank cities.
+
+**Spatial confounding.** Log-distance carries 19.3% of its energy in the 10 smoothest
+spatial modes — mild overlap, so the covariate is not simply collinear with the spatial
+random effect. SAR gives ρ = +0.012 and β = −0.0536, landing near the published CAR
+(−0.052) rather than the GP (−0.207). That the two published models disagree by 4× while
+a third independent specification agrees with one of them is evidence the GP fit, not
+the covariate, is the outlier.
+
 ## Next
 
-The obvious third experiment is the one neither of these does: vary n as well as k, and
-test whether the d = 2 threshold exponent `n^(1 - d/6)` actually predicts where the Gi\*
-classifications stabilise. Both datasets here are too small to see an asymptotic regime
-(n = 319 and n = 20), so this needs either synthetic point processes or the full
-8,000-city frame in `../eip/data/raw/worldcities.csv`.
+Neither 01 nor 02 varies n, so nothing here tests whether the d = 2 exponent
+`n^(1 - d/6)` actually predicts where classifications stabilise. Both datasets are too
+small for an asymptotic regime (n = 319 and n = 20); this needs synthetic point
+processes or the full 8,000-city frame in `../eip/data/raw/worldcities.csv`.
+
+The connectivity result also deserves its own follow-up: how do Moran's I and Gi\*
+behave when computed per-component rather than pooled, and how common is silent
+disconnection in k-NN weights at typical k?
