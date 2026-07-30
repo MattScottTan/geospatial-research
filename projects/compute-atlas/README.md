@@ -42,9 +42,14 @@ extension (matching + stress tests), `stage5` pilot city-year panel with event s
 
 Three things to know before reusing any number from here:
 
-1. **The spatial statistics are not in this codebase.** Global Moran's I (I = 0.066,
-   p = 0.008) and Getis-Ord Gi\* were computed in ArcGIS Pro. No script here reproduces
-   them, and the weights-matrix specification is not recorded anywhere.
+1. **The Gi\* hot/cold counts depend on an undocumented weighting choice.** Moran's I and
+   Gi\* *are* in this codebase — `pipeline.py` implements both directly, contrary to the
+   StoryMap's attribution to ArcGIS Pro — and `src/analysis/spatial_diagnostics_esda.py`
+   reproduces them exactly (I = 0.0661, z = 2.86, p = 0.0080; 7 hot spots, 33 cold spots).
+   But `build_knn_graph` symmetrizes the kNN graph and leaves it binary, while the methods
+   documentation specifies row standardisation. Under the documented specification the map
+   shows 5 hot and 16 cold spots instead of 7 and 33. Moran's I barely moves; the
+   classifications halve.
 2. **`requirements.txt` was missing from the original package.** The root one in this repo
    is reconstructed from the import graph, unpinned.
 3. **The StoryMap credits PyMC and GPyTorch, which the pipeline does not import.** It

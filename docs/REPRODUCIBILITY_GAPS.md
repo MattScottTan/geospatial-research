@@ -17,17 +17,37 @@ contained two scripts, now at `projects/compute-atlas/src/analysis/`:
 
 These cover the reported D = 0.30, U = 786,844, χ² = 103.8 and Spearman −0.05.
 
-**compute-atlas, Finding 3 — still no code, but now specified.** Global Moran's I
-(I = 0.066, z = 2.86, p = 0.008, n = 319) and Getis-Ord Gi\* remain ArcGIS-only; neither
-analysis script imports `libpysal` or `esda`, and the `.aprx` was never downloaded.
-However `eip-award/methods/SPATIAL_STATS_ARCGIS_INSTRUCTIONS.md` records the weights
-specification that I previously listed as unrecorded:
+**compute-atlas, Finding 3 — closed. It was never ArcGIS-only.**
+`src/pipeline.py` implements both statistics itself, in numpy/scipy:
+`compute_global_morans_i` (499 permutations, seed 42) and `compute_local_gi_star`. The
+StoryMap's attribution to "the ArcGIS Pro Spatial Statistics toolbox" does not match the
+shipped code, and `gis/cities_with_hotspots.geojson` is that code's output.
 
-> **K Nearest Neighbors, K = 8, Row standardization**, Euclidean distance on WGS84.
+`src/analysis/spatial_diagnostics_esda.py` ports both to `esda`/`libpysal` and verifies
+them. Results reproduce exactly: **I = 0.0661, z = 2.86, p = 0.0080** against the
+published 0.066 / 2.86 / 0.008, and Gi\* gives **7 hot spots and 33 cold spots** against
+the published 7 and 33. Gi\* z-scores match the shipped GeoJSON with max |diff| = 0.0
+across all 319 cities. `esda` independently confirms I to four decimals under every
+weighting scheme tested.
 
-That is enough to reproduce the result in `esda` and compare. The same document explicitly
-notes that matching this specification is required to replicate the Python results, so the
-choice was deliberate.
+**But the weights do not match the documented specification.**
+`eip-award/methods/SPATIAL_STATS_ARCGIS_INSTRUCTIONS.md` specifies "K Nearest Neighbors,
+K = 8, **Row standardization**". `pipeline.build_knn_graph` builds a kNN graph and then
+**symmetrizes it and leaves it binary** — it never row-standardises. Running the
+documented specification instead:
+
+| weights | I | p | Gi\* hot | Gi\* cold |
+|---|---|---|---|---|
+| symmetrized binary (what shipped) | 0.0661 | 0.008 | **7** | **33** |
+| symmetrized row-standardised | 0.0654 | 0.010 | 5 | 19 |
+| directed kNN binary | 0.0713 | 0.008 | 6 | 21 |
+| directed kNN row-standardised (documented spec) | 0.0713 | 0.008 | 5 | 16 |
+
+Moran's I is robust — 0.065 to 0.071, significant at p ≤ 0.01 throughout. The Gi\*
+classifications are not: the published counts more than double the cold spots that the
+documented specification produces. The hot/cold map in the StoryMap is an artifact of an
+undocumented weighting choice, and no reader could reconstruct it from the methods
+document.
 
 **culinary-corridors — fully recovered.** Superseded again by
 `Downloads/Fisher All Past Resources/`. The complete analysis pipeline was in
@@ -42,9 +62,9 @@ and ships its working matrices (`distance_matrix.npy`, `similarity_matrix.npy`,
 `residual_matrix.npy`) alongside the result JSONs. Every published statistic reproduces —
 see `../projects/culinary-corridors/fisher-award/README.md` for the claim-by-claim table.
 
-Recovery: port compute-atlas Finding 3 to `esda` using the documented k = 8
-row-standardised weights. That is now the only spatial-statistics gap left in either
-project.
+Both projects' spatial statistics are now reproducible from this repo. What remains is not
+a missing-code gap but two documentation corrections: the compute-atlas weighting scheme
+(above) and the city-frame attribution (§ below).
 
 ## 2. `figdata.py` is transcribed — but it is no longer the only path
 

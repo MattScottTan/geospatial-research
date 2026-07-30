@@ -1,0 +1,5 @@
+city,country,quadrant,dist_km_nearest_region,bundle_score,providers_within_1000,regions_within_1500,top_inst_count,top_inst_ai_works,recent_ai_works_overlay,population,takeaway
+Singapore,Singapore,near compute / high AI,4.1,85.7,3,5,4,1072,1072,5745000,"Singapore aligns compute access, redundancy, institutional depth, and city-scale opportunity."
+Seoul,"Korea, South",near compute / low AI,1.3,84.0,3,11,1,10,10,21794000,"Seoul is compute-rich but comparatively quiet in the delivered overlay, making it a strong exception case."
+Ho Chi Minh City,Vietnam,far compute / high AI,1096.8,61.7,0,3,2,373,373,13312000,Ho Chi Minh City outperforms what distance alone would predict.
+Lagos,Nigeria,far compute / low AI,3842.6,27.8,0,0,0,0,0,15279000,Lagos combines large urban scale with weak compute proximity and no observed works in the delivered overlay.
