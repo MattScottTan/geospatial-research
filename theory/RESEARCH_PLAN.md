@@ -136,12 +136,23 @@ density of states.
 So the ensemble-level spectral fact is done, in both dimensions, numerically. **The
 threshold theorem is not available as originally conceived.** Three things survive:
 
-1. **MEM does not use the adjacency or the Laplacian.** It uses `MWM` with
-   `M = I − 11'/n`, which *explicitly deletes the constant vector* — precisely the
-   conservation mode that keeps the Laplacian extended. By the 2026 paper's own logic,
-   the MEM basis is the adjacency-like object with its one extended mode removed by
-   construction. **Prediction: MEM eigenvectors localise, always, asymptotically.** That
-   is sharper and more damaging to ESF than any threshold, and it is untested.
+1. ~~**MEM does not use the adjacency or the Laplacian.**~~ **Tested and rejected the
+   same day.** The idea was that `MWM` deletes the constant vector — the conservation
+   mode keeping the Laplacian extended — so MEM eigenvectors should localise like the
+   adjacency. Measured mean occupancy of the top-20 eigenvectors on the 319-city graph:
+
+   | k | adjacency `W` | Laplacian `L` | `MWM` (MEM) |
+   |---|---|---|---|
+   | 4 | 0.047 | 0.064 | 0.093 |
+   | 8 | 0.109 | 0.110 | 0.138 |
+   | 16 | 0.214 | 0.173 | 0.228 |
+   | 64 | 0.262 | 0.222 | 0.276 |
+
+   All three track each other closely, and `MWM` is consistently *slightly more*
+   extended, not less. The conservation-law effect lives in the single near-zero
+   Laplacian mode (76.5% occupancy at `k = 8`), not in the bulk. **No novel mechanism
+   survives.** (`MWM`'s own zero mode is the constant vector at 100% occupancy by
+   construction; MEM discards it, and it is excluded from the table above.)
 2. **Construction mismatch.** The physics uses distance-band RGGs; MEM in practice uses
    kNN, which has fixed degree and is asymmetric before symmetrisation.
 3. **The entire applied translation is untouched.** Nobody in the MESF literature measures
@@ -163,11 +174,19 @@ rather than the proof engine now.
 Applied methods paper. *Geographical Analysis*, *Spatial Statistics*, *IJGIS* — venues
 where the physics literature is unknown and the consequence matters.
 
-### Risk: **low-medium** (downgraded ceiling, downgraded risk)
-No longer a theorem paper. The contribution is translation plus a specific untested
-prediction plus applied consequence. Publishable and useful; not a flagship.
+### Risk: **low ceiling** — demoted to optional
+Two strikes in one sitting: the threshold theorem was already occupied, and the rescue
+mechanism failed its own numerical test. What is left is a translation paper — "here is
+what the physics literature already knows, here is what it means for a method you use,
+here is a diagnostic" — plus one empirical claim that stands on its own: the field's
+stated leading-is-global ordering fails at conventional settings (13.8% occupancy for the
+leading 20 at k = 8).
 
-### Timeline: 4–6 months
+That is genuinely useful to the MESF community, who do not read Phys. Rev. E. It is not a
+flagship and should not consume a year. Write it as a short note if Papers 1 and 3 leave
+room, or fold the diagnostic into Paper 1 and drop the standalone.
+
+### Timeline: 6–10 weeks as a note, or absorbed into Paper 1
 
 ---
 
