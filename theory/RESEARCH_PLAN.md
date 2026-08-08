@@ -83,9 +83,11 @@ software issue trackers, which a targeted search should settle.
 
 ---
 
-## Paper 2 — A localisation threshold for Moran eigenvector maps
+## Paper 2 — What Moran eigenvector maps actually are
 
-**Flagship. Gated on one literature check.**
+**Gate resolved (Aug 2026): the theorem is largely gone; the applied paper survives and
+sharpens.** See "Gate outcome" below. Reframed from "find the localisation threshold" to
+"MEM's centering deletes the one extended mode, so ESF has no safe regime."
 
 ### Question
 When are Moran eigenvectors global spatial trends, and when are they local bumps?
@@ -113,37 +115,59 @@ controlling for something else.
 
 ### Existing literature
 - **MEM/ESF methodology** — Griffith; Dray, Legendre & Peres-Neto; Borcard & Legendre.
-  Descriptive and constructive; no spectral theory of what the eigenvectors are.
-- **Eigenvector localisation on random geometric graphs** — exists in the RMT and
-  network-physics literature. **This is the risk.** The underlying spectral result may
-  already be available, making the contribution a translation rather than a theorem.
-- **Band matrix delocalisation** — Sodin; Bourgade, Erdős, Yau, Yin. Covered in the
-  senior thesis, which is the technical engine.
-- No connection between the applied and spectral literatures found.
+  Descriptive and constructive; no spectral theory of what the eigenvectors are. Griffith
+  (2017) assesses estimator robustness, not eigenvector structure. Recent work replaces
+  ad-hoc selection with regularisation, but still never asks what the selected vectors are.
+- **Eigenvector localisation on random geometric graphs** — **occupied, and recently.**
+  [Localized and delocalized modes on RGGs in 1D](https://arxiv.org/pdf/2508.18936)
+  (Phys. Rev. E, 2025) and [the 2D counterpart](https://arxiv.org/html/2603.29611) (2026).
+  Both numerical.
+- **Band matrix delocalisation** — Sodin; Bourgade, Erdős, Yau, Yin. The thesis.
+- No connection between the applied and spectral literatures — this remains open.
 
-### Contribution
-1. Characterise the delocalisation threshold for MEM eigenvectors as a function of
-   `(n, k, d)`.
-2. Show the "leading = global" assumption holds only above threshold, and that
-   conventional `k` sits below it.
-3. A computable diagnostic — participation ratio — to report alongside any ESF result.
-4. Consequence for inference: what does an ESF coefficient mean when filters are localised?
+### Gate outcome (searched Aug 2026)
+
+The 2026 2D paper establishes numerically that **all adjacency eigenmodes localise for
+sufficiently large systems**, while the **Laplacian retains system-spanning modes because
+of a conservation law** — the uniform vector in its kernel. It also finds a percolation
+threshold at mean degree ≈ 4.5 and notes that component size distribution shapes the
+density of states.
+
+So the ensemble-level spectral fact is done, in both dimensions, numerically. **The
+threshold theorem is not available as originally conceived.** Three things survive:
+
+1. **MEM does not use the adjacency or the Laplacian.** It uses `MWM` with
+   `M = I − 11'/n`, which *explicitly deletes the constant vector* — precisely the
+   conservation mode that keeps the Laplacian extended. By the 2026 paper's own logic,
+   the MEM basis is the adjacency-like object with its one extended mode removed by
+   construction. **Prediction: MEM eigenvectors localise, always, asymptotically.** That
+   is sharper and more damaging to ESF than any threshold, and it is untested.
+2. **Construction mismatch.** The physics uses distance-band RGGs; MEM in practice uses
+   kNN, which has fixed degree and is asymmetric before symmetrisation.
+3. **The entire applied translation is untouched.** Nobody in the MESF literature measures
+   participation ratios or questions the global→local ordering.
+
+### Contribution (revised)
+1. Test the centering prediction: does `MWM` localise where the Laplacian does not?
+2. Show the field's stated "leading = global" ordering fails at conventional settings —
+   measured 13.8% occupancy for the leading 20 at `k = 8`, `n = 319`.
+3. A computable diagnostic — participation ratio — reported alongside any ESF result.
+4. Consequence for inference: what an ESF coefficient means when the filters are local.
 
 ### Method and prerequisites
-Random geometric graph spectra; inverse participation ratio; the band-matrix machinery
-from the thesis (Part III); simulation plus reanalysis of published applications.
-Prerequisites: thesis Part III, APMTH 220 (graph/manifold spectral methods).
+`MWM` spectra on kNN and distance-band graphs; inverse participation ratio; simulation
+across `(n, k, d)`; reanalysis of published applications. The thesis supplies intuition
+rather than the proof engine now.
 
 ### Deliverable and venue
-Threshold characterisation + simulation + reanalysis.
-*JRSS-B*, *JASA*, *Annals of Applied Statistics*, or *Spatial Statistics*.
+Applied methods paper. *Geographical Analysis*, *Spatial Statistics*, *IJGIS* — venues
+where the physics literature is unknown and the consequence matters.
 
-### Risk: **medium-high**
-**Gate:** search the random-geometric-graph localisation literature before committing. If
-the threshold is already known, the paper becomes translation + application — still
-publishable, lower ceiling. Decide with that information, not without it.
+### Risk: **low-medium** (downgraded ceiling, downgraded risk)
+No longer a theorem paper. The contribution is translation plus a specific untested
+prediction plus applied consequence. Publishable and useful; not a flagship.
 
-### Timeline: 9–15 months
+### Timeline: 4–6 months
 
 ---
 
@@ -225,21 +249,27 @@ A hard open problem in RMT. Plausibly a chapter that never closes.
 
 ---
 
-## Sequencing
+## Sequencing (revised after the Paper 2 gate)
 
 ```
 now         Paper 1 ──────────────► finished artefact, tooling, habit
             │
-            └─ literature gate ──► Paper 2 (flagship)
-                                   │
-month 3     Paper 3 ───────────────┤ shares permutation/selection machinery with 1
-                                   │
-opportunistic                      └─ Paper 4, only if 2's machinery makes it tractable
+month 2     Paper 3 ──────────────► FLAGSHIP. Reuses Paper 1's permutation machinery.
+            │                       Now the best theorem-shaped candidate: post-selection
+            │                       inference for W is a statistics problem, unoccupied,
+            │                       and not something physics will scoop.
+            │
+month 4     Paper 2 ──────────────► applied methods paper, runs alongside
+                                    │
+opportunistic                       └─ Paper 4, only if tractable
 ```
 
-Paper 1 first because it finishes. Paper 2 gated on one search that determines whether it
-is a theorem or a translation. Paper 3 reuses Paper 1's permutation apparatus. Paper 4
-only if the earlier work makes it reachable.
+**The gate moved the centre of gravity.** Paper 2 was the flagship on the assumption it
+carried a theorem; it does not. Paper 3 inherits that role — selective inference for
+weights selection is squarely a statistics problem, the machinery to specialise exists,
+and no adjacent field is working toward it.
+
+Paper 1 still goes first because it finishes and builds the apparatus Paper 3 needs.
 
 ---
 
@@ -257,8 +287,10 @@ only if the earlier work makes it reachable.
 
 ## Honest risks to the programme
 
-- **Paper 2's underlying theory may exist.** The single most important thing to check
-  before committing significant time.
+- **Paper 2's underlying theory existed.** Checked Aug 2026: 1D (Phys. Rev. E 2025) and
+  2D (arXiv 2603.29611, 2026) RGG localisation are both done numerically. Paper 2 was
+  downgraded from flagship to applied methods paper, and Paper 3 promoted. This is what
+  the gate was for; the cost of not checking would have been months.
 - **Paper 1 may be known** in grey literature or software discussions.
 - **Paper 4 may be too hard.** Treat as optional throughout.
 - **The programme is critical in character** — "here is what is wrong with what you do."
