@@ -1,5 +1,5 @@
 {
-  "project_status": "planned",
+  "project_status": "executing",
   "current_milestone": "M1",
   "milestones": {
     "M1": "Evidence and sources complete",
@@ -14,13 +14,24 @@
       "title": "Build and verify the annotated source corpus",
       "objective": "Search, retrieve, read and annotate every source both papers will cite. Produce refs.bib plus an annotation per source stating what it does, why it is credible, and what this work takes from it. Must include a serious prior-art check for Paper 1's component finding (journals, grey literature, spdep and ArcGIS documentation and issue trackers) and for Paper 2's selection problem. Report any source that narrows or preempts a claim.",
       "milestone": "M1",
-      "status": "ready",
+      "status": "in_progress",
       "priority": 1,
       "depends_on": [],
-      "acceptance_criteria": ["AC-004", "AC-005"],
-      "relevant_paths": ["papers/shared/refs.bib", "papers/shared/annotated_bibliography.tex", ".agent/DECISIONS.md"],
-      "validation": ["Every entry in refs.bib has an annotation", "Every URL/DOI retrieved and confirmed to support its claim", "Prior-art findings recorded in DECISIONS.md"],
-      "attempts": 0,
+      "acceptance_criteria": [
+        "AC-004",
+        "AC-005"
+      ],
+      "relevant_paths": [
+        "papers/shared/refs.bib",
+        "papers/shared/annotated_bibliography.tex",
+        ".agent/DECISIONS.md"
+      ],
+      "validation": [
+        "Every entry in refs.bib has an annotation",
+        "Every URL/DOI retrieved and confirmed to support its claim",
+        "Prior-art findings recorded in DECISIONS.md"
+      ],
+      "attempts": 1,
       "blocked_reason": null
     },
     {
@@ -28,13 +39,23 @@
       "title": "Paper 1 evidence: disconnection prevalence at scale",
       "objective": "Determine how often k-nearest-neighbour spatial weights silently disconnect on real geography. Sweep n (subsamples of the 41,001-city frame plus the 319-city set) against k, recording component counts, largest-component share, per-component mean offsets, and the resulting Gi* cold/hot-spot rates under global vs within-component standardisation. Commit script and outputs.",
       "milestone": "M1",
-      "status": "ready",
+      "status": "in_progress",
       "priority": 1,
       "depends_on": [],
-      "acceptance_criteria": ["AC-006", "AC-002"],
-      "relevant_paths": ["analysis/04_disconnection_prevalence.py", "analysis/outputs/"],
-      "validation": ["Script runs end to end from clean", "Outputs include prevalence as a fraction of configurations, not one case", "Seeded and deterministic"],
-      "attempts": 0,
+      "acceptance_criteria": [
+        "AC-006",
+        "AC-002"
+      ],
+      "relevant_paths": [
+        "analysis/04_disconnection_prevalence.py",
+        "analysis/outputs/"
+      ],
+      "validation": [
+        "Script runs end to end from clean",
+        "Outputs include prevalence as a fraction of configurations, not one case",
+        "Seeded and deterministic"
+      ],
+      "attempts": 1,
       "blocked_reason": null
     },
     {
@@ -42,13 +63,23 @@
       "title": "Paper 2 evidence: Type I inflation surface",
       "objective": "Extend the single-point inflation result into a surface. Vary selection rule (arg-max of I, min p-value, first-significant, and a robustness-check rule), candidate grid (coarse, fine, wide, narrow), n, and spatial configuration. Report false-positive rate against the 5 percent nominal, plus the inter-statistic correlation that governs how far short of Bonferroni the inflation falls. Commit script and outputs.",
       "milestone": "M1",
-      "status": "ready",
+      "status": "in_progress",
       "priority": 1,
       "depends_on": [],
-      "acceptance_criteria": ["AC-007", "AC-002"],
-      "relevant_paths": ["analysis/05_selection_inflation.py", "analysis/outputs/"],
-      "validation": ["At least three selection rules and two grids", "Monte Carlo standard error below 0.5 percentage points", "Seeded and deterministic"],
-      "attempts": 0,
+      "acceptance_criteria": [
+        "AC-007",
+        "AC-002"
+      ],
+      "relevant_paths": [
+        "analysis/05_selection_inflation.py",
+        "analysis/outputs/"
+      ],
+      "validation": [
+        "At least three selection rules and two grids",
+        "Monte Carlo standard error below 0.5 percentage points",
+        "Seeded and deterministic"
+      ],
+      "attempts": 1,
       "blocked_reason": null
     },
     {
@@ -56,13 +87,22 @@
       "title": "Write the shared from-first-principles primer",
       "objective": "Write papers/shared/primer.tex covering, for a reader with no statistics background: variability and standard deviation, z-scores, null hypotheses, p-values, permutation tests, Type I error and multiple comparisons, matrices and quadratic forms, eigenvalues and eigenvectors, graphs and connected components, spatial weights matrices, Moran's I, and Getis-Ord Gi*. Every term defined before use, each with an intuitive gloss before any formula.",
       "milestone": "M2",
-      "status": "ready",
+      "status": "in_progress",
       "priority": 2,
       "depends_on": [],
-      "acceptance_criteria": ["AC-003"],
-      "relevant_paths": ["papers/shared/primer.tex", "papers/shared/glossary.tex"],
-      "validation": ["Compiles standalone", "Every AC-003 term present and defined", "No forward references to undefined terms"],
-      "attempts": 0,
+      "acceptance_criteria": [
+        "AC-003"
+      ],
+      "relevant_paths": [
+        "papers/shared/primer.tex",
+        "papers/shared/glossary.tex"
+      ],
+      "validation": [
+        "Compiles standalone",
+        "Every AC-003 term present and defined",
+        "No forward references to undefined terms"
+      ],
+      "attempts": 1,
       "blocked_reason": null
     },
     {
@@ -70,13 +110,25 @@
       "title": "LaTeX build system and document scaffold",
       "objective": "Create papers/Makefile, the two document skeletons with section scaffolding, shared preamble, bibliography wiring, glossary support and table of contents. Must produce two compiling stub PDFs that already include the primer.",
       "milestone": "M2",
-      "status": "ready",
+      "status": "in_progress",
       "priority": 2,
       "depends_on": [],
-      "acceptance_criteria": ["AC-001", "AC-012"],
-      "relevant_paths": ["papers/Makefile", "papers/shared/preamble.tex", "papers/paper1/paper1.tex", "papers/paper2/paper2.tex"],
-      "validation": ["make produces both PDFs with zero errors", "TOC renders", "tex authored via Write tool, not Bash heredoc"],
-      "attempts": 0,
+      "acceptance_criteria": [
+        "AC-001",
+        "AC-012"
+      ],
+      "relevant_paths": [
+        "papers/Makefile",
+        "papers/shared/preamble.tex",
+        "papers/paper1/paper1.tex",
+        "papers/paper2/paper2.tex"
+      ],
+      "validation": [
+        "make produces both PDFs with zero errors",
+        "TOC renders",
+        "tex authored via Write tool, not Bash heredoc"
+      ],
+      "attempts": 1,
       "blocked_reason": null
     },
     {
@@ -86,10 +138,22 @@
       "milestone": "M3",
       "status": "pending",
       "priority": 3,
-      "depends_on": ["T-002", "T-005"],
-      "acceptance_criteria": ["AC-011"],
-      "relevant_paths": ["papers/paper1/figures/", "papers/paper1/make_figures.py"],
-      "validation": ["All figures vector PDF", "Regenerate from clean", "Each embeds in a test compile"],
+      "depends_on": [
+        "T-002",
+        "T-005"
+      ],
+      "acceptance_criteria": [
+        "AC-011"
+      ],
+      "relevant_paths": [
+        "papers/paper1/figures/",
+        "papers/paper1/make_figures.py"
+      ],
+      "validation": [
+        "All figures vector PDF",
+        "Regenerate from clean",
+        "Each embeds in a test compile"
+      ],
       "attempts": 0,
       "blocked_reason": null
     },
@@ -100,10 +164,22 @@
       "milestone": "M4",
       "status": "pending",
       "priority": 3,
-      "depends_on": ["T-003", "T-005"],
-      "acceptance_criteria": ["AC-011"],
-      "relevant_paths": ["papers/paper2/figures/", "papers/paper2/make_figures.py"],
-      "validation": ["All figures vector PDF", "Regenerate from clean", "Each embeds in a test compile"],
+      "depends_on": [
+        "T-003",
+        "T-005"
+      ],
+      "acceptance_criteria": [
+        "AC-011"
+      ],
+      "relevant_paths": [
+        "papers/paper2/figures/",
+        "papers/paper2/make_figures.py"
+      ],
+      "validation": [
+        "All figures vector PDF",
+        "Regenerate from clean",
+        "Each embeds in a test compile"
+      ],
       "attempts": 0,
       "blocked_reason": null
     },
@@ -114,10 +190,30 @@
       "milestone": "M3",
       "status": "pending",
       "priority": 4,
-      "depends_on": ["T-001", "T-002", "T-004", "T-006"],
-      "acceptance_criteria": ["AC-001", "AC-003", "AC-008", "AC-009", "AC-010", "AC-012"],
-      "relevant_paths": ["papers/paper1/", "papers/CLAIMS.md"],
-      "validation": ["Compiles clean", "Contribution and limitations sections in TOC", "Every number has a CLAIMS.md row", "Moran's I null result present"],
+      "depends_on": [
+        "T-001",
+        "T-002",
+        "T-004",
+        "T-006"
+      ],
+      "acceptance_criteria": [
+        "AC-001",
+        "AC-003",
+        "AC-008",
+        "AC-009",
+        "AC-010",
+        "AC-012"
+      ],
+      "relevant_paths": [
+        "papers/paper1/",
+        "papers/CLAIMS.md"
+      ],
+      "validation": [
+        "Compiles clean",
+        "Contribution and limitations sections in TOC",
+        "Every number has a CLAIMS.md row",
+        "Moran's I null result present"
+      ],
       "attempts": 0,
       "blocked_reason": null
     },
@@ -128,10 +224,29 @@
       "milestone": "M4",
       "status": "pending",
       "priority": 4,
-      "depends_on": ["T-001", "T-003", "T-004", "T-007"],
-      "acceptance_criteria": ["AC-001", "AC-003", "AC-008", "AC-009", "AC-010", "AC-012"],
-      "relevant_paths": ["papers/paper2/", "papers/CLAIMS.md"],
-      "validation": ["Compiles clean", "Contribution and limitations sections in TOC", "Every number has a CLAIMS.md row"],
+      "depends_on": [
+        "T-001",
+        "T-003",
+        "T-004",
+        "T-007"
+      ],
+      "acceptance_criteria": [
+        "AC-001",
+        "AC-003",
+        "AC-008",
+        "AC-009",
+        "AC-010",
+        "AC-012"
+      ],
+      "relevant_paths": [
+        "papers/paper2/",
+        "papers/CLAIMS.md"
+      ],
+      "validation": [
+        "Compiles clean",
+        "Contribution and limitations sections in TOC",
+        "Every number has a CLAIMS.md row"
+      ],
       "attempts": 0,
       "blocked_reason": null
     },
@@ -142,10 +257,21 @@
       "milestone": "M5",
       "status": "pending",
       "priority": 5,
-      "depends_on": ["T-008", "T-009"],
-      "acceptance_criteria": ["AC-002"],
-      "relevant_paths": ["papers/CLAIMS.md", ".agent/runs/"],
-      "validation": ["Every extracted number reconciled", "Commands run and outputs recorded as evidence"],
+      "depends_on": [
+        "T-008",
+        "T-009"
+      ],
+      "acceptance_criteria": [
+        "AC-002"
+      ],
+      "relevant_paths": [
+        "papers/CLAIMS.md",
+        ".agent/runs/"
+      ],
+      "validation": [
+        "Every extracted number reconciled",
+        "Commands run and outputs recorded as evidence"
+      ],
       "attempts": 0,
       "blocked_reason": null
     },
@@ -156,10 +282,23 @@
       "milestone": "M5",
       "status": "pending",
       "priority": 5,
-      "depends_on": ["T-008", "T-009"],
-      "acceptance_criteria": ["AC-004", "AC-005"],
-      "relevant_paths": ["papers/shared/refs.bib", "papers/shared/annotated_bibliography.tex", ".agent/runs/"],
-      "validation": ["Each source retrieved with evidence recorded", "Unsupported attributions reported as defects"],
+      "depends_on": [
+        "T-008",
+        "T-009"
+      ],
+      "acceptance_criteria": [
+        "AC-004",
+        "AC-005"
+      ],
+      "relevant_paths": [
+        "papers/shared/refs.bib",
+        "papers/shared/annotated_bibliography.tex",
+        ".agent/runs/"
+      ],
+      "validation": [
+        "Each source retrieved with evidence recorded",
+        "Unsupported attributions reported as defects"
+      ],
       "attempts": 0,
       "blocked_reason": null
     },
@@ -170,10 +309,23 @@
       "milestone": "M5",
       "status": "pending",
       "priority": 5,
-      "depends_on": ["T-008", "T-009"],
-      "acceptance_criteria": ["AC-003", "AC-012"],
-      "relevant_paths": ["papers/paper1/paper1.pdf", "papers/paper2/paper2.pdf", ".agent/runs/"],
-      "validation": ["Term inventory produced with definition location for each", "No term used before definition"],
+      "depends_on": [
+        "T-008",
+        "T-009"
+      ],
+      "acceptance_criteria": [
+        "AC-003",
+        "AC-012"
+      ],
+      "relevant_paths": [
+        "papers/paper1/paper1.pdf",
+        "papers/paper2/paper2.pdf",
+        ".agent/runs/"
+      ],
+      "validation": [
+        "Term inventory produced with definition location for each",
+        "No term used before definition"
+      ],
       "attempts": 0,
       "blocked_reason": null
     },
@@ -184,12 +336,37 @@
       "milestone": "M5",
       "status": "pending",
       "priority": 6,
-      "depends_on": ["T-010", "T-011", "T-012"],
-      "acceptance_criteria": ["AC-001", "AC-002", "AC-003", "AC-004", "AC-005", "AC-006", "AC-007", "AC-008", "AC-009", "AC-010", "AC-011", "AC-012"],
-      "relevant_paths": [".agent/runs/acceptance.md"],
-      "validation": ["Clean-clone make succeeds", "Every DoD box ticked with evidence", "No open defects"],
+      "depends_on": [
+        "T-010",
+        "T-011",
+        "T-012"
+      ],
+      "acceptance_criteria": [
+        "AC-001",
+        "AC-002",
+        "AC-003",
+        "AC-004",
+        "AC-005",
+        "AC-006",
+        "AC-007",
+        "AC-008",
+        "AC-009",
+        "AC-010",
+        "AC-011",
+        "AC-012"
+      ],
+      "relevant_paths": [
+        ".agent/runs/acceptance.md"
+      ],
+      "validation": [
+        "Clean-clone make succeeds",
+        "Every DoD box ticked with evidence",
+        "No open defects"
+      ],
       "attempts": 0,
       "blocked_reason": null
     }
-  ]
+  ],
+  "last_update": "2026-08-17T18:53:18",
+  "notes": "Wave 1 dispatched: 5 independent workers (M1 evidence+sources, M2 scaffold+primer). All downstream tasks blocked pending these."
 }
