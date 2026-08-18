@@ -1,0 +1,145 @@
+% =====================================================================
+%  papers/shared/preamble.tex
+%  Shared preamble for paper1 and paper2.  Owned by T-005 (scaffold).
+%
+%  Package set is restricted to the verified-working list:
+%    amsmath, amssymb, amsthm, booktabs, graphicx, hyperref, natbib, geometry
+%  Do not add packages without compiling to confirm they resolve.
+%
+%  AUTHORING RULE (D-005): this file and every other .tex in this tree are
+%  written with the Write/Edit tools.  Bash heredocs collapse \\ to \ in this
+%  environment and silently corrupt tabulars.
+% =====================================================================
+
+\usepackage[a4paper,margin=1.1in]{geometry}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage[authoryear,round]{natbib}
+
+% hyperref last (except for its own configuration below).
+\usepackage[
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black,
+  bookmarksnumbered=true,
+  bookmarksopen=true,
+  pdfstartview=FitH
+]{hyperref}
+
+% Figures live next to each paper's main .tex, so a bare relative path works
+% for both documents when latexmk runs inside the paper directory.
+\graphicspath{{figures/}{./figures/}}
+
+\bibliographystyle{plainnat}
+\setcitestyle{authoryear,round}
+
+% ---------------------------------------------------------------------
+%  Theorem-like environments
+% ---------------------------------------------------------------------
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% ---------------------------------------------------------------------
+%  \begin{keyinsight} ... \end{keyinsight}
+%
+%  Marks a contribution or a load-bearing idea so a reader skimming for the
+%  new result can find it.  Built from base LaTeX primitives only -- no
+%  framing package is in the verified set.
+%  Optional argument overrides the label, e.g. \begin{keyinsight}[What is new]
+% ---------------------------------------------------------------------
+\newenvironment{keyinsight}[1][Key insight]{%
+  \par\medskip
+  \begin{list}{}{%
+    \setlength{\leftmargin}{1.5em}%
+    \setlength{\rightmargin}{1.5em}%
+    \setlength{\listparindent}{0pt}%
+    \setlength{\parsep}{0pt}%
+    \setlength{\topsep}{0pt}%
+    \setlength{\partopsep}{0pt}%
+  }%
+  \item[]%
+  \noindent\rule{\linewidth}{0.9pt}\par\smallskip
+  \noindent\textbf{#1.}\enspace\ignorespaces
+}{%
+  \par\smallskip\noindent\rule{\linewidth}{0.9pt}%
+  \end{list}%
+  \medskip
+}
+
+% ---------------------------------------------------------------------
+%  Labelled section scheme (AC-012)
+%
+%  Every top-level section carries a role tag that survives into the table
+%  of contents and the PDF bookmarks, so a reader can locate the new result
+%  without reading linearly.  Roles:
+%    exposition -- background a reader may already know and may skip
+%    evidence   -- computation and measurement supporting the claim
+%    contribution -- what this paper adds
+%    limitations  -- what the claim does not cover
+% ---------------------------------------------------------------------
+\newcommand{\roletag}[1]{%
+  \texorpdfstring{\ {\normalfont\small\textsc{[#1]}}}{ [#1]}%
+}
+\newcommand{\EXPOSITION}{\roletag{exposition}}
+\newcommand{\EVIDENCE}{\roletag{evidence}}
+\newcommand{\CONTRIBUTION}{\roletag{contribution}}
+\newcommand{\LIMITATIONS}{\roletag{limitations}}
+
+% ---------------------------------------------------------------------
+%  Glossary machinery (AC-003)
+%
+%  \defterm{key}{printed term}
+%      Marks the defining occurrence of a term of art in the running text.
+%      It sets the term in bold italic and plants a label.
+%
+%  \gentry{key}{Headword}{plain-language definition}
+%      A glossary line.  It back-references the section and page where
+%      \defterm{key}{...} was placed.
+%
+%  INVARIANT: every \gentry key should have a matching \defterm in a file
+%  that the paper actually \inputs.  If it does not, \gentry degrades to
+%  "Definition pending" and logs a LaTeX warning rather than emitting ??,
+%  so a missing anchor cannot silently break AC-001 for the other paper.
+%  Grep the build log for "glossary anchor" to find any that are pending.
+% ---------------------------------------------------------------------
+\newcommand{\defterm}[2]{\textbf{\textit{#2}}\label{term:#1}}
+
+\makeatletter
+\newcommand{\gentry}[3]{%
+  \item[#2]\ #3\ %
+  \@ifundefined{r@term:#1}{%
+    \@latex@warning{Missing glossary anchor for term '#1'%
+      \MessageBreak (no \string\defterm{#1}{...} in this document)}%
+    \emph{(Definition pending.)}%
+  }{%
+    \emph{(Defined in Section~\ref{term:#1}, page~\pageref{term:#1}.)}%
+  }%
+}
+\makeatother
+
+% ---------------------------------------------------------------------
+%  Small conveniences used across both papers
+% ---------------------------------------------------------------------
+\newcommand{\Wmat}{\mathbf{W}}
+\newcommand{\Gistar}{G_i^{*}}
+\newcommand{\MoranI}{I}
+\newcommand{\Ex}{\mathbb{E}}
+\newcommand{\Var}{\operatorname{Var}}
+
+% Author metadata shared by both papers.
+\newcommand{\paperauthor}{Matthew Scott Tan}

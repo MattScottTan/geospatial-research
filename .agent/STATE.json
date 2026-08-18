@@ -14,7 +14,7 @@
       "title": "Build and verify the annotated source corpus",
       "objective": "Search, retrieve, read and annotate every source both papers will cite. Produce refs.bib plus an annotation per source stating what it does, why it is credible, and what this work takes from it. Must include a serious prior-art check for Paper 1's component finding (journals, grey literature, spdep and ArcGIS documentation and issue trackers) and for Paper 2's selection problem. Report any source that narrows or preempts a claim.",
       "milestone": "M1",
-      "status": "in_progress",
+      "status": "ready",
       "priority": 1,
       "depends_on": [],
       "acceptance_criteria": [
@@ -39,7 +39,7 @@
       "title": "Paper 1 evidence: disconnection prevalence at scale",
       "objective": "Determine how often k-nearest-neighbour spatial weights silently disconnect on real geography. Sweep n (subsamples of the 41,001-city frame plus the 319-city set) against k, recording component counts, largest-component share, per-component mean offsets, and the resulting Gi* cold/hot-spot rates under global vs within-component standardisation. Commit script and outputs.",
       "milestone": "M1",
-      "status": "in_progress",
+      "status": "done",
       "priority": 1,
       "depends_on": [],
       "acceptance_criteria": [
@@ -63,7 +63,7 @@
       "title": "Paper 2 evidence: Type I inflation surface",
       "objective": "Extend the single-point inflation result into a surface. Vary selection rule (arg-max of I, min p-value, first-significant, and a robustness-check rule), candidate grid (coarse, fine, wide, narrow), n, and spatial configuration. Report false-positive rate against the 5 percent nominal, plus the inter-statistic correlation that governs how far short of Bonferroni the inflation falls. Commit script and outputs.",
       "milestone": "M1",
-      "status": "in_progress",
+      "status": "done",
       "priority": 1,
       "depends_on": [],
       "acceptance_criteria": [
@@ -87,7 +87,7 @@
       "title": "Write the shared from-first-principles primer",
       "objective": "Write papers/shared/primer.tex covering, for a reader with no statistics background: variability and standard deviation, z-scores, null hypotheses, p-values, permutation tests, Type I error and multiple comparisons, matrices and quadratic forms, eigenvalues and eigenvectors, graphs and connected components, spatial weights matrices, Moran's I, and Getis-Ord Gi*. Every term defined before use, each with an intuitive gloss before any formula.",
       "milestone": "M2",
-      "status": "in_progress",
+      "status": "ready",
       "priority": 2,
       "depends_on": [],
       "acceptance_criteria": [
@@ -110,7 +110,7 @@
       "title": "LaTeX build system and document scaffold",
       "objective": "Create papers/Makefile, the two document skeletons with section scaffolding, shared preamble, bibliography wiring, glossary support and table of contents. Must produce two compiling stub PDFs that already include the primer.",
       "milestone": "M2",
-      "status": "in_progress",
+      "status": "ready",
       "priority": 2,
       "depends_on": [],
       "acceptance_criteria": [
@@ -368,5 +368,5 @@
     }
   ],
   "last_update": "2026-08-17T18:53:18",
-  "notes": "Wave 1 dispatched: 5 independent workers (M1 evidence+sources, M2 scaffold+primer). All downstream tasks blocked pending these."
+  "notes": "T-002 and T-003 done in-context after all 5 subagents died (3 stream stalls, 2 account session limit). T-001/T-004/T-005 returned to ready; T-005 left papers/shared/preamble.tex partially written."
 }

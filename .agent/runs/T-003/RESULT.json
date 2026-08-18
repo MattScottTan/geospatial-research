@@ -1,0 +1,46 @@
+{
+  "task_id": "T-003",
+  "status": "completed",
+  "summary": "Type I inflation measured across 5 candidate grids x 3 sample sizes x 4 selection rules at 20,000 replicates each. Union and first-significant rules coincide exactly and range 8.3-18.7% (1.7-3.7x). Arg-max ranges 7.8-13.0% (1.6-2.6x). The majority/robustness-check rule is CONSERVATIVE at 1.9-4.6%, under-rejecting rather than inflating. Inflation is governed by the inter-statistic correlation, not grid size alone.",
+  "changed_artifacts": [
+    "analysis/05_selection_inflation.py",
+    "analysis/outputs/selection_inflation.json",
+    "papers/paper2/data/inflation_surface.csv"
+  ],
+  "validation": [
+    {
+      "check": "reference configuration reproduces",
+      "result": "pass",
+      "evidence": "union 14.1% vs expected 14.4%, argmax 11.3% vs 11.4%, mean corr 0.611 vs 0.605 - all within Monte Carlo error"
+    },
+    {
+      "check": "per-k calibration is 5% by construction",
+      "result": "pass",
+      "evidence": "critical values set at the 95th percentile of each k's own null"
+    },
+    {
+      "check": "at least three selection rules and two grids",
+      "result": "pass",
+      "evidence": "5 grids; 3 DISTINCT rules (union==first_sig exactly, plus argmax and majority)"
+    },
+    {
+      "check": "Monte Carlo SE below 0.5 percentage points",
+      "result": "pass",
+      "evidence": "max MC SE across all cells 0.28 pp at B=20,000"
+    },
+    {
+      "check": "seeded and deterministic",
+      "result": "pass",
+      "evidence": "SEED=42; per-configuration generators seeded as SEED+n"
+    }
+  ],
+  "followup_candidates": [
+    "Power cost of the majority rule - it is conservative, so what does it miss?",
+    "Whether the correlation-to-inflation relationship admits a closed form"
+  ],
+  "durable_learning_candidates": [
+    "union and first-significant are the SAME rule",
+    "the majority/robustness rule under-rejects (1.9-4.6%), it does not inflate"
+  ],
+  "blocker": null
+}

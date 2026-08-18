@@ -43,6 +43,17 @@ If not, it does not belong here.
 - **`worldcities.csv` is SimpleMaps Basic**, 41,001 rows, CC BY 4.0, attribution required
   if reproduced.
 
+## Corrected reference numbers
+
+- **The 14.4% inflation figure is the UNION rule, not arg-max.** Verified 20,000 reps,
+  319 cities, grid {4,6,8,12,20,40}, symmetrized binary kNN, seed 42:
+  - "any k reaches significance" (union): **14.4%**
+  - "pick k maximising I, test only that k" (arg-max): **11.4%**
+  - "most extreme standardised deviation": **14.4%**
+  - per-k calibration: 5.0% for every k, as it must be.
+  Earlier prose in this programme described the union result loosely as "report the best",
+  which is ambiguous. Both rules belong in Paper 2 — that is the surface AC-007 asks for.
+
 ## Programme context
 
 - Two prior claims were narrowed after literature checks (eigenvector localisation

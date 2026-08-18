@@ -1,0 +1,209 @@
+% =====================================================================
+%  papers/paper1/paper1.tex
+%
+%  Paper 1 --- Component structure and local spatial statistics.
+%
+%  SCAFFOLD created by T-005.  The section skeleton, the labelled section
+%  scheme (AC-012), the glossary wiring, the bibliography wiring and the
+%  figure path are load-bearing and should be preserved.  The prose inside
+%  each section is placeholder and belongs to the writing tasks.
+%
+%  Build:  cd papers && make paper1
+%          (or, on a machine without GNU make: python papers/build.py paper1)
+%
+%  AUTHORING RULE (D-005): edit this file with the Write/Edit tools only.
+%  Bash heredocs collapse \\ to \ in this environment and corrupt tabulars.
+% =====================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+\input{../shared/preamble}
+
+\title{Component Structure and Local Spatial Statistics\\[0.3em]
+  \large How a Disconnected Neighbour Graph Biases Getis--Ord $\Gistar$
+  and Largely Spares Moran's $\MoranI$}
+\author{\paperauthor}
+\date{\today}
+
+\hypersetup{
+  pdftitle={Component Structure and Local Spatial Statistics},
+  pdfauthor={Matthew Scott Tan},
+  pdfsubject={Spatial statistics}
+}
+
+\begin{document}
+
+\maketitle
+
+% ---------------------------------------------------------------------
+\begin{abstract}
+\noindent
+\textbf{[Placeholder abstract --- T-008.]}
+When neighbours are defined by a $k$-nearest-neighbour rule, the resulting
+neighbour graph can split into two or more pieces that never exchange
+information, and no widely used toolkit reports that it has happened. This paper
+shows that the split biases the Getis--Ord $\Gistar$ local statistic through a
+global-standardisation artifact --- $\Gistar$ measures level, and level is
+exactly what a component split displaces --- while leaving Moran's $\MoranI$
+essentially unaffected, because $\MoranI$ measures co-variation, which the split
+does not displace. Numbers, figures and citations in this draft are placeholders
+until the evidence tasks land; every one of them will be traceable through
+\texttt{papers/CLAIMS.md}.
+\end{abstract}
+
+% ---------------------------------------------------------------------
+\tableofcontents
+\bigskip
+
+% ---------------------------------------------------------------------
+\section{How to read this paper}
+\label{sec:roadmap}
+
+This paper is written as lecture notes that happen to contain a new result. It
+assumes a numerate reader --- algebra and reading a graph --- and no statistics
+background at all. Every term of art is defined before it is used, and collected
+in the glossary in Section~\ref{sec:glossary}.
+
+Because the exposition is long by design, each section is tagged with its role,
+and the tag appears in the table of contents and in the PDF bookmarks. A reader
+who already knows the background can jump straight to the sections tagged
+\textsc{[contribution]}.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{@{}llp{0.46\linewidth}@{}}
+    \toprule
+    Section & Role & What it is for \\
+    \midrule
+    \ref{sec:intro}      & exposition   & Why anyone should care that a neighbour graph can split. \\
+    \ref{sec:primer}     & exposition   & Everything statistical the argument needs, from scratch. \\
+    \ref{sec:problem}    & exposition   & The failure, stated concretely on a real map. \\
+    \ref{sec:mechanism}  & contribution & Why $\Gistar$ is disturbed and $\MoranI$ is not. \\
+    \ref{sec:evidence}   & evidence     & How often this happens across sample sizes and $k$. \\
+    \ref{sec:correction} & contribution & The within-component fix and its effect. \\
+    \ref{sec:new}        & contribution & What is new here, against prior work. \\
+    \ref{sec:limits}     & limitations  & What the claim does not cover. \\
+    \bottomrule
+  \end{tabular}
+  \caption{Role of each section. Sections tagged \emph{contribution} carry the
+    new result; the rest can be skipped by a reader who already has the
+    background.}
+  \label{tab:roadmap}
+\end{table}
+
+% ---------------------------------------------------------------------
+\section{Introduction\EXPOSITION}
+\label{sec:intro}
+
+\textbf{[Placeholder --- T-008.]} Spatial statistics turns a map into a graph and
+then asks questions of the graph. The translation step is a modelling choice, and
+this paper is about a consequence of that choice that the standard tools do not
+surface. The founding statistics are due to \citet{moran1950} and
+\citet{getisord1992}, with the local framework set out by \citet{anselin1995};
+all three are annotated in Section~\ref{sec:annotbib}.
+
+Figure~\ref{fig:p1-placeholder} shows the object at issue.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\linewidth]{placeholder.pdf}
+  \caption{\textbf{[Placeholder figure.]} A $k$-nearest-neighbour graph that has
+    split into two components. No warning is issued by the standard toolkits when
+    this happens. Generated by \texttt{papers/shared/mkfigs.py}; replaced by the
+    real figure in the evidence tasks.}
+  \label{fig:p1-placeholder}
+\end{figure}
+
+% ---------------------------------------------------------------------
+\section{A primer, from first principles\EXPOSITION}
+\label{sec:primer}
+
+This section is shared verbatim with the companion paper on selective inference,
+so that each paper can be read on its own. Readers who have read the other paper
+can skip it.
+
+\input{../shared/primer}
+
+% ---------------------------------------------------------------------
+\section{The problem\EXPOSITION}
+\label{sec:problem}
+
+\textbf{[Placeholder --- T-008.]} A concrete statement of the failure on a real
+map, using the author's own previously published compute-accessibility atlas as
+the case study, with the correction stated plainly rather than euphemistically
+(D-004).
+
+% ---------------------------------------------------------------------
+\section{The mechanism\CONTRIBUTION}
+\label{sec:mechanism}
+
+\textbf{[Placeholder --- T-008.]} The theoretical core: $\Gistar$ compares a
+neighbourhood's sum against what it would be if the neighbourhood held the
+\emph{global} mean, standardised by the \emph{global} standard deviation, so it
+measures level. Moran's $\MoranI$ measures co-variation. A component split
+displaces level, not co-variation.
+
+\begin{keyinsight}
+The bias is not in $\Gistar$'s arithmetic; it is in the mismatch between a
+\emph{local} neighbourhood and a \emph{global} standardisation constant, which a
+disconnected graph makes untenable.
+\end{keyinsight}
+
+% ---------------------------------------------------------------------
+\section{Evidence\EVIDENCE}
+\label{sec:evidence}
+
+\textbf{[Placeholder --- T-002 supplies the numbers, T-008 the prose.]}
+Disconnection prevalence across a range of sample sizes and $k$ values drawn from
+real geography, reported as the fraction of configurations that silently
+disconnect (AC-006), together with the effect on $\Gistar$ and on $\MoranI$.
+
+% ---------------------------------------------------------------------
+\section{The correction\CONTRIBUTION}
+\label{sec:correction}
+
+\textbf{[Placeholder --- T-008.]} Standardising within components rather than
+globally, what it changes, and what it costs.
+
+% ---------------------------------------------------------------------
+\section{What is new here\CONTRIBUTION}
+\label{sec:new}
+
+\textbf{[Placeholder --- T-008, informed by the prior-art check in T-001.]}
+This section states the novel contribution and distinguishes it from prior work
+(AC-008). Where the literature check finds work that partially preempts the
+claim, the claim is narrowed here rather than the source omitted (D-008).
+
+\begin{keyinsight}[What is new]
+Placeholder. The claim stated here must survive the prior-art check, and must be
+narrowed if it does not.
+\end{keyinsight}
+
+% ---------------------------------------------------------------------
+\section{Limitations\LIMITATIONS}
+\label{sec:limits}
+
+\textbf{[Placeholder --- T-008.]} Which claims rest on a single dataset, which
+are simulation-based, and what observation would falsify them (AC-010). This
+section also carries the null result required by D-009: Moran's $\MoranI$ is
+essentially unaffected by disconnection, and practitioners should keep trusting
+it.
+
+% ---------------------------------------------------------------------
+\section{Annotated bibliography}
+\label{sec:annotbib}
+
+\input{../shared/annotated_bibliography}
+
+\addcontentsline{toc}{section}{References}
+\bibliography{../shared/refs}
+
+% ---------------------------------------------------------------------
+\section{Glossary}
+\label{sec:glossary}
+
+Every term of art used in this paper, with the section in which it is defined.
+
+\input{../shared/glossary}
+
+\end{document}

@@ -1,0 +1,42 @@
+{
+  "task_id": "T-002",
+  "status": "completed",
+  "summary": "Swept 1,764 configurations of (n, k, sampling scheme) over the 41,001-city frame. 39.4% silently disconnect. Strongly k-dependent: ~100% at k=3, 19-71% at the conventional k=8, 0% by k=40. When it happens the median sample has 37% of units outside the largest component, and the Gi* cold-spot count changes under within-component standardisation in 85.9% of cases.",
+  "changed_artifacts": [
+    "analysis/04_disconnection_prevalence.py",
+    "analysis/outputs/disconnection_prevalence.json",
+    "analysis/outputs/disconnection_prevalence_full.csv",
+    "papers/paper1/data/prevalence_summary.csv",
+    "papers/paper1/data/prevalence_by_n_k.csv"
+  ],
+  "validation": [
+    {
+      "check": "reference 319/k=8 reproduces 2 components sized 252/67",
+      "result": "pass",
+      "evidence": "reference check printed: components=2 outside largest=67 MATCHES 252/67"
+    },
+    {
+      "check": "prevalence reported as a rate over many configurations, not one case",
+      "result": "pass",
+      "evidence": "39.4% of 1,764 configurations; full n x k table emitted"
+    },
+    {
+      "check": "seeded and deterministic",
+      "result": "pass",
+      "evidence": "SEED=42 fixed; subsample draws from a single seeded Generator"
+    },
+    {
+      "check": "runs end to end from clean shell",
+      "result": "pass",
+      "evidence": "completed in 74s, wrote both output files"
+    }
+  ],
+  "followup_candidates": [
+    "Prevalence under contiguity and distance-band weights, not only kNN",
+    "Whether disconnection correlates with island/archipelago geography specifically"
+  ],
+  "durable_learning_candidates": [
+    "Disconnection is common at conventional k, not an edge case - Paper 1 framing is safe"
+  ],
+  "blocker": null
+}

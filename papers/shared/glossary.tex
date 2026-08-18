@@ -1,0 +1,47 @@
+% =====================================================================
+%  papers/shared/glossary.tex
+%
+%  Glossary body shared by both papers.  The MECHANISM (\defterm, \gentry)
+%  lives in shared/preamble.tex; this file holds only the entries.
+%
+%  Created by T-005 (scaffold).  T-004 owns the CONTENT and should extend
+%  the block marked below as it writes the primer.  Keep entries in
+%  alphabetical order by headword.
+%
+%  RULE: each \gentry{key}{Headword}{definition} needs a matching
+%  \defterm{key}{...} somewhere the paper actually \inputs -- normally
+%  shared/primer.tex.  If the anchor is missing the line still typesets, as
+%  "Definition pending", and the build log records a warning.  Grep the log
+%  for "Missing glossary anchor" before declaring a paper done.
+%
+%  This file is \input inside a \section, so it must not issue \section.
+% =====================================================================
+
+\begin{description}\setlength{\itemsep}{0.4em}
+
+% ---- BEGIN entries owned by T-004 (primer terms, AC-003) --------------
+
+\gentry{connected-component}{Connected component}{%
+  A group of places in the neighbour graph that can all reach one another by
+  hopping from neighbour to neighbour, and which is joined to nothing outside
+  the group. A graph with two components has been cut in two.}
+
+\gentry{null-hypothesis}{Null hypothesis}{%
+  The deliberately dull explanation a statistical test tries to contradict ---
+  here, that the observed values were scattered across the map with no regard
+  to location.}
+
+\gentry{p-value}{p-value}{%
+  The probability of seeing a result at least as extreme as the one observed,
+  computed on the assumption that the null hypothesis is true. A small p-value
+  says the observation is unusual under the dull explanation; it is not the
+  probability that the dull explanation is wrong.}
+
+\gentry{spatial-weights-matrix}{Spatial weights matrix}{%
+  A square table with one row and one column per place, whose entry in row $i$
+  and column $j$ records how strongly place $j$ counts as a neighbour of place
+  $i$. It is the object that turns a map into a graph.}
+
+% ---- END entries owned by T-004 --------------------------------------
+
+\end{description}

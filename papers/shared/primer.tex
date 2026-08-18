@@ -1,0 +1,67 @@
+% =====================================================================
+%  papers/shared/primer.tex
+%
+%  PLACEHOLDER created by T-005 so the build scaffold compiles end to end.
+%  T-004 OWNS THIS FILE and will replace it wholesale.  Nothing here is
+%  intended as final prose.
+%
+%  Contract this stub establishes, which T-004 should preserve:
+%    * The file is \input inside a \section, so it starts at \subsection
+%      level.  It must not issue \section or \chapter.
+%    * It must not assume either paper's specific context (D-006).
+%    * Every term of art gets \defterm{key}{printed term} at its defining
+%      occurrence, and a matching \gentry line in shared/glossary.tex.
+% =====================================================================
+
+\subsection{What this primer assumes}
+\label{sec:primer-assumes}
+
+This primer assumes a reader who is comfortable with algebra and with reading a
+graph, and who has no background in statistics whatsoever. Every term of art is
+defined before it is used. Terms are set in \textbf{\textit{bold italic}} at the
+point of definition and collected in the glossary at the end of the paper, each
+with the section number where its definition lives.
+
+\subsection{Locations, values, and neighbours}
+\label{sec:primer-weights}
+
+Suppose we have measured one number at each of $n$ places --- a rate, a count, a
+score. Write $y_i$ for the value at place $i$. Spatial statistics asks whether
+the arrangement of those numbers across the map carries information that the
+numbers alone do not.
+
+To ask that question we must first say which places count as neighbours of which
+others. That bookkeeping is done by a \defterm{spatial-weights-matrix}{spatial
+weights matrix}: a square table $\Wmat$ with one row and one column per place,
+whose entry $w_{ij}$ records how strongly place $j$ counts as a neighbour of
+place $i$. A common choice sets $w_{ij}=1$ when $j$ is one of the $k$ nearest
+places to $i$ and $w_{ij}=0$ otherwise.
+
+Reading the table as a map of who-is-connected-to-whom, a group of places that
+can all reach one another by hopping along nonzero weights, and which no weight
+connects to anything outside the group, is a \defterm{connected-component}{connected
+component} of the neighbour graph. A neighbour graph with more than one component
+has been cut into pieces that never exchange information.
+
+\subsection{Evidence against a hypothesis}
+\label{sec:primer-pvalue}
+
+Statistical tests work by contradiction. We name a dull explanation for what we
+observed, then ask how surprising the observation would be if that dull
+explanation were true. The dull explanation is the
+\defterm{null-hypothesis}{null hypothesis}; here it is usually ``the values were
+scattered across the map with no regard to location.''
+
+The measure of surprise is the \defterm{p-value}{p-value}: the probability of
+seeing a result at least as extreme as the one observed, computed under the
+assumption that the null hypothesis holds. A small p-value means the observation
+sits far out in the tail of what the dull explanation predicts. It does not mean
+the dull explanation is false, and it is not the probability that the dull
+explanation is false.
+
+\begin{keyinsight}[Placeholder]
+This is placeholder primer content supplied by the build scaffold (T-005) so
+that the document compiles, the glossary resolves, and the cross-reference
+machinery can be checked. T-004 replaces this file with the real
+from-first-principles exposition required by AC-003.
+\end{keyinsight}

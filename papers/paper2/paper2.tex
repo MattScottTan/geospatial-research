@@ -1,0 +1,213 @@
+% =====================================================================
+%  papers/paper2/paper2.tex
+%
+%  Paper 2 --- Selective inference for weights-matrix selection.
+%
+%  SCAFFOLD created by T-005.  The section skeleton, the labelled section
+%  scheme (AC-012), the glossary wiring, the bibliography wiring and the
+%  figure path are load-bearing and should be preserved.  The prose inside
+%  each section is placeholder and belongs to the writing tasks.
+%
+%  Build:  cd papers && make paper2
+%          (or, on a machine without GNU make: python papers/build.py paper2)
+%
+%  AUTHORING RULE (D-005): edit this file with the Write/Edit tools only.
+%  Bash heredocs collapse \\ to \ in this environment and corrupt tabulars.
+% =====================================================================
+
+\documentclass[11pt,a4paper]{article}
+
+\input{../shared/preamble}
+
+\title{Selective Inference for Weights-Matrix Selection\\[0.3em]
+  \large Choosing the Neighbour Parameter by Inspecting the Result Inflates the
+  False-Positive Rate, and the Correction Is Derivable}
+\author{\paperauthor}
+\date{\today}
+
+\hypersetup{
+  pdftitle={Selective Inference for Weights-Matrix Selection},
+  pdfauthor={Matthew Scott Tan},
+  pdfsubject={Spatial statistics}
+}
+
+\begin{document}
+
+\maketitle
+
+% ---------------------------------------------------------------------
+\begin{abstract}
+\noindent
+\textbf{[Placeholder abstract --- T-009.]}
+A permutation test for spatial association builds its null distribution by
+reshuffling the observed values across locations. That construction assumes the
+neighbour structure was fixed before the data were seen. In practice the
+neighbour parameter is routinely chosen by trying several values and keeping the
+one that gives the strongest signal. This paper shows that the practice inflates
+the false-positive rate by roughly a factor of three, measures the inflation as a
+surface over selection rules and candidate grids rather than as a point, and
+derives the correction. Numbers, figures and citations in this draft are
+placeholders until the evidence tasks land; every one of them will be traceable
+through \texttt{papers/CLAIMS.md}.
+\end{abstract}
+
+% ---------------------------------------------------------------------
+\tableofcontents
+\bigskip
+
+% ---------------------------------------------------------------------
+\section{How to read this paper}
+\label{sec:roadmap}
+
+This paper is written as lecture notes that happen to contain a new result. It
+assumes a numerate reader --- algebra and reading a graph --- and no statistics
+background at all. Every term of art is defined before it is used, and collected
+in the glossary in Section~\ref{sec:glossary}.
+
+Because the exposition is long by design, each section is tagged with its role,
+and the tag appears in the table of contents and in the PDF bookmarks. A reader
+who already knows the background can jump straight to the sections tagged
+\textsc{[contribution]}.
+
+\begin{table}[htbp]
+  \centering
+  \begin{tabular}{@{}llp{0.46\linewidth}@{}}
+    \toprule
+    Section & Role & What it is for \\
+    \midrule
+    \ref{sec:intro}      & exposition   & Why choosing $k$ by looking at the answer is a problem. \\
+    \ref{sec:primer}     & exposition   & Everything statistical the argument needs, from scratch. \\
+    \ref{sec:problem}    & exposition   & The failure, stated as a concrete procedure. \\
+    \ref{sec:mechanism}  & contribution & Why selection breaks exchangeability. \\
+    \ref{sec:evidence}   & evidence     & The inflation surface over rules and grids. \\
+    \ref{sec:correction} & contribution & The corrected test and its derivation. \\
+    \ref{sec:new}        & contribution & What is new here, against prior work. \\
+    \ref{sec:limits}     & limitations  & What the claim does not cover. \\
+    \bottomrule
+  \end{tabular}
+  \caption{Role of each section. Sections tagged \emph{contribution} carry the
+    new result; the rest can be skipped by a reader who already has the
+    background.}
+  \label{tab:roadmap}
+\end{table}
+
+% ---------------------------------------------------------------------
+\section{Introduction\EXPOSITION}
+\label{sec:intro}
+
+\textbf{[Placeholder --- T-009.]} The permutation test is the workhorse of
+applied spatial statistics precisely because it makes so few assumptions. This
+paper is about the one assumption it does make and that practitioners routinely
+break without noticing. The statistic under test is Moran's $\MoranI$
+\citep{moran1950}; the local framework is due to \citet{anselin1995}; all
+sources are annotated in Section~\ref{sec:annotbib}.
+
+Figure~\ref{fig:p2-placeholder} shows the shape of the effect.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.82\linewidth]{placeholder.pdf}
+  \caption{\textbf{[Placeholder figure.]} Schematic of the realised
+    false-positive rate against the nominal five per cent, as a function of how
+    many candidate $k$ values the selection rule is offered. Generated by
+    \texttt{papers/shared/mkfigs.py}; replaced by the real measured surface in
+    the evidence tasks.}
+  \label{fig:p2-placeholder}
+\end{figure}
+
+% ---------------------------------------------------------------------
+\section{A primer, from first principles\EXPOSITION}
+\label{sec:primer}
+
+This section is shared verbatim with the companion paper on component structure,
+so that each paper can be read on its own. Readers who have read the other paper
+can skip it.
+
+\input{../shared/primer}
+
+% ---------------------------------------------------------------------
+\section{The problem\EXPOSITION}
+\label{sec:problem}
+
+\textbf{[Placeholder --- T-009.]} The failure stated as a procedure a
+practitioner would actually run: build the weights matrix at several values of
+$k$, compute the statistic at each, report the best one and its p-value.
+
+% ---------------------------------------------------------------------
+\section{The mechanism\CONTRIBUTION}
+\label{sec:mechanism}
+
+\textbf{[Placeholder --- T-009.]} A permutation test builds its null by
+reshuffling observed values across locations, so it assumes exchangeability ---
+and exchangeability quietly requires that the weights matrix was fixed in
+advance. Selecting $k$ from the data conditions the reported statistic on the
+event that it was the maximum, and the unconditional null no longer describes it.
+
+\begin{keyinsight}
+The reported p-value answers the question ``how unusual is this statistic?'' when
+the question actually asked was ``how unusual is the largest of several
+statistics?'' The candidate statistics are strongly correlated, so the inflation
+is smaller than a naive multiple-comparisons bound but far from negligible.
+\end{keyinsight}
+
+% ---------------------------------------------------------------------
+\section{Evidence\EVIDENCE}
+\label{sec:evidence}
+
+\textbf{[Placeholder --- T-003 supplies the numbers, T-009 the prose.]}
+Type I error inflation across at least three selection rules --- arg-max of
+$\MoranI$, minimum p-value, first significant --- and at least two candidate
+grids, reported as a surface rather than a point (AC-007), at a replicate count
+sized for a Monte Carlo standard error below half a percentage point (A-4).
+
+% ---------------------------------------------------------------------
+\section{The correction\CONTRIBUTION}
+\label{sec:correction}
+
+\textbf{[Placeholder --- T-009.]} The corrected test, derived rather than
+asserted, together with what it costs in power and when the naive test is safe
+to keep using.
+
+% ---------------------------------------------------------------------
+\section{What is new here\CONTRIBUTION}
+\label{sec:new}
+
+\textbf{[Placeholder --- T-009, informed by the prior-art check in T-001.]}
+This section states the novel contribution and distinguishes it from the general
+post-selection inference machinery it specialises (AC-008). Where the literature
+check finds work that partially preempts the claim, the claim is narrowed here
+rather than the source omitted (D-008).
+
+\begin{keyinsight}[What is new]
+Placeholder. The claim stated here must survive the prior-art check, and must be
+narrowed if it does not.
+\end{keyinsight}
+
+% ---------------------------------------------------------------------
+\section{Limitations\LIMITATIONS}
+\label{sec:limits}
+
+\textbf{[Placeholder --- T-009.]} Which claims rest on a single dataset, which
+are simulation-based, and what observation would falsify them (AC-010). In
+particular, the inflation figure is measured under a specific null and a specific
+family of candidate grids, and does not transfer automatically to other
+selection procedures.
+
+% ---------------------------------------------------------------------
+\section{Annotated bibliography}
+\label{sec:annotbib}
+
+\input{../shared/annotated_bibliography}
+
+\addcontentsline{toc}{section}{References}
+\bibliography{../shared/refs}
+
+% ---------------------------------------------------------------------
+\section{Glossary}
+\label{sec:glossary}
+
+Every term of art used in this paper, with the section in which it is defined.
+
+\input{../shared/glossary}
+
+\end{document}
