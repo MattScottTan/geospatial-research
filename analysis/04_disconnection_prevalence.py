@@ -106,6 +106,74 @@ def analyse(lat, lon, y, k):
 
 
 # --------------------------------------------------------------------------
+def reference_detail(lat, lon, y, k, n_perm=1999, seed=SEED):
+    """
+    Full per-component breakdown of the published configuration.
+
+    Paper 1 needs more than aggregate counts here: it needs the per-component split of
+    hot/cold spots, the mean Gi* z-score in each component (the artifact itself), and the
+    null result required by D-009 -- that Moran's I barely moves when the permutation is
+    restricted to stay within components.
+    """
+    W = weights.knn_weights(lat, lon, k, symmetrize=True, transform="binary")
+    ncomp, lab = connected_components(W, directed=False)
+    z = getis_ord_gi_star(y, W)["z"]
+    cls = classify_hotspots(z)
+
+    # within-component standardisation
+    zc = np.zeros_like(z)
+    for c in range(ncomp):
+        idx = np.flatnonzero(lab == c)
+        if len(idx) < 3:
+            continue
+        sub = W[np.ix_(idx, idx)]
+        if sub.sum() == 0 or y[idx].std(ddof=1) == 0:
+            continue
+        zc[idx] = getis_ord_gi_star(y[idx], sub)["z"]
+    cls_c = classify_hotspots(zc)
+
+    comps = []
+    grand = y.mean()
+    for c in range(ncomp):
+        m = lab == c
+        comps.append({
+            "component": int(c), "n": int(m.sum()),
+            "mean": float(y[m].mean()), "offset_from_global": float(y[m].mean() - grand),
+            "mean_gi_z_global": float(z[m].mean()),
+            "mean_gi_z_within": float(zc[m].mean()),
+            "cold_global": int(np.isin(cls[m], ["cold_spot_95", "cold_spot_99"]).sum()),
+            "cold_within": int(np.isin(cls_c[m], ["cold_spot_95", "cold_spot_99"]).sum()),
+            "hot_global": int(np.isin(cls[m], ["hot_spot_95", "hot_spot_99"]).sum()),
+            "hot_within": int(np.isin(cls_c[m], ["hot_spot_95", "hot_spot_99"]).sum()),
+        })
+
+    # D-009: does restricting the permutation to within components change Moran's I?
+    free = global_morans_i(y, W, n_permutations=n_perm, seed=seed)
+    rng = np.random.default_rng(seed)
+    zz = y - y.mean(); s0 = float(W.sum()); n = len(y); den = float(zz @ zz)
+    obs = (n / s0) * (zz @ (W @ zz)) / den
+    perm = np.empty(n_perm)
+    for i in range(n_perm):
+        zp = zz.copy()
+        for c in range(ncomp):
+            idx = np.flatnonzero(lab == c)
+            zp[idx] = rng.permutation(zz[idx])
+        perm[i] = (n / s0) * (zp @ (W @ zp)) / den
+    p_strat = float((np.count_nonzero(np.abs(perm) >= abs(obs)) + 1) / (n_perm + 1))
+
+    return {
+        "k": int(k), "n": int(len(y)), "n_components": int(ncomp),
+        "components": comps,
+        "global_mean": float(grand), "global_sd": float(y.std(ddof=1)),
+        "morans_I": float(free.I),
+        "moran_p_free_permutation": float(free.p_value),
+        "moran_p_within_component_permutation": p_strat,
+        "moran_null_sd_free": float(free.perm_sd),
+        "moran_null_sd_within": float(perm.std(ddof=1)),
+        "n_permutations": int(n_perm),
+    }
+
+
 def main() -> None:
     t0 = time.time()
     rng = np.random.default_rng(SEED)
@@ -113,7 +181,18 @@ def main() -> None:
     # ---- reference case: the exact published configuration ----
     ref = pd.read_csv(ROOT / "analysis" / "data" / "ai_cities_319.csv")
     r = analyse(ref.lat.to_numpy(), ref.lon.to_numpy(), ref.log_works.to_numpy(), 8)
+    detail = reference_detail(ref.lat.to_numpy(), ref.lon.to_numpy(),
+                              ref.log_works.to_numpy(), 8)
     ref_ok = (r["n_components"] == 2 and r["n_outside_largest"] == 67)
+    print("  per-component detail:")
+    for c in detail["components"]:
+        print(f"    comp {c['component']}: n={c['n']:3d} offset={c['offset_from_global']:+.3f} "
+              f"mean Gi* z={c['mean_gi_z_global']:+.3f}  "
+              f"cold {c['cold_global']:2d} -> {c['cold_within']:2d}  "
+              f"hot {c['hot_global']} -> {c['hot_within']}")
+    print(f"    Moran I={detail['morans_I']:.4f}  p(free)={detail['moran_p_free_permutation']:.4f} "
+          f"p(within-component)={detail['moran_p_within_component_permutation']:.4f}  "
+          f"[D-009 null result]")
     print(f"reference check (319 cities, k=8, real AI works):")
     print(f"  components={r['n_components']} outside largest={r['n_outside_largest']} "
           f"cold {r['cold_global']} -> {r['cold_within']}   "
@@ -195,6 +274,7 @@ def main() -> None:
     summary = {
         "seed": SEED, "n_configurations": int(len(df)),
         "reference_319_k8": r,
+        "reference_detail": detail,
         "reference_reproduces": bool(ref_ok),
         "overall_disconnect_rate": float(overall),
         "by_scheme": {s: float((df[df.scheme == s].n_components > 1).mean()) for s in SCHEMES},
