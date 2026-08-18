@@ -54,6 +54,15 @@ If not, it does not belong here.
   Earlier prose in this programme described the union result loosely as "report the best",
   which is ambiguous. Both rules belong in Paper 2 — that is the surface AC-007 asks for.
 
+## Prior art that constrains claims
+
+- **Disconnection is NOT unreported.** `spdep` warns ("neighbour object has N sub-graphs"),
+  provides `n.comp.nb`, and has a CRAN vignette on subgraph handling. `libpysal` warns by
+  default. Never write that this is silent or unnoticed -- see D-010. The gap is that
+  warnings say disconnection *occurred*, not what it does to a Gi\* map.
+- A **strong global gradient inflating Gi\*** is a known general concern. Our contribution
+  is the specific discrete-level-shift mechanism from disconnection, its size, and the fix.
+
 ## Programme context
 
 - Two prior claims were narrowed after literature checks (eigenvector localisation

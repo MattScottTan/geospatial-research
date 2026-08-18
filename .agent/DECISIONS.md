@@ -94,3 +94,37 @@ contribution, and omitting it would misrepresent the scope of the problem.
 **Consequences:** Any draft of Paper 1 that presents disconnection as breaking spatial
 statistics generally is wrong and must be corrected.
 **Related:** AC-002, T-008, T-010.
+
+## D-010 — Paper 1's "silent disconnection" premise is withdrawn
+
+**Decision:** Paper 1 may not claim that graph disconnection goes unreported by software, or
+that the problem is unnoticed. It must instead claim the narrower and defensible thing: the
+tools warn that disconnection *happened*, but nothing tells the user what it *does to a
+Getis-Ord hot-spot map*.
+
+**Reason:** Prior-art check (T-001, partial) found the premise false on three counts.
+`spdep` raises warnings such as "neighbour object has 2 sub-graphs", ships `n.comp.nb` to
+count disjoint subgraphs, and carries a dedicated CRAN vignette, *No-neighbour observation
+and subgraph handling*. `libpysal` prints a disconnected-component warning by default. The
+spdep documentation even notes that disconnection "occurs frequently with point support",
+so the qualitative prevalence observation is known too. Bivand's vignette states the
+conceptual point memorably: "The ripples in one pond cannot cross into a separate pond if
+they are not connected."
+
+**What survives, verified against that vignette:** it does *not* discuss consequences for
+Getis-Ord Gi\*, LISA, or Moran's I; it does *not* propose within-component standardisation
+or any correction; it does *not* quantify prevalence. Its remedies are practical — increase
+`snap`, handle singleton units, `adjust.n`. So the contribution is now:
+
+1. the specific Gi\* global-standardisation artifact and its size,
+2. the within-component standardisation fix,
+3. quantified prevalence (39.4% of 1,764 configurations; full n x k table),
+4. the negative result that Moran's I is essentially unaffected,
+5. the framing that a warning about *occurrence* is not a warning about *consequence*.
+
+**Consequences:** Any draft asserting the problem is invisible, silent, unreported or
+unnoticed is wrong and must be rejected in verification. `spdep`'s vignette and `libpysal`'s
+warning must be cited prominently and early, not buried. The motivation section argues from
+"warned but not informed", not from "nobody knows".
+
+**Related:** AC-006, AC-009, D-008, T-001, T-008.
