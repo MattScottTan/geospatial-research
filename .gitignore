@@ -91,3 +91,13 @@ secrets.*
 
 # ---- research-track experiment outputs (regenerated) ----
 analysis/outputs/
+
+# LaTeX build aux (papers/) — PDFs themselves are deliverables and stay tracked
+papers/**/*.aux
+papers/**/*.bbl
+papers/**/*.blg
+papers/**/*.fls
+papers/**/*.fdb_latexmk
+papers/**/*.out
+papers/**/*.toc
+papers/**/*.log

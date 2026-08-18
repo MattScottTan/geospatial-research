@@ -1,0 +1,84 @@
+{
+  "task_id": "T-005",
+  "status": "completed",
+  "summary": "LaTeX build system and both document scaffolds are in place and verified. A previous attempt had already written preamble.tex, both paper .tex files, the shared primer/glossary/annotated-bibliography/refs.bib stubs and mkfigs.py; all were inspected and found sound, so they were kept. The missing piece was the build driver. GNU make turns out not to be installed on this machine (checked make, mingw32-make, gmake, nmake, Chocolatey, MSYS2, scoop, Git-for-Windows usr/bin), so papers/Makefile was written as the canonical build description and papers/build.py was written to implement exactly the same targets in Python as the executable driver. Every Makefile recipe was additionally executed verbatim from a clean tree and each returned 0. From a clean tree the build produces paper1.pdf (6pp) and paper2.pdf (6pp) with zero LaTeX errors, zero overfull/underfull boxes, a rendered table of contents that lists the contribution and limitations sections with role tags, three resolved natbib citations rendering into a BibTeX reference list, glossary entries that back-reference real section and page numbers, and an embedded vector placeholder figure in each paper. Separately, four sentences of scaffold placeholder text asserted that disconnection goes unreported by the toolkits, which D-010 explicitly forbids; those were rewritten to the 'warned about occurrence, not about consequence' framing D-010 requires.",
+  "changed_artifacts": [
+    "papers/Makefile (created)",
+    "papers/build.py (created)",
+    "papers/paper1/paper1.tex (edited: D-010 corrections to abstract, introduction, figure caption and evidence section; build-comment header)",
+    "papers/paper2/paper2.tex (edited: build-comment header)",
+    "papers/shared/annotated_bibliography.tex (edited: rephrased to clear an overfull hbox)",
+    "papers/shared/mkfigs.py (edited: D-010 correction to figure title)",
+    "papers/paper1/paper1.pdf (built)",
+    "papers/paper2/paper2.pdf (built)",
+    ".agent/runs/T-005/RESULT.json (created)"
+  ],
+  "validation": [
+    {
+      "check": "AC-001 / completion contract: clean build of both PDFs with zero LaTeX errors",
+      "result": "pass",
+      "evidence": "$ cd papers && python build.py clean >/dev/null && python build.py\n===== BUILD EXIT: 0 =====\n=== LaTeX errors ===\nNONE\n=== Overfull/Underfull ===\n(none)\n=== PDFs ===\n-rw-r--r-- 1 darkr 197609 247736 Aug 17 23:43 paper1/paper1.pdf\n-rw-r--r-- 1 darkr 197609 229700 Aug 17 23:43 paper2/paper2.pdf\n\nlatexmk summary lines from the same run:\nOutput written on paper1.pdf (6 pages, 247732 bytes).\nLatexmk: All targets (paper1.pdf) are up-to-date\nOutput written on paper2.pdf (6 pages, 229688 bytes).\nLatexmk: All targets (paper2.pdf) are up-to-date"
+    },
+    {
+      "check": "Every Makefile recipe executes correctly (make itself is absent; recipes run verbatim instead)",
+      "result": "pass",
+      "evidence": "Recipes expanded from the Makefile:\n  python shared/mkfigs.py\n  cd paper1 && latexmk -pdf -interaction=nonstopmode -halt-on-error paper1.tex\n  cd paper2 && latexmk -pdf -interaction=nonstopmode -halt-on-error paper2.tex\n  cd paper1 && latexmk -C paper1.tex\n  cd paper2 && latexmk -C paper2.tex\n  python build.py check\n\nExecuted verbatim from a clean tree:\nclean done, tree:\npaper1:  data  figures  paper1.tex\npaper2:  data  figures  paper2.tex\nwrote ...paper1/figures/placeholder.pdf\nwrote ...paper2/figures/placeholder.pdf\n-- figures recipe rc=0\n-- paper1 recipe rc=0\n-- paper2 recipe rc=0\n-- check rc=0\n-rw-r--r-- 1 darkr 197609 247679 Aug 17 23:44 paper1/paper1.pdf\n-rw-r--r-- 1 darkr 197609 229700 Aug 17 23:44 paper2/paper2.pdf"
+    },
+    {
+      "check": "GNU make binary itself is unavailable on this machine, so `make` was never run",
+      "result": "fail",
+      "evidence": "$ for c in make mingw32-make gmake nmake make.exe; do printf \"%s: \" \"$c\"; command -v \"$c\" || echo \"NOT FOUND\"; done\nmake: NOT FOUND\nmingw32-make: NOT FOUND\ngmake: NOT FOUND\nnmake: NOT FOUND\nmake.exe: NOT FOUND\n=== searching common locations ===\n(no results from /c/ProgramData/chocolatey/bin, /c/Program Files/Git/usr/bin, /c/msys64/usr/bin, /c/Strawberry/c/bin, ~/scoop/shims)\n\nThe Makefile is committed and its recipes are individually verified, but the make driver is unexercised. papers/build.py is the driver that has actually been run. Installing GNU make is a system change and was left to the user."
+    },
+    {
+      "check": "clean removes all build products, so the build cannot pass on a stale .aux",
+      "result": "pass",
+      "evidence": "$ python build.py clean\n[build] (paper1) latexmk -C paper1.tex\nLatexmk: Doing full clean up for 'paper1.tex'\n[build] removed paper1.bbl\n[build] (paper2) latexmk -C paper2.tex\nLatexmk: Doing full clean up for 'paper2.tex'\n[build] removed paper2.bbl\n=== CLEAN EXIT: 0 ===\n\n=== leftover build products (should be none) ===\npaper1/:  data  figures  paper1.tex\npaper2/:  data  figures  paper2.tex"
+    },
+    {
+      "check": "No unresolved references, no undefined citations, no pending glossary anchors",
+      "result": "pass",
+      "evidence": "$ python build.py check\n[check] ok   paper1: no unresolved references in PDF text\n[check] ok   paper1: every glossary entry is anchored\n[check] ok   paper1: no undefined citations in the log\n[check] ok   paper2: no unresolved references in PDF text\n[check] ok   paper2: every glossary entry is anchored\n[check] ok   paper2: no undefined citations in the log\n===== CHECK EXIT: 0 =====\n\npdftotext was confirmed present at /clangarm64/bin/pdftotext, so the '??' scan is a real check and not a silent skip. Both paper .log files are also free of any 'LaTeX Warning' line."
+    },
+    {
+      "check": "AC-012: TOC renders and lists the contribution and limitations sections with role tags",
+      "result": "pass",
+      "evidence": "$ pdftotext paper1/paper1.pdf - | head -60\nContents\n1 How to read this paper 2\n2 Introduction [exposition] 2\n3 A primer, from first principles [exposition] 2\n  3.1 What this primer assumes 2\n  3.2 Locations, values, and neighbours 3\n  3.3 Evidence against a hypothesis 3\n4 The problem [exposition] 4\n5 The mechanism [contribution] 4\n6 Evidence [evidence] 4\n7 The correction [contribution] 4\n8 What is new here [contribution] 4\n9 Limitations [limitations] 5\n10 Annotated bibliography 5\nReferences 5\n11 Glossary 6\n\npaper2 produces the identical role-tagged structure. Role tags also reach the PDF bookmarks via \\texorpdfstring."
+    },
+    {
+      "check": "Citations render and appear in the BibTeX-generated reference list",
+      "result": "pass",
+      "evidence": "In-text, from the PDF: \"The founding statistics are due to Moran (1950) and Getis and Ord (1992), with the local framework set out by Anselin (1995)\"\n\nReference list, from the PDF:\nReferences\nLuc Anselin. Local indicators of spatial association--LISA. Geographical Analysis, 27(2):93-115, 1995. doi: 10.1111/j.1538-4632.1995.tb00338.x.\nArthur Getis and J. K. Ord. The analysis of spatial association by use of distance statistics. Geographical Analysis, 24(3):189-206, 1992. doi: 10.1111/j.1538-4632.1992.tb00261.x.\nP. A. P. Moran. Notes on continuous stochastic phenomena. Biometrika, 37(1/2):17-23, 1950. doi: 10.2307/2332142.\n\nlatexmk resolved the bib path correctly: \"Latexmk: Found bibliography file(s): ../shared/refs.bib\""
+    },
+    {
+      "check": "Glossary mechanism resolves to real section and page numbers",
+      "result": "pass",
+      "evidence": "From the PDF, Section 11 Glossary:\n\"Connected component  A group of places in the neighbour graph that can all reach one another by hopping from neighbour to neighbour ... (Defined in Section 3.2, page 3.)\"\n\"Null hypothesis  ... (Defined in Section 3.3, page 3.)\"\n\"p-value  ... (Defined in Section 3.3, page 3.)\"\n\"Spatial weights matrix  ... (Defined in Section 3.2, page 3.)\"\n\nNo entry degraded to \"Definition pending\", so every \\gentry has a matching \\defterm."
+    },
+    {
+      "check": "AC-011: placeholder figure is a script-generated vector PDF and embeds",
+      "result": "pass",
+      "evidence": "$ python papers/shared/mkfigs.py\nwrote C:\\Users\\darkr\\Documents\\geospatial_projects\\papers\\paper1\\figures\\placeholder.pdf\nwrote C:\\Users\\darkr\\Documents\\geospatial_projects\\papers\\paper2\\figures\\placeholder.pdf\n=== EXIT 0 ===\n\npdflatex confirms the embed: \"[3 <./figures/placeholder.pdf>]\" appears in both build logs, so \\graphicspath resolves and the vector PDF is included."
+    },
+    {
+      "check": "D-010 compliance of scaffold placeholder text",
+      "result": "pass",
+      "evidence": "The inherited scaffold asserted in four places that disconnection goes unreported -- abstract (\"no widely used toolkit reports that it has happened\"), figure caption (\"No warning is issued by the standard toolkits\"), evidence section (\"configurations that silently disconnect\") and the mkfigs figure title (\"has silently split\"). D-010 forbids exactly this framing. All four were rewritten. Verified in the rendered PDF:\n\n$ pdftotext paper1/paper1.pdf - | grep -inE \"silent|unnoticed|unreported|no widely used toolkit|invisible|no warning\"\nNONE FOUND (good)\n\nThe abstract now reads: \"The standard toolkits do warn that the split has occurred, but a warning about occurrence is not a warning about consequence: nothing tells the user what the split does to a hot-spot map.\""
+    },
+    {
+      "check": "D-005 honoured: no .tex authored through a shell heredoc",
+      "result": "pass",
+      "evidence": "Every .tex and the Makefile were written with the Write/Edit tools. Bash was used only to run latexmk, mkfigs.py and build.py and to read logs. The Makefile's tab-indented recipes survived intact: `grep -n \"$(printf '^\\t')\" Makefile` returned 7 recipe lines, and `cat -A` shows them beginning with ^I, not spaces."
+    }
+  ],
+  "followup_candidates": [
+    "GNU make is not installed on this machine, so `cd papers && make` cannot be run here even though papers/Makefile is committed and its recipes are individually verified. Either install make (e.g. via winget or Chocolatey) or accept papers/build.py as the project's build entry point and say so in the repo README. Until one of those happens, papers/Makefile is untested as a whole and the two drivers can silently drift.",
+    "papers/paper1/paper1.pdf and papers/paper2/paper2.pdf are build outputs but are not covered by .gitignore, which currently ignores LaTeX aux files only. Decide whether compiled PDFs are tracked deliverables or ignored artifacts before the first commit of papers/ -- the figures under papers/*/figures/*.pdf must stay tracked either way.",
+    "papers/CLAIMS.md is referenced by both abstracts and required by D-007. It did not exist when this task started but was created by a parallel worker mid-task, so no action is needed from the scaffold side."
+  ],
+  "durable_learning_candidates": [
+    "GNU make is not available on this machine and no package manager (Chocolatey, MSYS2, scoop) is installed either. Any task whose acceptance criteria are phrased in terms of `make` needs either an install step or a Python driver; papers/build.py is that driver for the papers tree.",
+    "latexmk resolves \\bibliography{../shared/refs} correctly when run with cwd set to the paper's own directory, and reports 'Found bibliography file(s): ../shared/refs.bib'. Running latexmk from papers/ instead would break both the bib path and \\graphicspath.",
+    "The \\gentry glossary macro degrades to 'Definition pending' plus a log warning instead of emitting '??' when its \\defterm anchor is missing. This keeps AC-001 satisfiable for one paper while the other paper's primer is still being written, but it means a missing anchor is silent in the PDF -- grep the build log for 'Missing glossary anchor', which `build.py check` now does automatically."
+  ],
+  "blocker": null
+}

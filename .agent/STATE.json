@@ -1,6 +1,6 @@
 {
   "project_status": "executing",
-  "current_milestone": "M1",
+  "current_milestone": "M3",
   "milestones": {
     "M1": "Evidence and sources complete",
     "M2": "Scaffolding: build system, primer, figure pipeline",
@@ -110,7 +110,7 @@
       "title": "LaTeX build system and document scaffold",
       "objective": "Create papers/Makefile, the two document skeletons with section scaffolding, shared preamble, bibliography wiring, glossary support and table of contents. Must produce two compiling stub PDFs that already include the primer.",
       "milestone": "M2",
-      "status": "in_progress",
+      "status": "done",
       "priority": 2,
       "depends_on": [],
       "acceptance_criteria": [
@@ -136,7 +136,7 @@
       "title": "Paper 1 figures",
       "objective": "Generate all Paper 1 figures as vector PDFs from a committed script: the disconnected graph drawn on the map, the two-component value distributions against the global mean, Gi* z-score distributions by component, cold-spot counts before and after the within-component fix, and the prevalence surface from T-002.",
       "milestone": "M3",
-      "status": "pending",
+      "status": "in_progress",
       "priority": 3,
       "depends_on": [
         "T-002",
@@ -154,7 +154,7 @@
         "Regenerate from clean",
         "Each embeds in a test compile"
       ],
-      "attempts": 0,
+      "attempts": 1,
       "blocked_reason": null
     },
     {
@@ -162,7 +162,7 @@
       "title": "Paper 2 figures",
       "objective": "Generate all Paper 2 figures as vector PDFs from a committed script: Moran's I against k with per-k critical values, the null distribution under fixed versus selected k, the Type I inflation surface across rules and grids, and the inter-statistic correlation structure that explains the shortfall from Bonferroni.",
       "milestone": "M4",
-      "status": "pending",
+      "status": "in_progress",
       "priority": 3,
       "depends_on": [
         "T-003",
@@ -180,7 +180,7 @@
         "Regenerate from clean",
         "Each embeds in a test compile"
       ],
-      "attempts": 0,
+      "attempts": 1,
       "blocked_reason": null
     },
     {
@@ -368,5 +368,5 @@
     }
   ],
   "last_update": "2026-08-17T18:53:18",
-  "notes": "Wave 2 dispatched after session limit reset: T-001 (bibliography; Paper 1 prior art already done -> D-010), T-004 (primer), T-005 (scaffold). T-006/T-007 unblock on T-005."
+  "notes": "Wave 3: T-006/T-007 figures dispatched. T-001 (bibliography) and T-004 (primer) still running from wave 2. T-005 verified done."
 }
