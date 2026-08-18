@@ -104,6 +104,33 @@ def apply_rules(I, q):
     }
 
 
+def observed_vs_critical(lat, lon, y, grid, B, seed=SEED):
+    """
+    The real data against its own null, k by k.
+
+    Paper 2's motivation needs this: the observed Moran's I on the published atlas at each
+    candidate k, beside the critical value that k's own null distribution implies. It shows
+    both that the statistic moves a lot with k, and which k values would have been called
+    significant -- which is what makes the choice consequential.
+    """
+    n = len(y)
+    Ws = {k: weights.knn_weights(lat, lon, k, symmetrize=True, transform="binary") for k in grid}
+    S0 = {k: float(Ws[k].sum()) for k in grid}
+    z = y - y.mean(); den = float(z @ z)
+    obs = {k: (n / S0[k]) * float(z @ (Ws[k] @ z)) / den for k in grid}
+    I = moran_matrix(Ws, S0, n, np.random.default_rng(seed), B, CHUNK)
+    crit = dict(zip(grid, np.quantile(I, 1 - ALPHA, axis=0)))
+    pvals = {k: float((I[:, j] >= obs[k]).mean()) for j, k in enumerate(grid)}
+    return {
+        "k": list(grid),
+        "observed_I": {int(k): float(v) for k, v in obs.items()},
+        "critical_value": {int(k): float(v) for k, v in crit.items()},
+        "p_value": {int(k): pvals[k] for k in grid},
+        "significant_at_05": {int(k): bool(obs[k] > crit[k]) for k in grid},
+        "argmax_k": int(max(obs, key=obs.get)),
+    }
+
+
 def main() -> None:
     t0 = time.time()
     cities = pd.read_csv(ROOT / "analysis" / "data" / "ai_cities_319.csv")
@@ -131,6 +158,18 @@ def main() -> None:
           f"mean corr {corr:.3f} (expect 0.605)")
     ok = abs(ref["union"].mean() - 0.144) < 0.01 and abs(corr - 0.605) < 0.02
     print(f"  {'REPRODUCES' if ok else 'DOES NOT REPRODUCE -- investigate'}\n")
+
+    # ---- the real data against its own null, k by k (Paper 2 motivation) ----
+    ovc = observed_vs_critical(lat, lon, cities.log_works.to_numpy(), ks, B)
+    print("observed Moran's I on the published atlas vs its own null, by k:")
+    print(f"  {'k':>4} {'observed I':>11} {'critical':>10} {'p':>7}  significant")
+    for k in ovc["k"]:
+        print(f"  {k:4d} {ovc['observed_I'][k]:11.4f} {ovc['critical_value'][k]:10.4f} "
+              f"{ovc['p_value'][k]:7.4f}  {'YES' if ovc['significant_at_05'][k] else 'no'}")
+    nsig = sum(ovc["significant_at_05"].values())
+    print(f"  -> significant at {nsig} of {len(ovc['k'])} candidate k values; "
+          f"arg-max is k={ovc['argmax_k']}")
+    print()
 
     # ---- the surface ----
     for gname, grid in GRIDS.items():
@@ -192,6 +231,7 @@ def main() -> None:
         "reference": {"union": float(ref["union"].mean()), "argmax": float(ref["argmax"].mean()),
                       "mean_corr": float(corr), "reproduces": bool(ok)},
         "max_mc_se": float(df.mc_se.max()),
+        "observed_vs_critical": ovc,
         "by_rule": {r: {"min": float(g.type_I.min()), "max": float(g.type_I.max())}
                     for r, g in df.groupby("rule")},
         "surface": df.to_dict(orient="records"),

@@ -139,16 +139,40 @@ Gaussian noise on real city locations. Per-`k` critical values are set at each `
 
 ---
 
+### The published atlas against its own null (Paper 2 motivation)
+
+Emitted by `observed_vs_critical()`, under `observed_vs_critical` in the JSON. Weights are
+symmetrized binary kNN — the published specification.
+
+| k | observed I | critical value | p | significant |
+|---|---|---|---|---|
+| 4 | 0.0536 | 0.0546 | 0.0529 | no |
+| 6 | 0.0584 | 0.0449 | 0.0192 | **yes** |
+| **8** | **0.0661** | 0.0387 | **0.0046** | **yes** |
+| 12 | 0.0333 | 0.0317 | 0.0439 | **yes** |
+| 20 | 0.0164 | 0.0242 | 0.1080 | no |
+| 40 | 0.0041 | 0.0158 | 0.2124 | no |
+
+Fields: `observed_I`, `critical_value`, `p_value`, `significant_at_05`, `argmax_k`.
+
+Two facts the paper should use. **Significant at 3 of 6 candidate k values** — neither
+fragile nor universal, and a far more informative summary than a single p-value. And
+**arg-max is k = 8**, the published choice. State plainly that k = 8 is also the field's
+most common default, so this is very likely coincidence; the point is that the sensitivity
+makes the choice consequential whenever anyone does look.
+
+**Correction to an earlier figure.** A previously circulated by-k series
+({0.0545, 0.0574, 0.0685, 0.0373, 0.0195, 0.0053}) was a *mean across four weights
+specifications* from `analysis/01_weights_sensitivity.py`, not the published specification.
+The table above supersedes it. Reassuringly, I at k = 8 is 0.0661, matching the published
+0.066 exactly, and arg-max is k = 8 under both.
+
+---
+
 ## Open provenance gaps
 
-Closed for Paper 1 — `reference_detail()` now emits all six previously untraced numbers,
-and the sweep is unchanged (1,764 configurations, 39.4%) after the edit.
+**None.** All numbers either paper needs are emitted by committed scripts. T-008 and T-009
+are both unblocked.
 
-Remaining, for Paper 2 only:
-
-| Number | Needed by | Resolution |
-|---|---|---|
-| Moran's I by k on the real atlas data ({0.0545, 0.0574, 0.0685, 0.0373, 0.0195, 0.0053}) | Paper 2 motivation | emit from `05_...py` or a small companion before T-009 cites it |
-| Per-k critical values of I | Paper 2 | same |
-
-**T-009 is blocked from citing either row until closed.** T-008 is unblocked.
+Paper 1 closed by `reference_detail()`; Paper 2 closed by `observed_vs_critical()`. The
+prevalence sweep is unchanged at 1,764 configurations and 39.4% after both edits.

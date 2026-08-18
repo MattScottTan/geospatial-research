@@ -55,7 +55,7 @@ def placeholder_disconnection(out_path: Path) -> None:
                 color="#1f4e79")
     ax.annotate("component 2", xy=(0.79, 0.03), ha="center", fontsize=9,
                 color="#a33d2a")
-    ax.set_title("PLACEHOLDER: a neighbour graph that has silently split",
+    ax.set_title("PLACEHOLDER: a neighbour graph split into two components",
                  fontsize=9)
     ax.set_xlim(0.02, 0.98)
     ax.set_ylim(-0.02, 1.02)
