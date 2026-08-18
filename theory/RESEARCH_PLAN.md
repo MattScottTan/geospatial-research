@@ -13,11 +13,26 @@ The field manages this with informal robustness checks. There is no theory for:
 | Question | Paper |
 |---|---|
 | What if the choice fragments the study area into disconnected pieces? | 1 |
-| What do the objects derived from `W` actually mean at conventional settings? | 2 |
-| Is inference still valid when the choice was tuned on the data? | 3 |
+| Is inference still valid when the choice was tuned on the data? | 2 |
+| What do the objects derived from `W` actually mean at conventional settings? | 3 |
 | When do the asymptotics everyone relies on apply at all? | 4 |
 
 Four papers, one identity. Each ships a diagnostic or a correction, not only a critique.
+
+## At a glance
+
+Papers are numbered in **execution order**. Each tackles one way the weights matrix
+choice leaks into results.
+
+| # | Paper | The question, plainly | Status | Time |
+|---|---|---|---|---|
+| **1** | Component structure | The neighbour graph silently splits into disconnected pieces. Does that break the hot/cold map? *(Yes — Gi\*. Not Moran's I.)* | verified, start now | 3–6 wks |
+| **2** | Selective inference | People pick `k` by looking at the answer, then report a p-value as if they hadn't. What is the honest p-value? | **flagship** | 6–12 mo |
+| **3** | Moran eigenvector maps | ESF assumes its leading eigenvectors are global trends. They aren't. What does that do to the method? | optional note | 6–10 wks |
+| **4** | Spatial asymptotics | Is there a bandwidth below which the asymptotic theory the field relies on simply doesn't apply? | high risk | 18+ mo |
+
+Dependency: 1 → 2 (shares the permutation machinery). 3 is independent and can be
+absorbed into 1. 4 needs everything and may never close.
 
 ---
 
@@ -83,11 +98,60 @@ software issue trackers, which a targeted search should settle.
 
 ---
 
-## Paper 2 — What Moran eigenvector maps actually are
+## Paper 2 — Selective inference for weights-matrix selection
 
-**Gate resolved (Aug 2026): the theorem is largely gone; the applied paper survives and
-sharpens.** See "Gate outcome" below. Reframed from "find the localisation threshold" to
-"MEM's centering deletes the one extended mode, so ESF has no safe regime."
+**Flagship.** Promoted after the Paper 3 gate closed — see below.
+
+### Question
+What is a valid p-value for Moran's I when `k` or the bandwidth was chosen by looking at
+the data?
+
+### Motivation
+The field openly describes ad-hoc selection procedures that **maximise Moran's I**, and
+there is a whole comparison literature on choosing "the most adequate weighting matrix."
+No correction is ever applied — the reported permutation p-value treats `W` as fixed.
+
+Measured: Moran's I over `k` ∈ {4, 6, 8, 12, 20, 40} is
+{0.0545, 0.0574, **0.0685**, 0.0373, 0.0195, 0.0053}. The published `k = 8` is the
+arg-max. That is very likely coincidence — `k = 8` is a standard default — but the
+sensitivity is large enough that selection matters whenever anyone does look.
+
+### Existing literature
+- **Post-selection inference** — Lee, Sun, Sun & Taylor (2016); Fithian, Sun & Taylor
+  (2014). The general machinery exists and is mature.
+- **Weights selection** — treated as a model-choice problem (AIC-style criteria), never
+  as an inference-validity problem.
+- Nothing connecting the two.
+
+### Contribution
+1. Formalise `W`-selection as a selection event; derive the truncated null for Moran's I
+   conditional on `{k̂ = k}`.
+2. Quantify the inflation under realistic selection rules.
+3. A valid procedure — conditional inference, or data splitting where conditioning is
+   intractable.
+
+### Method and prerequisites
+Truncated distributions; the exact null of a ratio of quadratic forms via Imhof or
+saddlepoint methods on the eigenvalues of `MW_sM`. Selection over a finite grid of `k` is
+a finite union of events, which keeps the conditioning tractable.
+
+### Deliverable and venue
+Method plus software. *JASA*, *Biometrika*, *JRSS-B*.
+
+### Risk: **medium**
+Tractable, but the value depends on how often practitioners actually tune `k` — worth
+establishing empirically as part of the paper rather than assuming.
+
+### Timeline: 6–12 months
+
+---
+
+## Paper 3 — What Moran eigenvector maps actually are
+
+**Gate resolved (Aug 2026): demoted to optional.** The threshold theorem was already
+occupied, and the rescue mechanism failed its own numerical test the same day. What
+survives is a translation for an applied audience plus one standalone empirical claim.
+See "Gate outcome" below.
 
 ### Question
 When are Moran eigenvectors global spatial trends, and when are they local bumps?
@@ -190,52 +254,6 @@ room, or fold the diagnostic into Paper 1 and drop the standalone.
 
 ---
 
-## Paper 3 — Selective inference for weights-matrix selection
-
-### Question
-What is a valid p-value for Moran's I when `k` or the bandwidth was chosen by looking at
-the data?
-
-### Motivation
-The field openly describes ad-hoc selection procedures that **maximise Moran's I**, and
-there is a whole comparison literature on choosing "the most adequate weighting matrix."
-No correction is ever applied — the reported permutation p-value treats `W` as fixed.
-
-Measured: Moran's I over `k` ∈ {4, 6, 8, 12, 20, 40} is
-{0.0545, 0.0574, **0.0685**, 0.0373, 0.0195, 0.0053}. The published `k = 8` is the
-arg-max. That is very likely coincidence — `k = 8` is a standard default — but the
-sensitivity is large enough that selection matters whenever anyone does look.
-
-### Existing literature
-- **Post-selection inference** — Lee, Sun, Sun & Taylor (2016); Fithian, Sun & Taylor
-  (2014). The general machinery exists and is mature.
-- **Weights selection** — treated as a model-choice problem (AIC-style criteria), never
-  as an inference-validity problem.
-- Nothing connecting the two.
-
-### Contribution
-1. Formalise `W`-selection as a selection event; derive the truncated null for Moran's I
-   conditional on `{k̂ = k}`.
-2. Quantify the inflation under realistic selection rules.
-3. A valid procedure — conditional inference, or data splitting where conditioning is
-   intractable.
-
-### Method and prerequisites
-Truncated distributions; the exact null of a ratio of quadratic forms via Imhof or
-saddlepoint methods on the eigenvalues of `MW_sM`. Selection over a finite grid of `k` is
-a finite union of events, which keeps the conditioning tractable.
-
-### Deliverable and venue
-Method plus software. *JASA*, *Biometrika*, *JRSS-B*.
-
-### Risk: **medium**
-Tractable, but the value depends on how often practitioners actually tune `k` — worth
-establishing empirically as part of the paper rather than assuming.
-
-### Timeline: 6–12 months
-
----
-
 ## Paper 4 — When do spatial asymptotics apply? *(optional, ambitious)*
 
 ### Question
@@ -268,27 +286,27 @@ A hard open problem in RMT. Plausibly a chapter that never closes.
 
 ---
 
-## Sequencing (revised after the Paper 2 gate)
+## Sequencing
 
 ```
 now         Paper 1 ──────────────► finished artefact, tooling, habit
             │
-month 2     Paper 3 ──────────────► FLAGSHIP. Reuses Paper 1's permutation machinery.
+month 2     Paper 2 ──────────────► FLAGSHIP. Reuses Paper 1's permutation machinery.
             │                       Now the best theorem-shaped candidate: post-selection
             │                       inference for W is a statistics problem, unoccupied,
             │                       and not something physics will scoop.
             │
-month 4     Paper 2 ──────────────► applied methods paper, runs alongside
+month 4     Paper 3 ──────────────► applied methods paper, runs alongside
                                     │
 opportunistic                       └─ Paper 4, only if tractable
 ```
 
-**The gate moved the centre of gravity.** Paper 2 was the flagship on the assumption it
-carried a theorem; it does not. Paper 3 inherits that role — selective inference for
+**The gate moved the centre of gravity.** The eigenvector paper was the flagship on the
+assumption it carried a theorem; it does not. Selective inference inherits that role — selective inference for
 weights selection is squarely a statistics problem, the machinery to specialise exists,
 and no adjacent field is working toward it.
 
-Paper 1 still goes first because it finishes and builds the apparatus Paper 3 needs.
+Paper 1 still goes first because it finishes and builds the apparatus Paper 2 needs.
 
 ---
 
@@ -306,9 +324,9 @@ Paper 1 still goes first because it finishes and builds the apparatus Paper 3 ne
 
 ## Honest risks to the programme
 
-- **Paper 2's underlying theory existed.** Checked Aug 2026: 1D (Phys. Rev. E 2025) and
-  2D (arXiv 2603.29611, 2026) RGG localisation are both done numerically. Paper 2 was
-  downgraded from flagship to applied methods paper, and Paper 3 promoted. This is what
+- **The eigenvector paper's underlying theory existed.** Checked Aug 2026: 1D (Phys. Rev. E 2025) and
+  2D (arXiv 2603.29611, 2026) RGG localisation are both done numerically. It was downgraded
+  from flagship to an optional note, and selective inference promoted in its place. This is what
   the gate was for; the cost of not checking would have been months.
 - **Paper 1 may be known** in grey literature or software discussions.
 - **Paper 4 may be too hard.** Treat as optional throughout.
